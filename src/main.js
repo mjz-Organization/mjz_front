@@ -10,9 +10,6 @@ require('./bootstrap');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-Vue.use(ElementUI);
 import App from './App'
 /**
  * 引入自定义方法
@@ -20,8 +17,7 @@ import App from './App'
 import base from './base.js'
 Vue.use(base);
 
-import router from './router'
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 const app = new Vue({
