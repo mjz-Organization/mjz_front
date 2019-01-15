@@ -17,7 +17,7 @@
 
 <script>
   export default {
-    name: 'mlogin',
+    name: 'login',
     data () {
       return {
         form: {

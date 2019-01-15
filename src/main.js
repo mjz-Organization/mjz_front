@@ -11,19 +11,14 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 import App from './App'
-/**
- * 引入自定义方法
- */
-import base from './base.js'
-Vue.use(base);
 
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  axios,
-  store,
-  router,
-  render: h => h(App),
+    el: '#app',
+    axios,
+    store,
+    router,
+    render: h => h(App),
 }).$mount('#app');
