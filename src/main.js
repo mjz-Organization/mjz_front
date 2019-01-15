@@ -20,8 +20,10 @@ Vue.use(base);
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
-const app = new Vue({
-    el: '#app',
-    render: h => h(App),
-    router
-});
+new Vue({
+  el: '#app',
+  axios,
+  store,
+  router,
+  render: h => h(App),
+}).$mount('#app');

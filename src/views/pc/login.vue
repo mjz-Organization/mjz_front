@@ -1,5 +1,6 @@
 <template>
   <div class="min">
+    <h1>我是PC端登陆Demo</h1>
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="username">
         <el-input v-model="form.username"></el-input>
@@ -16,7 +17,7 @@
 
 <script>
   export default {
-    name: 'login',
+    name: 'plogin',
     data () {
       return {
         form: {
@@ -27,7 +28,7 @@
     },
     methods:{
       onSubmit(){
-        axios.get(ApiPath.user.userInfo).then(res => {
+        this.get(ApiPath.user.userInfo).then(res => {
           console.log(res.data);
         });
       }

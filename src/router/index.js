@@ -6,12 +6,17 @@ const routes = [
     {
       path: '/',
       name: 'index',
+      component: resolve => void(require(['../views/index.vue'], resolve))
+    },
+    {
+      path: '/plogin',
+      name: 'plogin',
       component: resolve => void(require(['../views/pc/login.vue'], resolve))
     },
     {
-      path: '/login',
-      name: 'login',
-      component: resolve => void(require(['../views/pc/login.vue'], resolve))
+      path: '/mlogin',
+      name: 'mlogin',
+      component: resolve => void(require(['../views/mobile/login.vue'], resolve))
     },
     {
       path: '/404',

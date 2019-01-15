@@ -45,7 +45,7 @@ import store from "./store/store";
 window.store = store;
 
 /**
- * ElementUI 前端组件库
+ * ElementUI组件库
  */
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -75,7 +75,7 @@ process.env.MOCK && require('@/mock');
  */
 axios.default.timeout = 5000;
 axios.defaults.withCredentials=true; //跨域
-axios.defaults.baseURL = baseURL // 设置默认请求的url
+axios.defaults.baseURL = baseURL;// 设置默认请求的url
 
 axios.interceptors.request.use(
   config => {
