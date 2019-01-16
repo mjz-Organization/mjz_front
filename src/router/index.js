@@ -4,14 +4,27 @@ import Vue from 'vue'
 Vue.use(VueRouter);
 const routes = [
     {
-        path: '/',
+        path: '/index',
         name: 'index',
+        meta: {
+            requireAuth: true,
+        },
         component: resolve => void(require(['../views/index.vue'], resolve))
     },
     {
-        path: '/login',
-        name: 'login',
-        component: resolve => void(require([isMobile()?'../views/mobile/login.vue':'../views/pc/login.vue'], resolve))
+        path: '/student/login',
+        name: 'stuLogin',
+        component: resolve => void (require(['../views/stu_mobile/login.vue'], resolve))
+    },
+    {
+        path: '/customer/login',
+        name: 'cusLogin',
+        component: resolve => void (require(['../views/cus_mobile/login.vue'], resolve))
+    },
+    {
+        path: '/sys/login',
+        name: 'sysLogin',
+        component: resolve => void (require(['../views/sys/login.vue'], resolve))
     },
     {
         path: '/404',
@@ -35,7 +48,7 @@ router.beforeEach((to, from, next) => {
             next();
         } else {
             next({
-                path: '/login',
+                path: types.LOGINURL,
                 query: {redirect: to.fullPath}
             });
         }
@@ -43,14 +56,5 @@ router.beforeEach((to, from, next) => {
         next();
     }
 });
-
-function isMobile() {
-    try {
-        document.createEvent("TouchEvent");
-        return true;
-    } catch (e) {
-        return false;
-    }
-}
 
 export default router;

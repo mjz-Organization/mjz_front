@@ -5,7 +5,6 @@ import * as types from './types'
 Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
-        user: {},
         api_token: null,
     },
     mutations: {

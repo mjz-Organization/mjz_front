@@ -72,8 +72,7 @@ window.ApiPath = api;
 /**
  * 设置mock请求
  */
-window.baseURL = "http://doclever.cn:8090/mock/5c39e6ec3dce46264b242206";
-process.env.MOCK && require('@/mock');
+process.env.MOCK && require('@/mock/index');
 
 
 /**
@@ -81,7 +80,7 @@ process.env.MOCK && require('@/mock');
  */
 axios.default.timeout = 5000;
 axios.defaults.withCredentials=true; //跨域
-axios.defaults.baseURL = baseURL;// 设置默认请求的url
+axios.defaults.baseURL = '';// 设置默认请求的url
 
 axios.interceptors.request.use(
     config => {
@@ -105,8 +104,8 @@ axios.interceptors.response.use(
                 case 401:
                     store.commit(types.LOGOUT);
                     // 只有在当前路由不是登录页面才跳转
-                    router.currentRoute.path !== 'login' && router.replace({
-                        path: 'login',
+                    router.currentRoute.path !== types.LOGINURL && router.replace({
+                        path: types.LOGINURL,
                         query: { redirect: router.currentRoute.path },
                     });
                     break;
