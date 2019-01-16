@@ -17,6 +17,12 @@ window.$ = window.jQuery = require('jquery');
 window.Vue = require('vue');
 
 /**
+ * 引入自定义方法
+ */
+import base from './base.js'
+Vue.use(base);
+
+/**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
@@ -58,7 +64,7 @@ import router from './router'
 window.router = router;
 
 /**
- * api文档路由
+ * api文档
  */
 import api from './api/apipath'
 window.ApiPath = api;
@@ -66,8 +72,7 @@ window.ApiPath = api;
 /**
  * 设置mock请求
  */
-window.baseURL = "http://doclever.cn:8090/mock/5c39e6ec3dce46264b242206";
-process.env.MOCK && require('@/mock');
+process.env.MOCK && require('@/mock/index');
 
 
 /**
@@ -75,42 +80,42 @@ process.env.MOCK && require('@/mock');
  */
 axios.default.timeout = 5000;
 axios.defaults.withCredentials=true; //跨域
-axios.defaults.baseURL = baseURL;// 设置默认请求的url
+axios.defaults.baseURL = '';// 设置默认请求url
 
 axios.interceptors.request.use(
-  config => {
-    if (store.state.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token
-      config.headers.Authorization = `token ${store.state.token}`;
-    }
-    return config;
-  },
-  err => {
-    return Promise.reject(err);
-  });
+    config => {
+        if (store.state.api_token) { // 判断是否存在api_token,如果存在的话,则每个http_header都加上api_token
+            config.headers.Authorization = `api_token ${store.state.api_token}`;
+        }
+        return config;
+    },
+    err => {
+        return Promise.reject(err);
+    });
 
 
 axios.interceptors.response.use(
-  response => {
-    return response;
-  },
-  error => {
-    if (error.response) {
-      switch (error.response.status) {
-        case 401:
-          store.commit(types.LOGOUT);
-          // 只有在当前路由不是登录页面才跳转
-          router.currentRoute.path !== 'login' && router.replace({
-            path: 'login',
-            query: { redirect: router.currentRoute.path },
-          });
-          break;
-        case 404:
-          router.replace({path:"/404"});
-          break;
-      }
-    }
-    return Promise.reject(error.response.data)
-  });
+    response => {
+        return response;
+    },
+    error => {
+        if (error.response) {
+            switch (error.response.status) {
+                case 401:
+                    store.commit(types.LOGOUT);
+                    // 只有在当前路由不是登录页面才跳转
+                    router.currentRoute.path !== this.LOGINURL() && router.replace({
+                        path: this.LOGINURL(),
+                        query: { redirect: router.currentRoute.path },
+                    });
+                    break;
+                case 404:
+                    router.replace({path:"/404"});
+                    break;
+            }
+        }
+        return Promise.reject(error.response.data)
+    });
 
 
 

@@ -1,5 +1,6 @@
 export default {
-    user:{
-        userInfo:'/getUsername'
+    system:{
+        getUserinfo:'admin/getuserinfo',
+        checkLogin:'admin/login'
     }
 }
