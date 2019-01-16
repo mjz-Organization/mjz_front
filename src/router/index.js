@@ -22,6 +22,11 @@ const routes = [
       path: '/404',
       name: '404',
       component: resolve => void(require(['../views/error404.vue'], resolve))
+    },
+    {
+      path: '/admin/homepage',
+      name: 'admin/homepage',
+      component: resolve => void(require(['../views/pc/homePage.vue'], resolve))
     }
   ];
 
