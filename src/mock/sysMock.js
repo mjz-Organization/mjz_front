@@ -23,7 +23,7 @@ const adminArr = [
     }
 ];
 
-Mock.mock(ApiPath.sys.getUserinfo, "get", {
+Mock.mock(ApiPath.system.getUserinfo, "get", {
     "code": 200,
     "data": {
         "fullName": "@CNAME", // 随机生成中文人名
@@ -34,7 +34,7 @@ Mock.mock(ApiPath.sys.getUserinfo, "get", {
 });
 
 
-Mock.mock(ApiPath.sys.checkLogin, "post", function (options) {
+Mock.mock(ApiPath.system.checkLogin, "post", function (options) {
     let data = $.parseJSON(options.body);
     for(let i in adminArr){
         if(adminArr[i].username == data.admin.username

@@ -1,6 +1,6 @@
 <template>
     <div class="min">
-        <h1>我是学生端登陆Demo</h1>
+        <h1>我是后台登陆Demo</h1>
         <el-form ref="form" :model="form" label-width="80px">
             <el-form-item label="username">
                 <el-input v-model="form.username"></el-input>
@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        name: 'stuLogin',
+        name: 'sysLogin',
         data () {
             return {
                 form: {
@@ -28,13 +28,16 @@
         },
         methods:{
             onSubmit(){
-                this.get(ApiPath.sys.getUserinfo).then(res => {
-                    console.log(res.data);
+                this.post(ApiPath.system.checkLogin,{'admin': this.form}).then(res => {
+                    if (res.data.code == 200){
+                        this.$store.commit(types.LOGIN, res.data.data.api_token);
+                        this.$router.push({path: '/system/index'});
+                    }
                 });
             }
         },
         mounted(){
-            types.LOGINURL = 'stulogin';
+            this.LOGINURL('/student/login');
         }
     }
 </script>

@@ -28,13 +28,13 @@
         },
         methods:{
             onSubmit(){
-                this.get(ApiPath.sys.getUserinfo).then(res => {
+                this.get(ApiPath.system.getUserinfo).then(res => {
                     console.log(res.data);
                 });
             }
         },
         mounted(){
-            types.LOGINURL='cuslogin';
+            this.LOGINURL('/customer/login');
         }
     }
 </script>

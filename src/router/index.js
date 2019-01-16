@@ -1,42 +1,31 @@
 import VueRouter from 'vue-router'
+import store from "../store/store";
+import * as types from '../store/types'
 import Vue from 'vue'
-
 Vue.use(VueRouter);
-const routes = [
-    {
-        path: '/index',
-        name: 'index',
-        meta: {
-            requireAuth: true,
-        },
-        component: resolve => void(require(['../views/index.vue'], resolve))
-    },
-    {
-        path: '/student/login',
-        name: 'stuLogin',
-        component: resolve => void (require(['../views/stu_mobile/login.vue'], resolve))
-    },
-    {
-        path: '/customer/login',
-        name: 'cusLogin',
-        component: resolve => void (require(['../views/cus_mobile/login.vue'], resolve))
-    },
-    {
-        path: '/sys/login',
-        name: 'sysLogin',
-        component: resolve => void (require(['../views/sys/login.vue'], resolve))
-    },
+
+import system from './system'
+import student from './student'
+import customer from './customer'
+
+/**
+ * 公共路由
+ * @type {{path: string, component: (function(*=): *), name: string}[]}
+ */
+const publics = [
     {
         path: '/404',
         name: '404',
         component: resolve => void(require(['../views/error404.vue'], resolve))
     }
-  ];
+];
 
 // 页面刷新时,重新赋值api_token
 if (window.localStorage.getItem('api_token')) {
     store.commit(types.LOGIN, window.localStorage.getItem('api_token'))
 }
+
+let routes = new Set([...system, ...student, ...customer, ...publics]);
 
 const router = new VueRouter({
     routes
@@ -48,7 +37,7 @@ router.beforeEach((to, from, next) => {
             next();
         } else {
             next({
-                path: types.LOGINURL,
+                path: this.LOGINURL(),
                 query: {redirect: to.fullPath}
             });
         }

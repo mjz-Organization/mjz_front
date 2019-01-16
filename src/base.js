@@ -48,5 +48,11 @@ exports.install = function (Vue, options) {
             })
         })
     }
-}
+    Vue.prototype.LOGINURL = function (url='') {
+        if (url == ''||url == null){
+            return sessionStorage.getItem("url_login");
+        }
+        sessionStorage.setItem("url_login", url);
+    }
+};
 
