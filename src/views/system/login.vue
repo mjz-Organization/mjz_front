@@ -31,7 +31,7 @@
                 this.post(ApiPath.system.checkLogin,{'admin': this.form}).then(res => {
                     if (res.data.code == 0){
                         this.$store.commit(types.LOGIN, res.data.result.api_token);
-                        this.$router.push({path: '/system/homepage'});
+                        this.$router.push({path: '/system/index'});
                     }
                 });
             }

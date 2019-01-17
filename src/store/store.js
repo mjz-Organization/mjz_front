@@ -9,11 +9,11 @@ export default new Vuex.Store({
     },
     mutations: {
         [types.LOGIN]: (state, data) => {
-            localStorage.api_token = data;
+            sessionStorage.api_token = data;
             state.api_token = data;
         },
         [types.LOGOUT]: (state) => {
-            localStorage.removeItem('api_token');
+            sessionStorage.removeItem('api_token');
             state.api_token = null
         },
     }
