@@ -108,7 +108,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       minChunks: 3
     }),
 
-    // copy custom static assets
+    // copy custom static images
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),
