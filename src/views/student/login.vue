@@ -1,18 +1,34 @@
 <template>
-    <div class="min">
-        <h1>我是学生端登陆Demo</h1>
-        <el-form ref="form" :model="form" label-width="80px">
-            <el-form-item label="username">
-                <el-input v-model="form.username"></el-input>
-            </el-form-item>
-            <el-form-item label="password">
-                <el-input type="password" v-model="form.password"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit">登陆</el-button>
-            </el-form-item>
-        </el-form>
-    </div>
+   <div class="login">
+       <div class="content">
+        <div class="head">
+           <div >
+               <img src="" alt="">
+           </div>
+        </div>
+        <div class="login_form">
+            <form action="">
+                <ul>
+                    <li>
+                        <input type="text" class="" placeholder="用户名">
+                    </li>
+                    <li>
+                        <input type="password" placeholder="用户密码">
+                    </li>
+                    <li>
+                        <input type="submit" name="" id="">
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div class="operation">
+            <div >
+                <a href="#">忘记密码？</a>
+                <a href="#">新用户注册</a>
+            </div>
+        </div>
+       </div>
+   </div>
 </template>
 
 <script>
@@ -41,22 +57,73 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    h1, h2 {
-        font-weight: normal;
+    
+   .login{
+        width: 100%;
+        height: 100%;
+        background-color: rgb(56,202,213);
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+       
     }
-    ul {
-        list-style-type: none;
-        padding: 0;
+    .content{
+        display: flex;
+        -webkit-display:flex;
+        flex-direction: column;
+        -webkit-flex-direction:column;
+        width: 70%;
+        height: 50%;
+        margin: auto;
+        padding-top: 20%;
     }
-    li {
-        display: inline-block;
-        margin: 0 10px;
+    .head div{
+        width: 70px;
+        height: 70px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        margin: auto;
     }
-    a {
-        color: #42b983;
+    .login_form form{
+        margin-top: 50px;
+        margin-bottom: 10px;
+        text-align: center;
     }
-    .min{
-        width: 20%;
-        margin: 300px auto 0;
+    .login_form ul{
+        list-style: none;
     }
+    .login input{
+        color: #ffffff;
+        outline: none;
+        height:  50px;
+        width: 100%;
+    }
+    .login input::-webkit-input-placeholder{
+        color: #ffffff;
+    }
+    .login_form input[type="text"],input[type="password"]{
+        border: 0px ;
+       
+        background-color: rgb(56,202,213);
+        border-bottom: 1px solid #ffffff;
+    }
+    .login_form input[type="submit"]{
+        margin-top: 10px;
+        border: 1px solid #ffffff;
+        border-radius: 30px;
+        opacity: 0.61;
+        font-size: 20px;
+    }
+    .operation div{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding:0 15px;
+    }
+    .operation div  a{
+        text-decoration-line: none;
+        font-size: 10px;
+        color: #ffffff;
+    }
+
+
+
 </style>
