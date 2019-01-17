@@ -8,7 +8,9 @@
         },
         methods:{
             test(){
-                console.log(this.LOGINURL())
+                this.get(ApiPath.system.getAdmininfo).then(res=>{
+                    console.log(res)
+                });
             }
         }
     }

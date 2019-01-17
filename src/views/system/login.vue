@@ -29,15 +29,15 @@
         methods:{
             onSubmit(){
                 this.post(ApiPath.system.checkLogin,{'admin': this.form}).then(res => {
-                    if (res.data.code == 200){
-                        this.$store.commit(types.LOGIN, res.data.data.api_token);
+                    if (res.data.code == 0){
+                        this.$store.commit(types.LOGIN, res.data.result.api_token);
                         this.$router.push({path: '/system/homepage'});
                     }
                 });
             }
         },
         mounted(){
-            this.LOGINURL('/student/login');
+            this.LOGINURL('/system/login');
         }
     }
 </script>

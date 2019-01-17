@@ -37,7 +37,7 @@ router.beforeEach((to, from, next) => {
             next();
         } else {
             next({
-                path: this.LOGINURL(),
+                path: getLoginurl(),
                 query: {redirect: to.fullPath}
             });
         }
@@ -45,5 +45,13 @@ router.beforeEach((to, from, next) => {
         next();
     }
 });
+
+function getLoginurl() {
+    let url = sessionStorage.getItem('url_login');
+    if (url == '' || url == null){
+        url = '/404';
+    }
+    return url;
+}
 
 export default router;
