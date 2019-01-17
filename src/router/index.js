@@ -21,8 +21,8 @@ const publics = [
 ];
 
 // 页面刷新时,重新赋值api_token
-if (window.localStorage.getItem('api_token')) {
-    store.commit(types.LOGIN, window.localStorage.getItem('api_token'))
+if (sessionStorage.getItem('api_token')) {
+    store.commit(types.LOGIN, sessionStorage.getItem('api_token'))
 }
 
 let routes = new Set([...system, ...student, ...customer, ...publics]);
