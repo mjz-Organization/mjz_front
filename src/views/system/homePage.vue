@@ -104,7 +104,6 @@
             }
         },
         methods:{
-
         },
         mounted(){
             this.get(ApiPath.system.getMenu).then(res => {

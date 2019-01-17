@@ -4,31 +4,21 @@ import * as types from '../store/types'
 import Vue from 'vue'
 Vue.use(VueRouter);
 
-import system from './system'
-import student from './student'
-import customer from './customer'
-
 /**
- * 公共路由
- * @type {{path: string, component: (function(*=): *), name: string}[]}
+ * 静态路由
  */
-const publics = [
-    {
-      path: '/404',
-      name: '404',
-      component: resolve => void(require(['../views/error404.vue'], resolve))
-    },
-];
+import constantRouter from './constantRouter'
+
 
 // 页面刷新时,重新赋值api_token
-if (sessionStorage.getItem('api_token')) {
-    store.commit(types.LOGIN, sessionStorage.getItem('api_token'))
+if (sessionStorage.getItem('api_token')&&sessionStorage.getItem('roles')) {
+    store.commit(types.LOGIN, sessionStorage.getItem('api_token'));
+    store.commit(types.ROLES, sessionStorage.getItem('roles'));
 }
 
-let routes = new Set([...system, ...student, ...customer, ...publics]);
-
 const router = new VueRouter({
-    routes
+    mode:'history',
+    routes:constantRouter
 });
 
 router.beforeEach((to, from, next) => {
