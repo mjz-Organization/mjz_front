@@ -1,36 +1,39 @@
 import VueRouter from 'vue-router'
+import store from "../store/store";
+import * as types from '../store/types'
 import Vue from 'vue'
-
 Vue.use(VueRouter);
-const routes = [{
-        path: '/',
-        name: 'index',
-        component: resolve => void(require(['../views/index.vue'], resolve))
-    },
-    // {
-    //     path: '/login',
-    //     name: 'login',
-    //     component: resolve => void(require([isMobile() ? '../views/mobile/login.vue' : '../views/pc/login.vue'], resolve))
-    // },
-    {
+
+import system from './system'
+import student from './student'
+import customer from './customer'
+
+/**
+ * 公共路由
+ * @type {{path: string, component: (function(*=): *), name: string}[]}
+ */
+const publics = [{
         path: '/404',
         name: '404',
         component: resolve => void(require(['../views/error404.vue'], resolve))
-    }, {
+    },
+    {
         path: '/admin/login',
         name: 'adminLogin',
-        component: resolve => void(require(['../views/pc/login.vue'], resolve))
+        component: resolve => void(require(['../views/system/login.vue'], resolve))
     }, {
         path: '/admin/findPassword',
         name: 'findPassword',
-        component: resolve => void(require(['../views/pc/findPassword.vue'], resolve))
-    },
+        component: resolve => void(require(['../views/system/findPassword.vue'], resolve))
+    }
 ];
 
 // 页面刷新时,重新赋值api_token
 if (window.localStorage.getItem('api_token')) {
     store.commit(types.LOGIN, window.localStorage.getItem('api_token'))
 }
+
+let routes = new Set([...system, ...student, ...customer, ...publics]);
 
 const router = new VueRouter({
     routes
@@ -42,7 +45,7 @@ router.beforeEach((to, from, next) => {
             next();
         } else {
             next({
-                path: '/login',
+                path: getLoginurl(),
                 query: { redirect: to.fullPath }
             });
         }
@@ -51,13 +54,12 @@ router.beforeEach((to, from, next) => {
     }
 });
 
-function isMobile() {
-    try {
-        document.createEvent("TouchEvent");
-        return true;
-    } catch (e) {
-        return false;
+function getLoginurl() {
+    let url = sessionStorage.getItem('url_login');
+    if (url == '' || url == null) {
+        url = '/404';
     }
+    return url;
 }
 
 export default router;

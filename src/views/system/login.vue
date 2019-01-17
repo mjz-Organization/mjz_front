@@ -8,7 +8,7 @@
                 <label>用户名：</label> 
                 <el-input
                     placeholder="请输入用户名"
-                    v-model="user">
+                    v-model="admin.username">
                 </el-input>
             </div>
 
@@ -17,14 +17,14 @@
                 <label>密&nbsp;&nbsp;码：</label> 
                 <el-input
                     placeholder="请输入密码"
-                    v-model="passwoed">
+                    v-model="admin.passwoed">
                 </el-input>
             </div>
 
             <!-- 记住密码 + 忘记密码 -->
             <div class="input box">
                 <div class="forget"> 
-                    <el-checkbox v-model="checked">记住密码</el-checkbox>
+                    <el-checkbox>记住密码</el-checkbox>
                     <!-- <a>忘记密码&gt;&gt;</a> -->
                     <router-link to="/admin/findPassword">忘记密码&gt;&gt; </router-link>  
                 </div>
@@ -32,7 +32,7 @@
             
             <!-- 登陆按钮 -->
             <div class="input box loginBut">
-                <el-button type="primary" >登录</el-button>
+                <el-button type="primary" @click="onSubmit()" >登录</el-button>
             </div>
           </div>
           
@@ -43,12 +43,28 @@
 
 <script>
 export default {
-  data() {
-      return {
-          user      : '',
-          passwoed  : '',
-      }
-  },
+    name:'adminLogin',
+    data() {
+        return {
+            admin:{
+                username: '',
+                passwoed: '',
+            }
+        }
+    },
+    methods:{
+        onSubmit(){
+            this.post(ApiPath.system.checkLogin,{'admin': this.form}).then(res => {
+                if (res.data.code == 0){
+                    this.$store.commit(types.LOGIN, res.data.result.api_token);
+                    this.$router.push({path: '/system/homepage'});
+                }
+            });
+        }
+    },
+    mounted(){
+        this.LOGINURL('/system/login');
+    }
 }
 </script>
 
