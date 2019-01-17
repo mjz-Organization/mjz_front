@@ -6,7 +6,7 @@ const routes = [
     {
       path: '/',
       name: 'index',
-      component: resolve => void(require(['../views/pc/login.vue'], resolve))
+    component: resolve => void (require(['../views/pc/login.vue'], resolve))
     },
     {
       path: '/login',

@@ -10,3 +10,18 @@ Mock.mock(baseURL+ApiPath.user.userInfo, "get", {
     },
     "msg": "success"
 })
+
+Mock.mock(ApiPath.user.table ,"get",{
+    "data" :{
+    "array|15":[
+        {
+        "date":"@date",
+        "name": "@CNAME",
+        "address":" @county(true)"
+        }
+        ]
+    }
+})
+
+
+
