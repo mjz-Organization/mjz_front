@@ -42,183 +42,22 @@ import NavMenu from './NavMenu'
       return {
         currentMenu:'',
         isCollapse: false,
-        leftMenus: {
-                   "entity": null,
-                   "childs": [
-                     {
-                       "entity": {
-                         "id": 1,
-                         "parentMenuId": 0,
-                         "name": "systemManage",
-                         "icon": "el-icon-message\r\n",
-                         "alias": "系统管理",
-                         "value": null
-                       },
-                       "childs": [
-                         {
-                           "entity": {
-                             "id": 3,
-                             "parentMenuId": 1,
-                             "name": "authManage",
-                             "icon": "el-icon-loading",
-                             "alias": "权限管理",
-                             "value": "/system/homepage"
-                           },
-                           "childs": null
-                         },
-                         {
-                           "entity": {
-                             "id": 4,
-                             "parentMenuId": 1,
-                             "name": "roleManage",
-                             "icon": "el-icon-bell",
-                             "alias": "角色管理",
-                             "value": "/system/homepage/a"
-                           },
-                           "childs": null
-                         },
-                         {
-                           "entity": {
-                             "id": 2,
-                             "parentMenuId": 1,
-                             "name": "menuManage",
-                             "icon": "el-icon-edit",
-                             "alias": "菜单管理",
-                             "value": "/system/homepage"
-                           },
-                           "childs": null
-                         },
-                         {
-                           "entity": {
-                             "id": 5,
-                             "parentMenuId": 1,
-                             "name": "groupManage",
-                             "icon": "el-icon-mobile-phone\r\n",
-                             "alias": "分组管理",
-                             "value": "/system/homepage"
-                           },
-                           "childs": null
-                         }
-                       ]
-                     },
-                     {
-                       "entity": {
-                         "id": 6,
-                         "parentMenuId": 0,
-                         "name": "userManage",
-                         "icon": "el-icon-news",
-                         "alias": "用户管理",
-                         "value": null
-                       },
-                       "childs": [
-                         {
-                           "entity": {
-                             "id": 7,
-                             "parentMenuId": 6,
-                             "name": "accountManage",
-                             "icon": "el-icon-phone-outline\r\n",
-                             "alias": "帐号管理",
-                             "value": ""
-                           },
-                           "childs": [
-                             {
-                               "entity": {
-                                 "id": 14,
-                                 "parentMenuId": 7,
-                                 "name": "emailManage",
-                                 "icon": "el-icon-sold-out\r\n",
-                                 "alias": "邮箱管理",
-                                 "value": "/system/homepage/b"
-                               },
-                               "childs": null
-                             },
-                             {
-                               "entity": {
-                                 "id": 13,
-                                 "parentMenuId": 7,
-                                 "name": "passManage",
-                                 "icon": "el-icon-service\r\n",
-                                 "alias": "密码管理",
-                                 "value": "/system/homepage"
-                               },
-                               "childs": null
-                             }
-                           ]
-                         },
-                         {
-                           "entity": {
-                             "id": 8,
-                             "parentMenuId": 6,
-                             "name": "integralManage",
-                             "icon": "el-icon-picture",
-                             "alias": "积分管理",
-                             "value": "/system/homepage"
-                           },
-                           "childs": null
-                         }
-                       ]
-                     },
-                     {
-                       "entity": {
-                         "id": 9,
-                         "parentMenuId": 0,
-                         "name": "contentManage",
-                         "icon": "el-icon-rank",
-                         "alias": "内容管理",
-                         "value": null
-                       },
-                       "childs": [
-                         {
-                           "entity": {
-                             "id": 10,
-                             "parentMenuId": 9,
-                             "name": "classifyManage",
-                             "icon": "el-icon-printer",
-                             "alias": "分类管理",
-                             "value": "/system/homepage"
-                           },
-                           "childs": null
-                         },
-                         {
-                           "entity": {
-                             "id": 11,
-                             "parentMenuId": 9,
-                             "name": "articleManage",
-                             "icon": "el-icon-star-on",
-                             "alias": "文章管理",
-                             "value": "/system/homepage"
-                           },
-                           "childs": null
-                         },
-                         {
-                           "entity": {
-                             "id": 12,
-                             "parentMenuId": 9,
-                             "name": "commentManage",
-                             "icon": "el-icon-share",
-                             "alias": "评论管理",
-                             "value": "/system/homepage"
-                           },
-                           "childs": null
-                         }
-                       ]
-                     }
-                   ]
-                 }
-
+        leftMenus:{}
     }
   },
 
     mounted(){
         let currentUrl = window.location.href;
         this.currentMenu = currentUrl.split('/#')[1];  
-        // this.get(ApiPath.system.getMenu)
-        // .then(function(res){
-        //   console.log(res);
-        // })
-        // .catch(function(err){
-        //   console.log(err);
-        // });
+        let self = this;
+        this.get(ApiPath.system.getMenu)
+        .then(function(res){
+            if(res.data.code == 0)
+                self.leftMenus = res.data;
+        })
+        .catch(function(err){
+          console.log(err);
+        });
     },
     methods: {
 
