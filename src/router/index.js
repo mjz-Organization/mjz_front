@@ -21,8 +21,8 @@ const publics = [
 ];
 
 // 页面刷新时,重新赋值api_token
-if (window.localStorage.getItem('api_token')) {
-    store.commit(types.LOGIN, window.localStorage.getItem('api_token'))
+if (sessionStorage.getItem('api_token')) {
+    store.commit(types.LOGIN, sessionStorage.getItem('api_token'))
 }
 
 let routes = new Set([...system, ...student, ...customer, ...publics]);
@@ -37,7 +37,7 @@ router.beforeEach((to, from, next) => {
             next();
         } else {
             next({
-                path: this.LOGINURL(),
+                path: getLoginurl(),
                 query: {redirect: to.fullPath}
             });
         }
@@ -45,5 +45,13 @@ router.beforeEach((to, from, next) => {
         next();
     }
 });
+
+function getLoginurl() {
+    let url = sessionStorage.getItem('url_login');
+    if (url == '' || url == null){
+        url = '/404';
+    }
+    return url;
+}
 
 export default router;

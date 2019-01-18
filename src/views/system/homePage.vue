@@ -30,13 +30,13 @@
   </el-container>
 </el-container>
 </div>
+
 </template>
 
 <script>
 import NavMenu from './NavMenu'
   export default {
     props:{
-
     },
     data () {
       return {
@@ -205,6 +205,7 @@ import NavMenu from './NavMenu'
                      }
                    ]
                  }
+
     }
   },
 

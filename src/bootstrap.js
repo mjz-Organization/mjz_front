@@ -17,12 +17,6 @@ window.$ = window.jQuery = require('jquery');
 window.Vue = require('vue');
 
 /**
- * 引入自定义方法
- */
-import base from './base.js'
-Vue.use(base);
-
-/**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
@@ -37,6 +31,12 @@ window.axios = require('axios');
  * and basically covers common interface data types.
  */
 window.Mock = require('mockjs');
+
+/**
+ * 引入自定义方法
+ */
+import base from './base'
+Vue.use(base);
 
 /**
  * 状态码
@@ -72,7 +72,7 @@ window.ApiPath = api;
 /**
  * 设置mock请求
  */
-process.env.MOCK && require('@/mock/index');
+// process.env.MOCK && require('@/mock/index');
 
 
 /**
@@ -80,7 +80,7 @@ process.env.MOCK && require('@/mock/index');
  */
 axios.default.timeout = 5000;
 axios.defaults.withCredentials=true; //跨域
-axios.defaults.baseURL = '';// 设置默认请求url
+axios.defaults.baseURL = 'http://doclever.cn:8090/mock/5c3d98703dce46264b246eb3/api';// 设置默认请求url
 
 axios.interceptors.request.use(
     config => {
