@@ -58,7 +58,7 @@ exports.install = function (Vue, options) {
         let dR = new Array();
         for (let i=0;i<dynamicRouter.length;i++){
             for (let j=0;j<dynamicRouter[i].meta.roles.length;j++){
-                if (dynamicRouter[i].meta.roles[j] == store.state.roles){
+                if (dynamicRouter[i].meta.roles[j] == store.state.user.roles){
                     dR.push(dynamicRouter[i]);
                 }
             }

@@ -30,8 +30,7 @@
             onSubmit(){
                 this.post(ApiPath.system.checkLogin,{'admin': this.form}).then(res => {
                     if (res.data.code == 0){
-                        store.commit(types.LOGIN, res.data.result.api_token);
-                        store.commit(types.ROLES, res.data.result.roles);
+                        store.commit(types.USER,  res.data.result);
                         this.addRouter();
                         router.push({path: '/system/homepage'});
                     }

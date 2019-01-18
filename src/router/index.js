@@ -11,9 +11,8 @@ import constantRouter from './constantRouter'
 
 
 // 页面刷新时,重新赋值
-if (sessionStorage.getItem('api_token')&&sessionStorage.getItem('roles')) {
-    store.commit(types.LOGIN, sessionStorage.getItem('api_token'));
-    store.commit(types.ROLES, sessionStorage.getItem('roles'));
+if (sessionStorage.getItem('user')) {
+    store.commit(types.USER, JSON.parse(sessionStorage.getItem('user')));
 }
 
 const router = new VueRouter({
@@ -23,7 +22,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(r => r.meta.requireAuth)) {
-        if (store.state.api_token) {
+        if (store.state.user) {
             next();
         } else {
             next({

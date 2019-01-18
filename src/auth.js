@@ -12,8 +12,8 @@ instance.defaults.baseURL = 'http://doclever.cn:8090/mock/5c3d98703dce46264b246e
 
 instance.interceptors.request.use(
     config => {
-        if (store.state.api_token) { // 判断是否存在api_token,如果存在的话,则每个http_header都加上api_token
-            config.headers.Authorization = `api_token ${store.state.api_token}`;
+        if (store.state.user) { // 判断是否存在api_token,如果存在的话,则每个http_header都加上api_token
+            config.headers.Authorization = `api_token ${store.state.user.api_token}`;
         }
         return config;
     },

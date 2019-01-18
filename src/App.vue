@@ -9,9 +9,10 @@
         name: 'App',
         methods:{
             judgeLogin(){
-                let isLogin = store.state.api_token;
+                let isLogin = store.state.user;
                 if(!isLogin){
-                    return router.push(this.LOGINURL());
+                    if (this.LOGINURL())
+                        return router.push(this.LOGINURL());
                 } else {
                     this.addRouter();
                 }
