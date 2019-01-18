@@ -34,7 +34,6 @@
             }
         },
         mounted(){
-            this.LOGINURL('/customer/login');
         }
     }
 </script>

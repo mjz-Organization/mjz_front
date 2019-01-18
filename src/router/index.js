@@ -4,14 +4,10 @@ import * as types from '../store/types'
 import Vue from 'vue'
 Vue.use(VueRouter);
 
-import system from './system'
-import student from './student'
-import customer from './customer'
-
 /**
- * 公共路由
- * @type {{path: string, component: (function(*=): *), name: string}[]}
+ * 静态路由
  */
+<<<<<<< HEAD
 const publics = [{
         path: '/404',
         name: '404',
@@ -27,21 +23,24 @@ const publics = [{
         component: resolve => void(require(['../views/system/findPassword.vue'], resolve))
     }
 ];
+=======
+import constantRouter from './constantRouter'
+>>>>>>> a6952fe06239d1375cb3f419681fd42077561ba2
 
-// 页面刷新时,重新赋值api_token
-if (window.localStorage.getItem('api_token')) {
-    store.commit(types.LOGIN, window.localStorage.getItem('api_token'))
+
+// 页面刷新时,重新赋值
+if (sessionStorage.getItem('user')) {
+    store.commit(types.USER, JSON.parse(sessionStorage.getItem('user')));
 }
 
-let routes = new Set([...system, ...student, ...customer, ...publics]);
-
 const router = new VueRouter({
-    routes
+    mode:'history',
+    routes:constantRouter
 });
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(r => r.meta.requireAuth)) {
-        if (store.state.api_token) {
+        if (store.state.user) {
             next();
         } else {
             next({
