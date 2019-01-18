@@ -44,5 +44,4 @@ instance.interceptors.response.use(
         }
         return Promise.reject(error.response.data)
     });
-
 export default instance;

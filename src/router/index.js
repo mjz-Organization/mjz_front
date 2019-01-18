@@ -10,7 +10,7 @@ Vue.use(VueRouter);
 import constantRouter from './constantRouter'
 
 
-// 页面刷新时,重新赋值api_token
+// 页面刷新时,重新赋值
 if (sessionStorage.getItem('api_token')&&sessionStorage.getItem('roles')) {
     store.commit(types.LOGIN, sessionStorage.getItem('api_token'));
     store.commit(types.ROLES, sessionStorage.getItem('roles'));
