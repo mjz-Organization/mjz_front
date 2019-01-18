@@ -1,13 +1,13 @@
 import VueRouter from 'vue-router'
 import store from "../store/store";
 import * as types from '../store/types'
+import constantRouter from './constantRouter'
 import Vue from 'vue'
 Vue.use(VueRouter);
 
 /**
  * 静态路由
  */
-<<<<<<< HEAD
 const publics = [{
         path: '/404',
         name: '404',
@@ -23,10 +23,6 @@ const publics = [{
         component: resolve => void(require(['../views/system/findPassword.vue'], resolve))
     }
 ];
-=======
-import constantRouter from './constantRouter'
->>>>>>> a6952fe06239d1375cb3f419681fd42077561ba2
-
 
 // 页面刷新时,重新赋值
 if (sessionStorage.getItem('user')) {
@@ -34,8 +30,8 @@ if (sessionStorage.getItem('user')) {
 }
 
 const router = new VueRouter({
-    mode:'history',
-    routes:constantRouter
+    mode: 'history',
+    routes: constantRouter
 });
 
 router.beforeEach((to, from, next) => {
