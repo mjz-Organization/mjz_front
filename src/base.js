@@ -56,7 +56,6 @@ exports.install = function (Vue, options) {
     },
     Vue.prototype.addRouter = function () {
         let dR = new Array();
-        console.log(dynamicRouter);
         for (let i=0;i<dynamicRouter.length;i++){
             for (let j=0;j<dynamicRouter[i].meta.roles.length;j++){
                 if (dynamicRouter[i].meta.roles[j] == store.state.user.roles){
