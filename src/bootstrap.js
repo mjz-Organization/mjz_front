@@ -66,8 +66,8 @@ window.router = router;
 /**
  * 动态路由列表
  */
-import dynamicRouter from './router/dynamicRouter'
-window.dynamicRouter = dynamicRouter;
+import dynamicRouterMap from './router/dynamicRouter'
+window.dynamicRouter = dynamicRouterMap;
 
 /**
  * api文档
