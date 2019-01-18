@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import NavMenu from './NavMenu'
+import NavMenu from '../../components/NavMenu'
   export default {
     props:{
     },
@@ -67,12 +67,11 @@ import NavMenu from './NavMenu'
     }
   }
 </script>
-<style>
+<style scoped>
   *{
     margin: 0 ;
     padding: 0;
   }
-
   .el-submenu .el-menu-item{
       min-width: 180px;
   }
@@ -99,4 +98,3 @@ import NavMenu from './NavMenu'
 		normal;
 }
 </style>
-

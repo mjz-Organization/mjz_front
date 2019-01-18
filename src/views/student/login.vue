@@ -50,7 +50,6 @@
             }
         },
         mounted(){
-            this.LOGINURL('/student/login');
         }
     }
 </script>
