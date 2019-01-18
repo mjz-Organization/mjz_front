@@ -18,7 +18,25 @@ export default [
         meta: {
             requireAuth: true,
         },
-        component: resolve => void(require(['../views/system/homePage.vue'], resolve))
+        component: resolve => void(require(['../views/system/homePage.vue'], resolve)),
+        children:[
+            {
+                path: 'a',
+                name: 'index',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void(require(['../views/system/test.vue'], resolve))
+            },
+            {
+                path: 'b',
+                name: 'index',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void(require(['../views/system/test2.vue'], resolve))     
+            }
+        ]
   
-      }
+    }
 ]
