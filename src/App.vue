@@ -10,10 +10,7 @@
         methods:{
             judgeLogin(){
                 let isLogin = store.state.user;
-                if(!isLogin){
-                    if (this.LOGINURL())
-                        return router.push(this.LOGINURL());
-                } else {
+                if(isLogin){
                     this.addRouter();
                 }
             }
