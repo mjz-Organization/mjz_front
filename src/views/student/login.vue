@@ -18,10 +18,10 @@
                 >
                     <ul>
                         <li>
-                            <input type="text"  v-model="username"  name ="user" placeholder="用户名">
+                            <input type="text"  v-model="form.username"  name ="user" placeholder="用户名">
                         </li>
                         <li>
-                            <input type="password" v-model="password"  name ="password" placeholder="用户密码">
+                            <input type="password" v-model="form.password"  name ="password" placeholder="用户密码">
                         </li>
                         <li>
                             <input type="submit" @click="popup" value="登录">
@@ -32,7 +32,7 @@
             <div class="operation">
                 <div >
                     <router-link to="/student/register">新用户注册</router-link>
-                    <a href="/student/password">忘记密码？</a>
+                    <router-link to="/student/password">忘记密码？</router-link>
                 </div>
             </div>
        </div>
@@ -44,10 +44,12 @@
         name: 'stuLogin',
         data () {
             return {
+                form:{
                     username:null,
                     password:null,
-                    popupVisible:false,
-                    Message:'',
+                },
+                popupVisible:false,
+                Message:'',
                 
             }
         },
@@ -75,9 +77,13 @@
                }else if(!this.validpass(this.password)){
                     this.Message="密码错误";
                     e.preventDefault();
+               }else{
+                   this.post(ApiPath.student.checkLogin,{'student':this.form}).then(res =>{
+
+                   })
                }
                e.preventDefault();
-            return false;
+            
                 
            },
            //用户名正则
