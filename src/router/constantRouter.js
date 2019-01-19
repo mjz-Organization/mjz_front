@@ -5,6 +5,10 @@ export default [
         component: resolve => void (require(['../views/system/login.vue'], resolve))
     },
     {
+        path: '/system/findPassword',
+        component: resolve => void (require(['../views/system/findPassword.vue'], resolve))
+    },
+    {
         path: '/student/login',
         name: 'stuLogin',
         component: resolve => void (require(['../views/student/login.vue'], resolve))
