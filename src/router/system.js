@@ -21,7 +21,7 @@ export default [{
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void(require(['../views/system/startPage.vue'], resolve))
+            component: resolve => void (require(['../views/system/startPage.vue'], resolve))
             },
             {
                 path: 'a',
@@ -30,6 +30,24 @@ export default [{
                     requireAuth: true,
                 },
                 component: resolve => void(require(['../views/system/studentStartPage.vue'], resolve))
+            },
+            {
+                path: 'novice',
+                name: 'novice',
+                meta:{
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/novice.vue'], resolve))
+
+            },
+            {
+                path: 'noviceEdit',
+                name: 'noviceEdit',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/noviceEdit.vue'], resolve))
+
             }
         ]
 

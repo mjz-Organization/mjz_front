@@ -54,3 +54,18 @@ Mock.mock(ApiPath.system.checkLogin, "post", function (options) {
         msg:'failed'
     }
 });
+
+
+Mock.mock(ApiPath.system.novice,"get",{
+    "code":  200,
+    "data":{
+        "array|30":  [{
+            "ID": '1    ',
+            "name": "@CNAME",
+            "file_name": '@string()',
+            "type": 'upper',
+            "file_description":"无"
+        }],
+    },
+    "msg":  "success"
+});
