@@ -2,19 +2,19 @@
   <div class="navMenu">
 
     <label v-for="(navMenu,key) in navMenus" :key="key">
-      <el-menu-item v-if="navMenu.childs==null"
+      <el-menu-item v-if="navMenu.children==null||navMenu.children.length==0"
                     :key="navMenu.id" :data="navMenu" :index="navMenu.path" :route="navMenu.path" :default-active="$route.path">
         <i :class="navMenu.icon"></i>
         <span slot="title" class="item_title" >{{navMenu.name}}</span>
       </el-menu-item>
 
-      <el-submenu v-if="navMenu.childs"
+      <el-submenu v-if="navMenu.children&&navMenu.children.length>0"
                   :key="navMenu.id" :data="navMenu" :index="navMenu.name">
         <template slot="title">
           <i :class="navMenu.icon"></i>
           <span class="item_title"> {{navMenu.name}}</span>
         </template>
-        <NavMenu :navMenus="navMenu.childs"></NavMenu>
+        <NavMenu :navMenus="navMenu.children"></NavMenu>
       </el-submenu>
     </label>
   </div>
