@@ -1,14 +1,28 @@
 import VueRouter from 'vue-router'
 import store from "../store/store";
 import * as types from '../store/types'
+import constantRouter from './constantRouter'
 import Vue from 'vue'
 Vue.use(VueRouter);
 
 /**
  * 静态路由
  */
-import constantRouter from './constantRouter'
-
+const publics = [{
+        path: '/404',
+        name: '404',
+        component: resolve => void(require(['../views/error404.vue'], resolve))
+    },
+    {
+        path: '/admin/login',
+        name: 'adminLogin',
+        component: resolve => void(require(['../views/system/login.vue'], resolve))
+    }, {
+        path: '/admin/findPassword',
+        name: 'findPassword',
+        component: resolve => void(require(['../views/system/findPassword.vue'], resolve))
+    }
+];
 
 // 页面刷新时,重新赋值
 if (sessionStorage.getItem('user')) {
@@ -16,8 +30,8 @@ if (sessionStorage.getItem('user')) {
 }
 
 const router = new VueRouter({
-    mode:'history',
-    routes:constantRouter
+    mode: 'history',
+    routes: constantRouter
 });
 
 router.beforeEach((to, from, next) => {
@@ -27,20 +41,21 @@ router.beforeEach((to, from, next) => {
         } else {
             next({
                 path: getLoginurl(),
-                query: {redirect: to.fullPath}
+                query: { redirect: to.fullPath }
             });
         }
-    }else {
+    } else {
         next();
     }
 });
 
 function getLoginurl() {
     let url = sessionStorage.getItem('url_login');
-    if (url == '' || url == null){
+    if (url == '' || url == null) {
         url = '/404';
     }
     return url;
 }
 
 export default router;
+// test

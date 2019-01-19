@@ -43,7 +43,7 @@
 
 <script>
 export default {
-    name:'sysLogin',
+    name:'adminLogin',
     data() {
         return {
             admin:{
@@ -64,7 +64,7 @@ export default {
         }
     },
     mounted(){
-        this.LOGINURL('/system/login');
+        this.LOGINURL(this.$route.path);
     }
 }
 </script>
