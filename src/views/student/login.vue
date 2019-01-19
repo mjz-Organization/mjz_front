@@ -1,6 +1,8 @@
 <template>
    <div class="login">
+       <x-header>2017年满意度调查</x-header>
        <div class="content">
+
             <div class="popup"  v-if="popupVisible">
                 <p>{{Message}}</p>
             </div>
@@ -36,12 +38,18 @@
                 </div>
             </div>
        </div>
+       <toast v-model="popupVisible" type="text" :time="800" is-show-mask text="Hello World"></toast>
    </div>
 </template>
 
 <script>
+    import { XHeader,Toast } from 'vux'
     export default {
         name: 'stuLogin',
+        components: {
+            XHeader,
+            Toast
+        },
         data () {
             return {
                 form:{
@@ -101,7 +109,8 @@
            }
         },
         mounted(){
-        }
+            this.LOGINURL(this.$route.path);
+        },
     }
 </script>
 
