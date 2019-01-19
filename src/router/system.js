@@ -16,20 +16,20 @@ export default [{
         },
         component: resolve => void(require(['../views/system/homePage.vue'], resolve)),
         children: [{
+                path: 'startpage',
+                name: 'startpage',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void(require(['../views/system/startPage.vue'], resolve))
+            },
+            {
                 path: 'a',
                 name: 'index',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void(require(['../views/system/test.vue'], resolve))
-            },
-            {
-                path: 'b',
-                name: 'index',
-                meta: {
-                    requireAuth: true,
-                },
-                component: resolve => void(require(['../views/system/test2.vue'], resolve))
+                component: resolve => void(require(['../views/system/studentStartPage.vue'], resolve))
             }
         ]
 
