@@ -1,11 +1,11 @@
 <template>
    <div class="login">
-       <x-header>2017年满意度调查</x-header>
+       <!-- <x-header>2017年满意度调查</x-header> -->
        <div class="content">
 
-            <div class="popup"  v-if="popupVisible">
+            <!-- <div class="popup"  v-if="popupVisible">
                 <p>{{Message}}</p>
-            </div>
+            </div> -->
             <div class="head">
             <div >
                 <img src="" alt="">
@@ -38,7 +38,7 @@
                 </div>
             </div>
        </div>
-       <toast v-model="popupVisible" type="text" :time="800" is-show-mask text="Hello World"></toast>
+       <toast v-model="popupVisible" type="text" :time="800" is-show-mask >{{Message }}</toast>
    </div>
 </template>
 
@@ -56,19 +56,9 @@
                     username:null,
                     password:null,
                 },
-                popupVisible:false,
                 Message:'',
+                popupVisible:false,
                 
-            }
-        },
-        watch:{
-            popupVisible:function(val){
-                if(this.popupVisible){
-                    let _this = this;
-                    setTimeout(function(){
-                        _this.popupVisible=false;
-                    },2000);
-                }
             }
         },
         methods:{
