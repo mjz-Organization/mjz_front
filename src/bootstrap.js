@@ -58,10 +58,10 @@ import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI);
 
 /**
- * Mint UI 移动端组件库
+ * VUX 移动端组件库
  */
-import Mint from 'mint-ui';
-Vue.use(Mint);
+// import Mint from 'mint-ui';
+// Vue.use(Mint);
 
 /**
  * vue路由
