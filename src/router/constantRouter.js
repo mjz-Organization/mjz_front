@@ -7,13 +7,13 @@ export default [
         name: 'sysLogin',
         component: resolve => void (require(['../views/system/login.vue'], resolve))
     },
-    /**
-     * student
-     */
     {
         path: '/system/findPassword',
         component: resolve => void (require(['../views/system/findPassword.vue'], resolve))
     },
+    /**
+     * student
+     */
     {
         path: '/student/login',
         name: 'stuLogin',
