@@ -4,5 +4,8 @@ export default {
         getAdmininfo:'admin/user',
         checkLogin:'admin/login',
         getMenu:'admin/getMenu'
+    },
+    student:{
+        checkLogin:'student/login'
     }
 }
