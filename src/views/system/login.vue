@@ -38,7 +38,7 @@
             }
         },
         mounted(){
-            this.LOGINURL('/system/login');
+            this.LOGINURL(this.$route.path);
         }
     }
 </script>
