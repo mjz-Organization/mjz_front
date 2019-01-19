@@ -3,69 +3,54 @@
       <div class="loginBody box">
           <div class="b box">
 
-            <!-- 第一个输入框 -->
+            <!-- 第一个输入框-手机号 -->
             <div class="input box header">
-                <label>用户名：</label> 
+                <label>手机号：</label> 
                 <el-input
-                    placeholder="请输入用户名"
-                    v-model="admin.username">
+                    placeholder="手机号"
+                    v-model="phone">
                 </el-input>
             </div>
 
-            <!-- 第二个输入框 -->
-            <div class="input box">
-                <label>密&nbsp;&nbsp;码：</label> 
+            <!-- 第二个输入框-验证码 -->
+            <div class="input box code">
+                <label>验证码：</label> 
                 <el-input
-                    placeholder="请输入密码"
-                    v-model="admin.passwoed">
+                    placeholder="验证码"
+                    v-model="code">
                 </el-input>
+                <el-button type="primary">获取验证码</el-button>
             </div>
 
-            <!-- 记住密码 + 忘记密码 -->
+           <!-- 第三个输入框-新密码 -->
             <div class="input box">
-                <div class="forget"> 
-                    <el-checkbox>记住密码</el-checkbox>
-                    <!-- <a>忘记密码&gt;&gt;</a> -->
-                    <router-link to="/admin/findPassword">忘记密码&gt;&gt; </router-link>  
-                </div>
+                <label>新密码：</label> 
+                <el-input
+                    placeholder="新密码"
+                    v-model="password">
+                </el-input>
             </div>
             
             <!-- 登陆按钮 -->
             <div class="input box loginBut">
-                <el-button type="primary" @click="onSubmit()" >登录</el-button>
+                <el-button type="primary" >找回</el-button>
             </div>
           </div>
-          
       </div>
       <p class="copyright">&copy;2019&nbsp;&nbsp;三月软件工作室</p>
+
   </div>
 </template>
 
 <script>
 export default {
-    name:'adminLogin',
-    data() {
-        return {
-            admin:{
-                username: '',
-                passwoed: '',
-            }
-        }
-    },
-    methods:{
-        onSubmit(){
-            this.post(ApiPath.system.checkLogin,{'admin': this.form}).then(res => {
-                if (res.data.code == 0){
-                    store.commit(types.USER,  res.data.result);
-                    this.addRouter();
-                    router.push({path: '/system/homepage'});
-                }
-            });
-        }
-    },
-    mounted(){
-        this.LOGINURL(this.$route.path);
-    }
+  data() {
+      return {
+          phone     : '',
+          code      : '',
+          password  : '',
+      }
+  },
 }
 </script>
 
@@ -123,33 +108,28 @@ export default {
 
 /* 用户名div */
 .b .header{
-    margin-top: 10vh;
+    margin-top: 9vh;
 }
 
 .b .input .el-input{
     width: 65%;
 }
 
-.box label{
-    font-family: PingFangSC-Regular;
-    font-size: 19px;
-    letter-spacing: 5px;
-    color: #535353;
+.b .code .el-input{
+    width: 13.5vw;
+    margin-right: 0.6vw;
 }
 
-/* 忘记密码+记住密码 */
-.forget{
-    display: flex;
-    justify-content: space-around;
-    width: 29vw;
-    margin-left: 6vw;
-}
-
-.forget label,a{
-    font-family: PingFangSC-Regular;
-    font-size: 14px;
-    color: #606060;
-    text-decoration:none;
+.b .code .el-button--primary{
+    background-image: linear-gradient(90deg, 
+		#419dcd 0%, 
+		#4bb4ea 100%), 
+	linear-gradient(
+		#00ccff, 
+		#00ccff);
+	background-blend-mode: normal, 
+		normal;
+    width: 8vw;
 }
 
 .loginBut{
@@ -158,7 +138,7 @@ export default {
 
 /* 登陆按钮 */
 .loginBut button{
-    width: 21vw;
+    width: 21.5vw;
     height: 6vh;
     background-image: -webkit-gradient(linear, left top, right top, from(#419dcd), to(#4bb4ea)), -webkit-gradient( linear, left top, left bottom, from(#fefdfd), to(#fefdfd));
     font-family: PingFangSC-Regular;
