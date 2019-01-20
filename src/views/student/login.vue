@@ -1,11 +1,11 @@
 <template>
    <div class="login">
-       <x-header>2017年满意度调查</x-header>
+       <!-- <x-header>2017年满意度调查</x-header> -->
        <div class="content">
 
-            <div class="popup"  v-if="popupVisible">
+            <!-- <div class="popup"  v-if="popupVisible">
                 <p>{{Message}}</p>
-            </div>
+            </div> -->
             <div class="head">
             <div >
                 <img src="" alt="">
@@ -20,10 +20,10 @@
                 >
                     <ul>
                         <li>
-                            <input type="text"  v-model="username"  name ="user" placeholder="用户名">
+                            <input type="text"  v-model="form.username"  name ="user" placeholder="用户名">
                         </li>
                         <li>
-                            <input type="password" v-model="password"  name ="password" placeholder="用户密码">
+                            <input type="password" v-model="form.password"  name ="password" placeholder="用户密码">
                         </li>
                         <li>
                             <input type="submit" @click="popup" value="登录">
@@ -34,11 +34,11 @@
             <div class="operation">
                 <div >
                     <router-link to="/student/register">新用户注册</router-link>
-                    <a href="/student/password">忘记密码？</a>
+                    <router-link to="/student/password">忘记密码？</router-link>
                 </div>
             </div>
        </div>
-       <toast v-model="popupVisible" type="text" :time="800" is-show-mask text="Hello World"></toast>
+       <toast v-model="popupVisible" type="text" :time="800" is-show-mask >{{Message }}</toast>
    </div>
 </template>
 
@@ -52,21 +52,13 @@
         },
         data () {
             return {
+                form:{
                     username:null,
                     password:null,
-                    popupVisible:false,
-                    Message:'',
+                },
+                Message:'',
+                popupVisible:false,
                 
-            }
-        },
-        watch:{
-            popupVisible:function(val){
-                if(this.popupVisible){
-                    let _this = this;
-                    setTimeout(function(){
-                        _this.popupVisible=false;
-                    },2000);
-                }
             }
         },
         methods:{
@@ -83,9 +75,13 @@
                }else if(!this.validpass(this.password)){
                     this.Message="密码错误";
                     e.preventDefault();
+               }else{
+                   this.post(ApiPath.student.checkLogin,{'student':this.form}).then(res =>{
+
+                   })
                }
                e.preventDefault();
-            return false;
+            
                 
            },
            //用户名正则

@@ -1,28 +1,13 @@
 import VueRouter from 'vue-router'
 import store from "../store/store";
 import * as types from '../store/types'
-import constantRouter from './constantRouter'
 import Vue from 'vue'
 Vue.use(VueRouter);
 
 /**
  * 静态路由
  */
-const publics = [{
-        path: '/404',
-        name: '404',
-        component: resolve => void(require(['../views/error404.vue'], resolve))
-    },
-    {
-        path: '/admin/login',
-        name: 'adminLogin',
-        component: resolve => void(require(['../views/system/login.vue'], resolve))
-    }, {
-        path: '/admin/findPassword',
-        name: 'findPassword',
-        component: resolve => void(require(['../views/system/findPassword.vue'], resolve))
-    }
-];
+import constantRouter from './constantRouter'
 
 // 页面刷新时,重新赋值
 if (sessionStorage.getItem('user')) {
@@ -58,4 +43,3 @@ function getLoginurl() {
 }
 
 export default router;
-// test

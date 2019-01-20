@@ -1,7 +1,6 @@
 <template>
-    <div>
+    <div class="register">
         <div class="title">
-
         </div>
         <div class="content"></div>
     </div>
@@ -19,15 +18,18 @@
         methods:{
         },
         mounted(){
-        }
+        },
     }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .register{
+        height: 100%;
+    }
     .title{
         width: 100%;
-        height: 50px;
+        height: 6%;
         background-color: #9cc7ea;
     }
     

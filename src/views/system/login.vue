@@ -50,7 +50,6 @@ export default {
                 username: '',
                 passwoed: '',
             }
-
         }
     },
     methods:{
