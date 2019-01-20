@@ -46,7 +46,7 @@
   }
  .item_title{
    color:#000 ;
-   background-color: #fff !important
+   background-color: #fff;
  }
 
 

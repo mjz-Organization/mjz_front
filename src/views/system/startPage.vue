@@ -2,7 +2,7 @@
     <div>
         <div class="startpage_title">
             <div class="startpage_title_operation">
-                <el-button type="primary" icon="el-icon-plus">新增启动页</el-button>
+                <el-button type="primary" icon="el-icon-plus" @click="addStartPage">新增启动页</el-button>
                 <el-button type="danger" icon="el-icon-menu">全部删除</el-button>
             </div>
             <div class="startpage_title_search">
@@ -22,14 +22,14 @@
                 width="55">
             </el-table-column>
             <el-table-column
-                prop="ID"
-                label="ID"
-                align="center"
-                show-overflow-tooltip>
+                label="#"
+                type="index"
+                align="center">
             </el-table-column>
             <el-table-column
                 prop="name"
                 label="名称"
+                sortable
                 align="center"
                 show-overflow-tooltip>
             </el-table-column>
@@ -42,6 +42,7 @@
             <el-table-column
             prop="type"
             label="类别"
+            sortable
             align="center"
             show-overflow-tooltip>
             </el-table-column>
@@ -131,8 +132,13 @@
             this.multipleSelection = val;
             console.log(this.multipleSelection);
         },
-            handleEdit(index, row) {
-            console.log(index, row);
+        handleEdit(index, row) {
+            var id = 1;
+            var name = row.name;
+            var img = row.img;
+            var types = row.type;
+            var Remarks = row.Remarks;
+            this.$router.push({path: '/system/homepage/startpage/add',query:{name:name,img:img,types:types,Remarks:Remarks}});
         },
         handleDelete(index, row) {
             console.log(index, row);
@@ -142,6 +148,9 @@
         },
         handleCurrentChange(val) {
             console.log(`当前页: ${val}`);
+        },
+        addStartPage(){
+            this.$router.push({path: '/system/homepage/startpage/add'});
         }
     }
   }
