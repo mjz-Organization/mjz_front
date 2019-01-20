@@ -49,6 +49,8 @@ import NavMenu from '../../components/NavMenu'
     mounted(){
         let self = this;
         this.currentMenu = document.location.pathname;
+        var a= this.currentMenu.split("/");
+        this.currentMenu = "/"+a[1]+"/"+a[2]+"/"+a[3];
         this.get(ApiPath.system.getMenu)
         .then(function(res){
             if(res.data.code == 0)

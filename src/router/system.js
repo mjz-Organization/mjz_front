@@ -24,12 +24,13 @@ export default [{
             component: resolve => void (require(['../views/system/startPage.vue'], resolve))
             },
             {
-                path: 'a',
+                path: 'startpage/add',
                 name: 'index',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void(require(['../views/system/studentStartPage.vue'], resolve))
+                component: resolve => void(require(['../views/system/addStartPage.vue'], resolve))
+
             },
             /**
              * 首页管理
@@ -202,9 +203,6 @@ export default [{
                 },
                 component: resolve => void (require(['../views/system/messageEdit.vue'], resolve))
             },
-
-
-
         ]
 
     }
