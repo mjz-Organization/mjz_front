@@ -5,26 +5,32 @@
                 <el-button type="primary" icon="el-icon-arrow-left" @click="renovice">返回</el-button>
             </div>
             <div class="content">
-                <el-form ref="form" :model="form" label-width="90px" label-position="left">
-                <el-form-item label="指南名称">
+                <el-form ref="form" :model="form" label-width="100px" label-position="left">
+                <el-form-item label="启动页名称：">
                     <el-input v-model="form.name"></el-input>
+                </el-form-item >
+                <el-form-item label="启动页图片：">
+                    <el-upload
+                    action=""
+                    list-type="picture-card"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    :auto-upload="false"
+                    >
+                    <i class="el-icon-plus"></i>
+                    </el-upload>
+                    <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="form.dialogImageUrl" alt="">
+                    </el-dialog>
                 </el-form-item>
-                <el-form-item label="使用位置">
+
+                <el-form-item label="使用位置：">
                     <el-select v-model="form.address" placeholder="请选择使用位置">
-                   <el-option  label="学生端" v-model:value="form.address.student"></el-option>
+                    <el-option  label="学生端" v-model:value="form.address.student"></el-option>
                     <el-option  label="客户端" v-model:value="form.address.customer"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="选择文件">
-                    <el-upload
-                    class="upload-demo"
-                    action=""
-                    :on-change="handleChange"
-                    :file-list="file">
-                    <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
-                </el-form-item>
-                <el-form-item label="启动页说明">
+                <el-form-item label="启动页说明：">
                     <el-input type="textarea" v-model="form.desc"></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -45,14 +51,16 @@
                     "student":"学生端",
                     "customer":"客户端"
                 },
-                desc: '',
-                file:[],
+            desc: '',
+            file:[],
+            dialogImageUrl: '',
         },
+        dialogVisible: false,
       }
     },
     methods: {
         renovice(){
-            this.$router.push('/system/homepage/novice');
+            this.$router.push('/system/homepage/advertisement');
         },
         onSubmit() {
              this.get(ApiPath.system.getUserinfo,{"data":this.form}).then(res => {
@@ -62,7 +70,14 @@
         },
         handleChange(file, fileList) {
         this.file= fileList.slice(-3);
-      }
+      },
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePictureCardPreview(file) {
+            this.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+        },
     }
   }
 </script>

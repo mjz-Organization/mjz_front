@@ -1,22 +1,22 @@
 <template>
     <div>
         <div class="startpage_title">
-            <div class="startpage_title_operation">
+            <!-- <div class="startpage_title_operation">
                 <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增文件</el-button>
                 <el-button type="danger" icon="el-icon-menu">全部删除</el-button>
-            </div>
+            </div> -->
             <div class="startpage_title_search">
                 <el-dropdown >
                     <el-button type="primary" style="border:1px solid #dcdfe6;color:#000;background-color:#ffffff;">
-                        指南名称<i class="el-icon-arrow-down el-icon--right"></i>
+                        请选择<i class="el-icon-arrow-down el-icon--right"></i>
                     </el-button>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>指南名称</el-dropdown-item>
-                    <el-dropdown-item>文件名称</el-dropdown-item>
+                    <el-dropdown-item>商家名称</el-dropdown-item>
+                    <el-dropdown-item>兼职类型</el-dropdown-item>
 
                 </el-dropdown-menu>
                 </el-dropdown>
-                <el-input placeholder="请输入内容" aria-placeholder="根据指南名称搜索" class="startpage_title_text" ></el-input>
+                <el-input placeholder="请输入内容" class="startpage_title_text" ></el-input>
                 <el-button type="success" icon="el-icon-search">搜索</el-button>
             </div>
             <div class="clearfloat"></div>
@@ -40,25 +40,31 @@
             </el-table-column>
             <el-table-column
                 prop="name"
-                label="指南名称"
+                label="商家名称"
                 align="center"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="file_name"
-            label="文件"
-            align="center"
-            show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
             prop="type"
-            label="类型"
+            label="兼职类型"
             align="center"
             show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="file_description"
-            label="文件描述"
+            prop="settlement"
+            label="薪资结算类型"
+            align="center"
+            show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
+            prop="description"
+            label="状态"
+            align="center"
+            show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
+            prop="salary"
+            label="薪资"
             align="center"
             show-overflow-tooltip>
             </el-table-column>
@@ -69,8 +75,8 @@
             show-overflow-tooltip
             >
                 <template slot-scope="scope">
-                    <el-button size="mini" type="success" @click="handleEdit(scope.$index, scope.row)"><i class="el-icon-edit"></i></el-button>
-                    <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)"><i class="el-icon-delete"></i></el-button>
+                    <el-button size="mini" type="text" @click="handlelook(scope.$index, scope.row)">查看详情</el-button>
+                    <!-- <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)"><i class="el-icon-delete"></i></el-button> -->
                 </template>
             </el-table-column>
         </el-table>
@@ -111,12 +117,12 @@
             this.multipleSelection = val;
             console.log(this.multipleSelection);
         },
-        handleEdit(index, row) {
-            this.$router.push('/system/homepage/noviceEdit',{"index":index,"row":row});
+        handlelook(index, row) {
+            this.$router.push('/system/homepage/messageLook',{"index":index,"row":row});
         },
-        handleDelete(index, row) {
-            console.log(index, row);
-        },
+        // handleDelete(index, row) {
+        //     console.log(index, row);
+        // },
         handleSizeChange(val) {
             this.pagesize=val;
             console.log(`每页 ${val} 条`);

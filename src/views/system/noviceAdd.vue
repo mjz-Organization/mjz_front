@@ -11,7 +11,7 @@
                 </el-form-item>
                 <el-form-item label="使用位置">
                     <el-select v-model="form.address" placeholder="请选择使用位置">
-                   <el-option  label="学生端" v-model:value="form.address.student"></el-option>
+                    <el-option  label="学生端" v-model:value="form.address.student"></el-option>
                     <el-option  label="客户端" v-model:value="form.address.customer"></el-option>
                     </el-select>
                 </el-form-item>
