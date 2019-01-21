@@ -241,6 +241,22 @@ export default [{
                 },
                 component: resolve => void (require(['../views/system/userManage/adminManage.vue'], resolve))
             },
+            {
+                path: 'complaintInform',
+                name: 'complaintInform',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/complaint/information.vue'], resolve))
+            },
+            {
+                path: 'detailed',
+                name: 'detailed',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/complaint/detailed.vue'], resolve))
+            },
         ]
 
     }
