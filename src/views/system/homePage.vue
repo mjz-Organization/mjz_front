@@ -16,7 +16,7 @@
           router
         >
           <!--加上router 才能实现跳转-->
-          <NavMenu :navMenus="leftMenus.result"></NavMenu>
+          <navMenu :navMenus="leftMenus.result"></navMenu>
         </el-menu>
     <!-- </el-menu> -->
   </el-aside>
@@ -34,7 +34,8 @@
 </template>
 
 <script>
-import NavMenu from '../../components/NavMenu'
+// import NavMenu from '../../components/NavMenu'
+
   export default {
     props:{
     },
@@ -64,7 +65,7 @@ import NavMenu from '../../components/NavMenu'
 
     },
     components: {
-      'NavMenu': NavMenu
+      // 'NavMenu': NavMenu
     }
   }
 </script>

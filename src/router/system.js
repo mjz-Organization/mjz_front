@@ -22,7 +22,7 @@ export default [{
                 requireAuth: true,
             },
             component: resolve => void (require(['../views/system/startPage.vue'], resolve))
-        },
+            },
             {
                 path: 'startpage/add',
                 name: 'index',
@@ -202,6 +202,22 @@ export default [{
                     requireAuth: true,
                 },
                 component: resolve => void (require(['../views/system/messageEdit.vue'], resolve))
+            },
+            {
+                path: 'complaintInform',
+                name: 'complaintInform',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/complaint/information.vue'], resolve))
+            },
+            {
+                path: 'detailed',
+                name: 'detailed',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/complaint/detailed.vue'], resolve))
             },
         ]
 
