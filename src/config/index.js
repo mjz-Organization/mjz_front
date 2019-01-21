@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 /**
  * 静态路由
  */
-import constantRouter from './constantRouter'
+import constantRouter from '../router/constantRouter'
 
 // 页面刷新时,重新赋值
 if (sessionStorage.getItem('user')) {

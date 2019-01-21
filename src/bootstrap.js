@@ -1,12 +1,13 @@
-window._ = require('lodash');
-
+import lodash from "lodash"
+window._ = lodash;
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
  * code may be modified to fit the specific needs of your application.
  */
 
-window.$ = window.jQuery = require('jquery');
+import jQuery from "jquery"
+window.$ = window.jQuery = jQuery
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -14,14 +15,15 @@ window.$ = window.jQuery = require('jquery');
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = require('vue');
+import Vue from 'vue'
+window.Vue = Vue;
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
-import instance from './auth'
+import instance from './config/auth'
 window.axios = instance;
 
 /**
@@ -30,12 +32,13 @@ window.axios = instance;
  * The advantages of Mock.js are very simple and convenient, non-intrusive,
  * and basically covers common interface data types.
  */
-window.Mock = require('mockjs');
+import Mock from "mockjs"
+window.Mock = Mock
 
 /**
  * 引入自定义方法
  */
-import base from './base'
+import base from './config/base'
 Vue.use(base);
 
 /**
@@ -60,7 +63,7 @@ Vue.use(ElementUI);
 /**
  * vue路由
  */
-import router from './router'
+import router from './config/index'
 window.router = router;
 
 /**
@@ -80,5 +83,10 @@ window.ApiPath = api;
  */
 // process.env.MOCK && require('@/mock/index');
 
-
-
+/**
+ * 加载公共组建
+ * */
+import components from "./components/"
+Object.keys(components).forEach((key)=>{
+    Vue.component(key,components[key]);
+})

@@ -1,11 +1,11 @@
 export default [{
-        path: '/system/index',
-        name: 'index',
-        meta: {
-            roles: ['admin', 'user'],
-            requireAuth: true,
-        },
-        component: resolve => void(require(['../views/system/index.vue'], resolve))
+    path: '/system/index',
+    name: 'index',
+    meta: {
+        roles: ['admin', 'user'],
+        requireAuth: true,
+    },
+    component: resolve => void(require(['../views/system/index.vue'], resolve))
     },
     {
         path: '/system/homepage',
@@ -16,13 +16,13 @@ export default [{
         },
         component: resolve => void(require(['../views/system/homePage.vue'], resolve)),
         children: [{
-                path: 'startpage',
-                name: 'startpage',
-                meta: {
-                    requireAuth: true,
-                },
-            component: resolve => void (require(['../views/system/startPage.vue'], resolve))
+            path: 'startpage',
+            name: 'startpage',
+            meta: {
+                requireAuth: true,
             },
+            component: resolve => void (require(['../views/system/startPage.vue'], resolve))
+        },
             {
                 path: 'startpage/add',
                 name: 'index',
@@ -38,19 +38,19 @@ export default [{
             {
                 path: 'novice',
                 name: 'novice',
-                meta:{
+                meta: {
                     requireAuth: true,
                 },
                 component: resolve => void (require(['../views/system/novice.vue'], resolve))
 
             },
             {
-              path: 'noviceAdd',
-              name: 'noviceAdd',
-              meta: {
-                requireAuth: true,
-              },
-              component: resolve => void(require(['../views/system/noviceAdd.vue'], resolve))
+                path: 'noviceAdd',
+                name: 'noviceAdd',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void(require(['../views/system/noviceAdd.vue'], resolve))
 
             },
             {
