@@ -3,11 +3,11 @@
         <div class="startpage_title">
             <div class="startpage_title_operation">
                 <el-button type="primary" icon="el-icon-plus" @click="addStartPage">新增启动页</el-button>
-                <el-button type="danger" icon="el-icon-menu">全部删除</el-button>
+                <el-button type="danger" icon="el-icon-menu" @click="deleteStartPage">全部删除</el-button>
             </div>
             <div class="startpage_title_search">
-                <el-input placeholder="请输入内容" class="startpage_title_text"></el-input>
-                <el-button type="success" icon="el-icon-search">搜索</el-button>
+                <el-input placeholder="请输入内容" class="startpage_title_text" v-model="selectContent"></el-input>
+                <el-button type="success" icon="el-icon-search" @click="selectName">搜索</el-button>
             </div>
             <div class="clearfloat"></div>
         </div>
@@ -85,6 +85,7 @@
     data() {
       return {
         currentPage1: 5,
+        selectContent:"",
         tableData3: [{
             ID:1,
             name: '云帆喷绘',
@@ -151,6 +152,12 @@
         },
         addStartPage(){
             this.$router.push({path: '/system/homepage/startpage/add'});
+        },
+        deleteStartPage(){
+            console.log(this.multipleSelection);
+        },
+        selectName(){
+            console.log(this.selectContent);
         }
     }
   }
