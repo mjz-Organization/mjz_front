@@ -27,15 +27,15 @@
                 <el-form-item label="使用位置：">
 
                     <el-select v-model="form.value" placeholder="请选择使用位置">
-                    <el-option v-for="(item,key) in address"
+                    <el-option v-for="item in address"
+                    :key="item.value"
                     :label="item.label"
-                    :value="item.value"
-                    :key="key">
+                    :value="item.value">
                     </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="启动页说明：">
-                    <el-input type="textarea" v-model="form.desc"></el-input>
+                    <el-input type="textarea" rows="8" v-model="form.desc"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">确认修改</el-button>
@@ -70,7 +70,7 @@
     },
     methods: {
         renovice(){
-            this.$router.push('/system/homepage/advertisement');
+            this.$router.push(ApiPath.system.advertisement);
         },
         onSubmit() {
              this.get(ApiPath.system.getUserinfo,{"data":this.form}).then(res => {

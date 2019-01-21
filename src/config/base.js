@@ -1,3 +1,5 @@
+import store from "../store/store";
+
 exports.install = function (Vue, options) {
     /**
      * 时间戳转换日期
@@ -23,6 +25,9 @@ exports.install = function (Vue, options) {
     }
     //get请求
     Vue.prototype.get = function (url,param={}) {
+        if(store.state.user){
+            param['api_token'] = store.state.user.api_token;
+        }
         return new Promise((resolve,reject) => {
             axios({
                 method: 'get',
@@ -35,6 +40,9 @@ exports.install = function (Vue, options) {
     },
     //post请求
     Vue.prototype.post = function (url,param={}) {
+        if(store.state.user){
+            param['api_token'] = store.state.user.api_token;
+        }
         return new Promise((resolve,reject) => {
             axios({
                 method: 'post',

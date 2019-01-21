@@ -45,25 +45,24 @@ export default [{
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/novice.vue'], resolve))
-
+                component: resolve => void (require(['../views/system/novice/novice.vue'], resolve)),
             },
             {
-                path: 'noviceAdd',
-                name: 'noviceAdd',
+                path: 'novice/noviceAdd',
+                name: 'novice/noviceAdd',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void(require(['../views/system/noviceAdd.vue'], resolve))
+                component: resolve => void (require(['../views/system/novice/noviceAdd.vue'], resolve))
 
             },
             {
-                path: 'noviceEdit',
-                name: 'noviceEdit',
+                path: 'novice/noviceEdit',
+                name: 'novice/noviceEdit',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/noviceEdit.vue'], resolve))
+                component: resolve => void(require(['../views/system/novice/noviceEdit.vue'], resolve))
             },
             {
                 path: 'advertisement',
@@ -71,23 +70,23 @@ export default [{
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/advertisement.vue'], resolve))
+                component: resolve => void(require(['../views/system/novice/advertisement.vue'], resolve))
             },
             {
-                path: 'adverAdd',
+                path: 'advertisement/adverAdd',
                 name: 'adverAdd',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/adverAdd.vue'], resolve))
+                component: resolve => void(require(['../views/system/novice/adverAdd.vue'], resolve))
             },
             {
-                path: 'adverEdit',
+                path: 'advertisement/adverEdit',
                 name: 'adverEdit',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/adverEdit.vue'], resolve))
+                component: resolve => void(require(['../views/system/novice/adverEdit.vue'], resolve))
             },
             /**
              * 兼职管理
@@ -98,23 +97,23 @@ export default [{
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/jobSalary.vue'], resolve))
+                component: resolve => void (require(['../views/system/job/jobSalary.vue'], resolve))
             },
             {
-                path: 'salaryAdd',
+                path: 'jobSalary/salaryAdd',
                 name: 'salaryAdd',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/salaryAdd.vue'], resolve))
+                component: resolve => void (require(['../views/system/job/salaryAdd.vue'], resolve))
             },
             {
-                path: 'salaryEdit',
+                path: 'jobSalary/salaryEdit',
                 name: 'salaryEdit',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/salaryEdit.vue'], resolve))
+                component: resolve => void (require(['../views/system/job/salaryEdit.vue'], resolve))
             },
             {
                 path: 'jobType',
@@ -122,23 +121,23 @@ export default [{
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/jobType.vue'], resolve))
+                component: resolve => void (require(['../views/system/job/jobType.vue'], resolve))
             },
             {
-                path: 'typeAdd',
+                path: 'jobType/typeAdd',
                 name: 'typeAdd',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/typeAdd.vue'], resolve))
+                component: resolve => void (require(['../views/system/job/typeAdd.vue'], resolve))
             },
             {
-                path: 'typeEdit',
+                path: 'jobType/typeEdit',
                 name: 'typeEdit',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/typeEdit.vue'], resolve))
+                component: resolve => void (require(['../views/system/job/typeEdit.vue'], resolve))
             },
             {
                 path: 'jobMessage',
@@ -146,15 +145,15 @@ export default [{
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/jobMessage.vue'], resolve))
+                component: resolve => void (require(['../views/system/job/jobMessage.vue'], resolve))
             },
             {
-                path: 'messageLook',
+                path: 'jobMessage/messageLook',
                 name: 'messageLook',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/messageLook.vue'], resolve))
+                component: resolve => void (require(['../views/system/job/messageLook.vue'], resolve))
             },
             /**
              * 消息模板
@@ -165,23 +164,23 @@ export default [{
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/messageTemplate.vue'], resolve))
+                component: resolve => void (require(['../views/system/message/messageTemplate.vue'], resolve))
             },
             {
-                path: 'tempAdd',
+                path: 'messageTemplate/tempAdd',
                 name: 'tempAdd',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/tempAdd.vue'], resolve))
+                component: resolve => void (require(['../views/system/message/tempAdd.vue'], resolve))
             },
             {
-                path: 'tempEdit',
+                path: 'messageTemplate/tempEdit',
                 name: 'tempEdit',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/tempEdit.vue'], resolve))
+                component: resolve => void (require(['../views/system/message/tempEdit.vue'], resolve))
             },
             {
                 path: 'messageType',
@@ -189,23 +188,23 @@ export default [{
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/messageType.vue'], resolve))
+                component: resolve => void (require(['../views/system/message/messageType.vue'], resolve))
             },
             {
-                path: 'messageAdd',
+                path: 'messageType/messageAdd',
                 name: 'messageAdd',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/messageAdd.vue'], resolve))
+                component: resolve => void (require(['../views/system/message/messageAdd.vue'], resolve))
             },
             {
-                path: 'messageEdit',
+                path: 'messageType/messageEdit',
                 name: 'messageEdit',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/messageEdit.vue'], resolve))
+                component: resolve => void (require(['../views/system/message/messageEdit.vue'], resolve))
             },
             /**
              * 用户管理

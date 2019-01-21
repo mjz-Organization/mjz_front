@@ -60,26 +60,13 @@ Mock.mock(ApiPath.system.novice,"get",{
     "code":  200,
     "data":{
         "array|30":  [{
-            "ID": '1    ',
+            "ID": '1',
             "name": "@CNAME",
-            "file_name": '@string()',
-            "type": 'upper',
-            "file_description":"无"
+            "file_name": 'test.TXT',
+            "type": '学生端',
+            "description":"无",
+            "img": '@string()',
         }],
     },
     "msg":  "success"
-});
-
-Mock.mock(ApiPath.system.advertisement, "get", {
-    "code": 200,
-    "data": {
-        "array|30": [{
-            "ID": '1    ',
-            "name": "@CNAME",
-            "img": '@string()',
-            "description": "无",
-            "type": 'upper',
-        }],
-    },
-    "msg": "success"
 });

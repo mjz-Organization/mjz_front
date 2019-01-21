@@ -2,15 +2,25 @@
    <div>
         <div class="main">
             <div class="head">
-                <el-button type="primary" icon="el-icon-arrow-left" @click="rejob">返回</el-button>
+                <el-button type="primary" icon="el-icon-arrow-left" @click="renovice">返回</el-button>
             </div>
             <div class="content">
                 <el-form ref="form" :model="form" label-width="90px" label-position="left">
-                <el-form-item label="类型名称：">
+                <el-form-item label="消息名称">
                     <el-input v-model="form.name"></el-input>
-                </el-form-item >
-                <el-form-item label="类型说明：">
-                    <el-input type="textarea" v-model="form.desc"></el-input>
+                </el-form-item>
+                <el-form-item label="消息类型">
+
+                    <el-select v-model="form.value" placeholder="请选择">
+                   <el-option v-for="item in address"
+                   :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="消息内容">
+                    <el-input type="textarea" rows="8" v-model="form.desc"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">确认修改</el-button>
@@ -27,12 +37,23 @@
         form: {
             name: '',
             desc: '',
+            file:[],
+            value:''
         },
+        address:[{
+            "value":0,
+            "label":"工作通知",
+                    
+        },{
+            "value":1,
+            "label":"提现通知",
+        }
+        ],
       }
     },
     methods: {
-        rejob(){
-            this.$router.push('/system/homepage/jobSalary');
+        renovice(){
+            this.$router.push(ApiPath.system.messageTemplate);
         },
         onSubmit() {
              this.get(ApiPath.system.getUserinfo,{"data":this.form}).then(res => {
@@ -40,6 +61,9 @@
                 });
         
         },
+        handleChange(file, fileList) {
+        this.file= fileList.slice(-3);
+      }
     }
   }
 </script>

@@ -2,21 +2,18 @@
     <div>
         <div class="startpage_title">
             <div class="startpage_title_operation">
-                <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增类型</el-button>
+                <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增文件</el-button>
                 <el-button type="danger" icon="el-icon-menu">全部删除</el-button>
             </div>
             <div class="startpage_title_search">
-                <!-- <el-dropdown >
-                    <el-button type="primary" style="border:1px solid #dcdfe6;color:#000;background-color:#ffffff;">
-                        指南名称<i class="el-icon-arrow-down el-icon--right"></i>
-                    </el-button>
-                <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>指南名称</el-dropdown-item>
-                    <el-dropdown-item>文件名称</el-dropdown-item>
-
-                </el-dropdown-menu>
-                </el-dropdown> -->
-                <el-input placeholder="类型名称"  class="startpage_title_text" ></el-input>
+                 <el-select v-model="value"  placeholder="指南名称" class="select">
+                    <el-option v-for="item in select"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+                    </el-select>
+                <el-input placeholder="请输入内容"  class="startpage_title_text" ></el-input>
                 <el-button type="success" icon="el-icon-search">搜索</el-button>
             </div>
             <div class="clearfloat"></div>
@@ -40,7 +37,7 @@
             </el-table-column>
             <el-table-column
                 prop="name"
-                label="类型名称"
+                label="指南名称"
                 align="center"
                 show-overflow-tooltip>
             </el-table-column>
@@ -51,8 +48,14 @@
             show-overflow-tooltip>
             </el-table-column>
             <el-table-column
+            prop="type"
+            label="类型"
+            align="center"
+            show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
             prop="description"
-            label="说明"
+            label="文件描述"
             align="center"
             show-overflow-tooltip>
             </el-table-column>
@@ -69,7 +72,7 @@
             </el-table-column>
         </el-table>
         <div class="startpage_paging">
-            <span style="float:left;">共{{ size }}条记录</span>
+            <span style="float:left;padding-left:15px">共{{ size }}条记录</span>
             <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -85,7 +88,7 @@
 </template>
 
 <script>
-// import mock from '../../mock/sysMock.js'
+// import mock from '../../../mock/sysMock.js'
   export default {
     data() {
       return {
@@ -93,20 +96,32 @@
         tableData: [],
         pagesize:10,
         size:0,
-        multipleSelection: []
+        multipleSelection: [],
+        value:'',
+        select:[
+            {
+                label:"指南名称",
+                value:0
+            },
+            {
+                label:"文件名称",
+                value:1
+            }
+        ]
       }
     },
 
     methods: {
         addfile(){
-            this.$router.push('/system/homepage/typeAdd');
+            this.$router.push(ApiPath.system.noviceAdd);
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
             console.log(this.multipleSelection);
         },
         handleEdit(index, row) {
-            this.$router.push('/system/homepage/typeEdit',{"index":index,"row":row});
+            // this.$router.push(ApiPath.system.noviceEdit,{"index":index,"row":row});
+            this.$router.push(ApiPath.system.noviceEdit);
         },
         handleDelete(index, row) {
             console.log(index, row);
@@ -125,10 +140,10 @@
         },
     },
     mounted(){
-        // this.get(ApiPath.system.novice).then(res => {
-        //     this.tableData=res.data.data.array;
-        //     this.size=this.tableData.length;
-        // })
+    //     this.get(ApiPath.system.novice).then(res => {
+    //         this.tableData=res.data.data.array;
+    //         this.size=this.tableData.length;
+    //     })
     }
   }
 </script>
@@ -147,7 +162,6 @@
     }
 
     .startpage_title_search{
-        width: 40%;
         float: right;
     }
 
@@ -166,6 +180,9 @@
     }
     .el-icon-arrow-down {
         font-size: 12px;
+    }
+    .select{
+        width: 110px;
     }
 
 </style>

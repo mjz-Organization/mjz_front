@@ -5,20 +5,10 @@
                 <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增类型</el-button>
                 <el-button type="danger" icon="el-icon-menu">全部删除</el-button>
             </div>
-            <!-- <div class="startpage_title_search"> -->
-                <!-- <el-dropdown >
-                    <el-button type="primary" style="border:1px solid #dcdfe6;color:#000;background-color:#ffffff;">
-                        指南名称<i class="el-icon-arrow-down el-icon--right"></i>
-                    </el-button>
-                <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>指南名称</el-dropdown-item>
-                    <el-dropdown-item>文件名称</el-dropdown-item>
-
-                </el-dropdown-menu>
-                </el-dropdown> -->
-                <!-- <el-input placeholder="类型名称"  class="startpage_title_text" ></el-input>
+            <div class="startpage_title_search">
+                <el-input placeholder="类型名称"  class="startpage_title_text" ></el-input>
                 <el-button type="success" icon="el-icon-search">搜索</el-button>
-            </div> -->
+            </div>
             <div class="clearfloat"></div>
         </div>
         <el-table
@@ -69,7 +59,7 @@
             </el-table-column>
         </el-table>
         <div class="startpage_paging">
-            <span style="float:left;">共{{ size }}条记录</span>
+            <span style="float:left;padding-left:15px">共{{ size }}条记录</span>
             <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -99,14 +89,14 @@
 
     methods: {
         addfile(){
-            this.$router.push('/system/homepage/messageAdd');
+            this.$router.push(ApiPath.system.typeAdd);
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
             console.log(this.multipleSelection);
         },
         handleEdit(index, row) {
-            this.$router.push('/system/homepage/typeEdit',{"index":index,"row":row});
+            this.$router.push(ApiPath.system.typeEdit);
         },
         handleDelete(index, row) {
             console.log(index, row);
@@ -147,7 +137,6 @@
     }
 
     .startpage_title_search{
-        width: 40%;
         float: right;
     }
 

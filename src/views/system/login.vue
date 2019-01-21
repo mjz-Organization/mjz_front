@@ -8,7 +8,7 @@
                 <label>用户名：</label> 
                 <el-input
                     placeholder="请输入用户名"
-                    v-model="admin.username">
+                    v-model="user">
                 </el-input>
             </div>
 
@@ -17,7 +17,7 @@
                 <label>密&nbsp;&nbsp;码：</label> 
                 <el-input
                     placeholder="请输入密码"
-                    v-model="admin.passwoed">
+                    v-model="password">
                 </el-input>
             </div>
 
@@ -46,16 +46,18 @@ export default {
     name:'adminLogin',
     data() {
         return {
-            admin:{
-                username: '',
-                passwoed: '',
-            }
+            user: '',
+            password: '',
         }
     },
     methods:{
         onSubmit(){
-            this.post(ApiPath.system.checkLogin,{'admin': this.form}).then(res => {
+            this.post(ApiPath.system.checkLogin,{
+                'user': this.user,
+                'password':this.password
+            }).then(res => {
                 if (res.data.code == 0){
+                    res.data.result.roles = 'admin';
                     store.commit(types.USER,  res.data.result);
                     this.addRouter();
                     router.push({path: '/system/homepage'});
