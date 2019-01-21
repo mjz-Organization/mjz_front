@@ -10,9 +10,11 @@
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="使用位置">
-                    <el-select v-model="form.address" placeholder="请选择使用位置">
-                    <el-option  label="学生端" v-model:value="form.address.student"></el-option>
-                    <el-option  label="客户端" v-model:value="form.address.customer"></el-option>
+                    <el-select v-model="form.value" placeholder="请选择使用位置">
+                    <el-option v-for="item in address"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="选择文件">
@@ -20,7 +22,7 @@
                     class="upload-demo"
                     action=""
                     :on-change="handleChange"
-                    :file-list="file">
+                    :file-list="form.file">
                     <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
                 </el-form-item>
@@ -41,13 +43,20 @@
       return {
         form: {
             name: '',
-                address:{
-                    "student":"学生端",
-                    "customer":"客户端"
-                },
-                desc: '',
-                file:[],
+            desc: '',
+            file:[],
+            value:''
         },
+        address:[{
+            "value":0,
+            "label":"学生端",
+                    
+        },{
+            "value":1,
+            "label":"客户端",
+        }
+        ],
+       
       }
     },
     methods: {
@@ -55,14 +64,15 @@
             this.$router.push('/system/homepage/novice');
         },
         onSubmit() {
-             this.get(ApiPath.system.getUserinfo,{"data":this.form}).then(res => {
-                    console.log(res.data);
-                });
+            console.log(this.form);
+            //  this.get(ApiPath.system.getUserinfo,{"data":this.form}).then(res => {
+            //         console.log(res.data);
+            //     });
         
         },
         handleChange(file, fileList) {
         this.file= fileList.slice(-3);
-      }
+      },
     }
   }
 </script>

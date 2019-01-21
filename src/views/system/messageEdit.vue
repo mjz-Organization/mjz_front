@@ -10,9 +10,11 @@
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="消息类型">
-                    <el-select v-model="form.address" placeholder="请选择">
-                   <el-option  label="工作通知" v-model:value="form.address.student"></el-option>
-                    <el-option  label="提现通知" v-model:value="form.address.customer"></el-option>
+                    <el-select v-model="form.value" placeholder="请选择">
+                    <el-option v-for="item in address"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="消息内容">
@@ -32,13 +34,19 @@
       return {
         form: {
             name: '',
-                address:{
-                    "student":"工作通知",
-                    "customer":"提现通知"
-                },
-                desc: '',
-                file:[],
+            desc: '',
+            file:[],
+            value:''
         },
+        address:[{
+            "value":0,
+            "label":"工作通知",
+                    
+        },{
+            "value":1,
+            "label":"提现通知",
+        }
+        ],
       }
     },
     methods: {
