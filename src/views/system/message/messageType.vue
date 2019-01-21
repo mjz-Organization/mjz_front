@@ -2,12 +2,8 @@
     <div>
         <div class="startpage_title">
             <div class="startpage_title_operation">
-                <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增广告</el-button>
+                <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增类型</el-button>
                 <el-button type="danger" icon="el-icon-menu">全部删除</el-button>
-            </div>
-            <div class="startpage_title_search">
-                <el-input  class="startpage_title_text" ></el-input>
-                <el-button type="success" icon="el-icon-search">搜索</el-button>
             </div>
             <div class="clearfloat"></div>
         </div>
@@ -24,31 +20,25 @@
             <el-table-column
                 prop="ID"
                 label="#"
-                sortable
                 align="center"
+                sortable
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="name"
-                label="名称"
+                label="类型名称"
                 align="center"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="img"
-            label="图片"
+            prop="file_name"
+            label="文件"
             align="center"
             show-overflow-tooltip>
             </el-table-column>
             <el-table-column
             prop="description"
-            label="广告描述"
-            align="center"
-            show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-            prop="type"
-            label="类型"
+            label="说明"
             align="center"
             show-overflow-tooltip>
             </el-table-column>
@@ -65,7 +55,7 @@
             </el-table-column>
         </el-table>
         <div class="startpage_paging">
-            <span style="float:left;">共{{ size }}条记录</span>
+            <span style="float:left;padding-left:15px">共{{ size }}条记录</span>
             <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -95,14 +85,14 @@
 
     methods: {
         addfile(){
-            this.$router.push('/system/homepage/adverAdd');
+            this.$router.push(ApiPath.system.messageAdd);
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
             console.log(this.multipleSelection);
         },
         handleEdit(index, row) {
-            this.$router.push('/system/homepage/adverEdit',{"index":index,"row":row});
+            this.$router.push(ApiPath.system.messageEdit);
         },
         handleDelete(index, row) {
             console.log(index, row);
@@ -121,7 +111,7 @@
         },
     },
     mounted(){
-        // this.get(ApiPath.system.advertisement).then(res => {
+        // this.get(ApiPath.system.novice).then(res => {
         //     this.tableData=res.data.data.array;
         //     this.size=this.tableData.length;
         // })

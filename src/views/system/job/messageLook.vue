@@ -71,7 +71,7 @@
     },
     methods: {
         renovice(){
-            this.$router.push('/system/homepage/jobMessage');
+            this.$router.push(ApiPath.system.jobMessage);
         },
     }
   }

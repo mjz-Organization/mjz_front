@@ -2,22 +2,8 @@
     <div>
         <div class="startpage_title">
             <div class="startpage_title_operation">
-                <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增文件</el-button>
+                <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增类型</el-button>
                 <el-button type="danger" icon="el-icon-menu">全部删除</el-button>
-            </div>
-            <div class="startpage_title_search">
-                <el-dropdown >
-                    <el-button type="primary" style="border:1px solid #dcdfe6;color:#000;background-color:#ffffff;">
-                       请选择<i class="el-icon-arrow-down el-icon--right"></i>
-                    </el-button>
-                <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>消息名称</el-dropdown-item>
-                    <el-dropdown-item>消息内容</el-dropdown-item>
-
-                </el-dropdown-menu>
-                </el-dropdown>
-                <el-input placeholder="请输入内容" class="startpage_title_text" ></el-input>
-                <el-button type="success" icon="el-icon-search">搜索</el-button>
             </div>
             <div class="clearfloat"></div>
         </div>
@@ -33,32 +19,20 @@
             </el-table-column>
             <el-table-column
                 prop="ID"
-                label="#"
-                align="center"
+                label="ID"
                 sortable
+                align="center"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="name"
-                label="消息名称"
+                label="类型名称"
                 align="center"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="content"
-            label="消息内容"
-            align="center"
-            show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-            prop="type"
-            label="消息类型"
-            align="center"
-            show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
             prop="description"
-            label="备注"
+            label="说明"
             align="center"
             show-overflow-tooltip>
             </el-table-column>
@@ -75,7 +49,7 @@
             </el-table-column>
         </el-table>
         <div class="startpage_paging">
-            <span style="float:left;">共{{ size }}条记录</span>
+            <span style="float:left;padding-left:15px">共{{ size }}条记录</span>
             <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -105,14 +79,14 @@
 
     methods: {
         addfile(){
-            this.$router.push('/system/homepage/tempAdd');
+            this.$router.push(ApiPath.system.salaryAdd);
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
             console.log(this.multipleSelection);
         },
         handleEdit(index, row) {
-            this.$router.push('/system/homepage/tempEdit',{"index":index,"row":row});
+            this.$router.push(ApiPath.system.salaryEdit);
         },
         handleDelete(index, row) {
             console.log(index, row);
@@ -131,7 +105,7 @@
         },
     },
     mounted(){
-        // this.get(ApiPath.system.novice).then(res => {
+        // this.get(ApiPath.system.advertisement).then(res => {
         //     this.tableData=res.data.data.array;
         //     this.size=this.tableData.length;
         // })

@@ -2,21 +2,11 @@
     <div>
         <div class="startpage_title">
             <div class="startpage_title_operation">
-                <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增文件</el-button>
+                <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增广告</el-button>
                 <el-button type="danger" icon="el-icon-menu">全部删除</el-button>
             </div>
             <div class="startpage_title_search">
-                <el-dropdown >
-                    <el-button type="primary" style="border:1px solid #dcdfe6;color:#000;background-color:#ffffff;">
-                        指南名称<i class="el-icon-arrow-down el-icon--right"></i>
-                    </el-button>
-                <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>指南名称</el-dropdown-item>
-                    <el-dropdown-item>文件名称</el-dropdown-item>
-
-                </el-dropdown-menu>
-                </el-dropdown>
-                <el-input placeholder="请输入内容" aria-placeholder="根据指南名称搜索" class="startpage_title_text" ></el-input>
+                <el-input  class="startpage_title_text" ></el-input>
                 <el-button type="success" icon="el-icon-search">搜索</el-button>
             </div>
             <div class="clearfloat"></div>
@@ -34,31 +24,31 @@
             <el-table-column
                 prop="ID"
                 label="#"
-                align="center"
                 sortable
+                align="center"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="name"
-                label="指南名称"
+                label="名称"
                 align="center"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="file_name"
-            label="文件"
+            prop="img"
+            label="图片"
+            align="center"
+            show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
+            prop="description"
+            label="广告描述"
             align="center"
             show-overflow-tooltip>
             </el-table-column>
             <el-table-column
             prop="type"
             label="类型"
-            align="center"
-            show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-            prop="file_description"
-            label="文件描述"
             align="center"
             show-overflow-tooltip>
             </el-table-column>
@@ -75,7 +65,7 @@
             </el-table-column>
         </el-table>
         <div class="startpage_paging">
-            <span style="float:left;">共{{ size }}条记录</span>
+            <span style="float:left;padding-left:15px">共{{ size }}条记录</span>
             <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -105,14 +95,14 @@
 
     methods: {
         addfile(){
-            this.$router.push('/system/homepage/noviceAdd');
+            this.$router.push(ApiPath.system.noviceAdd);
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
             console.log(this.multipleSelection);
         },
         handleEdit(index, row) {
-            this.$router.push('/system/homepage/noviceEdit',{"index":index,"row":row});
+            this.$router.push(ApiPath.system.noviceEdit);
         },
         handleDelete(index, row) {
             console.log(index, row);
@@ -131,7 +121,7 @@
         },
     },
     mounted(){
-        // this.get(ApiPath.system.novice).then(res => {
+        // this.get(ApiPath.system.advertisement).then(res => {
         //     this.tableData=res.data.data.array;
         //     this.size=this.tableData.length;
         // })
@@ -153,7 +143,6 @@
     }
 
     .startpage_title_search{
-        width: 40%;
         float: right;
     }
 

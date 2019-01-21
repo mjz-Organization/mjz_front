@@ -10,7 +10,7 @@
                     <el-input v-model="form.name"></el-input>
                 </el-form-item >
                 <el-form-item label="类型说明：">
-                    <el-input type="textarea" v-model="form.desc"></el-input>
+                    <el-input type="textarea" rows="8" v-model="form.desc"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">确认修改</el-button>
@@ -32,7 +32,7 @@
     },
     methods: {
         rejob(){
-            this.$router.push('/system/homepage/jobSalary');
+            this.$router.push(ApiPath.system.jobType);
         },
         onSubmit() {
              this.get(ApiPath.system.getUserinfo,{"data":this.form}).then(res => {
