@@ -8,15 +8,15 @@
             <div class="startpage_title_search">
                 <el-dropdown >
                     <el-button type="primary" style="border:1px solid #dcdfe6;color:#000;background-color:#ffffff;">
-                        指南名称<i class="el-icon-arrow-down el-icon--right"></i>
+                       请选择<i class="el-icon-arrow-down el-icon--right"></i>
                     </el-button>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>指南名称</el-dropdown-item>
-                    <el-dropdown-item>文件名称</el-dropdown-item>
+                    <el-dropdown-item>消息名称</el-dropdown-item>
+                    <el-dropdown-item>消息内容</el-dropdown-item>
 
                 </el-dropdown-menu>
                 </el-dropdown>
-                <el-input placeholder="请输入内容" aria-placeholder="根据指南名称搜索" class="startpage_title_text" ></el-input>
+                <el-input placeholder="请输入内容" class="startpage_title_text" ></el-input>
                 <el-button type="success" icon="el-icon-search">搜索</el-button>
             </div>
             <div class="clearfloat"></div>
@@ -40,25 +40,25 @@
             </el-table-column>
             <el-table-column
                 prop="name"
-                label="指南名称"
+                label="消息名称"
                 align="center"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="file_name"
-            label="文件"
+            prop="content"
+            label="消息内容"
             align="center"
             show-overflow-tooltip>
             </el-table-column>
             <el-table-column
             prop="type"
-            label="类型"
+            label="消息类型"
             align="center"
             show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="file_description"
-            label="文件描述"
+            prop="description"
+            label="备注"
             align="center"
             show-overflow-tooltip>
             </el-table-column>
@@ -105,14 +105,14 @@
 
     methods: {
         addfile(){
-            this.$router.push('/system/homepage/noviceAdd');
+            this.$router.push('/system/homepage/tempAdd');
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
             console.log(this.multipleSelection);
         },
         handleEdit(index, row) {
-            this.$router.push('/system/homepage/noviceEdit',{"index":index,"row":row});
+            this.$router.push('/system/homepage/tempEdit',{"index":index,"row":row});
         },
         handleDelete(index, row) {
             console.log(index, row);

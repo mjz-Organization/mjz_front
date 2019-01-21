@@ -69,3 +69,17 @@ Mock.mock(ApiPath.system.novice,"get",{
     },
     "msg":  "success"
 });
+
+Mock.mock(ApiPath.system.advertisement, "get", {
+    "code": 200,
+    "data": {
+        "array|30": [{
+            "ID": '1    ',
+            "name": "@CNAME",
+            "img": '@string()',
+            "description": "无",
+            "type": 'upper',
+        }],
+    },
+    "msg": "success"
+});

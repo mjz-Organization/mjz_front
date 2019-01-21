@@ -6,25 +6,16 @@
             </div>
             <div class="content">
                 <el-form ref="form" :model="form" label-width="90px" label-position="left">
-                <el-form-item label="指南名称">
+                <el-form-item label="消息名称名称">
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
-                <el-form-item label="使用位置">
-                    <el-select v-model="form.address" placeholder="请选择使用位置">
-                   <el-option  label="学生端" v-model:value="form.address.student"></el-option>
-                    <el-option  label="客户端" v-model:value="form.address.customer"></el-option>
+                <el-form-item label="消息类型">
+                    <el-select v-model="form.address" placeholder="请选择">
+                   <el-option  label="工作通知" v-model:value="form.address.student"></el-option>
+                    <el-option  label="提现通知" v-model:value="form.address.customer"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="选择文件">
-                    <el-upload
-                    class="upload-demo"
-                    action=""
-                    :on-change="handleChange"
-                    :file-list="file">
-                    <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
-                </el-form-item>
-                <el-form-item label="启动页说明">
+                <el-form-item label="消息内容">
                     <el-input type="textarea" v-model="form.desc"></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -42,8 +33,8 @@
         form: {
             name: '',
                 address:{
-                    "student":"学生端",
-                    "customer":"客户端"
+                    "student":"工作通知",
+                    "customer":"提现通知"
                 },
                 desc: '',
                 file:[],
@@ -52,7 +43,7 @@
     },
     methods: {
         renovice(){
-            this.$router.push('/system/homepage/novice');
+            this.$router.push('/system/homepage/messageTemplate');
         },
         onSubmit() {
              this.get(ApiPath.system.getUserinfo,{"data":this.form}).then(res => {
