@@ -146,7 +146,7 @@
             var img = row.img;
             var types = row.type;
             var Remarks = row.Remarks;
-            this.$router.push({path: '/system/homepage/startpage/add',query:{id:id,name:name,img:img,types:types,Remarks:Remarks}});
+            this.$router.push({path: ApiPath.system.startPageAdd,query:{id:id,name:name,img:img,types:types,Remarks:Remarks}});
         },
         handleDelete(index, row) {
             this.$confirm('此操作将删除这条数据, 是否继续?', '提示', {
@@ -173,7 +173,7 @@
             console.log(`当前页: ${val}`);
         },
         addStartPage(){
-            this.$router.push({path: '/system/homepage/startpage/add'});
+            this.$router.push({path: ApiPath.system.startPageAdd});
         },
         deleteStartPage(){
             if(this.multipleSelection.length == 0){

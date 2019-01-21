@@ -70,7 +70,7 @@ export default {
         console.log('update!');
       },
       backPage(){
-          this.$router.push({path: '/system/homepage/startpage'});
+          this.$router.push({path: ApiPath.system.startPage});
       }
       
     }

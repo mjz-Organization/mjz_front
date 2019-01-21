@@ -101,7 +101,7 @@
 	},
 	methods:{
 		backPage(){
-        	this.$router.push({path: '/system/homepage/merchantManage'});
+        	this.$router.push({path: ApiPath.system.merchantManage});
     	}
 	}
   }

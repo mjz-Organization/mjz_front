@@ -169,7 +169,7 @@
                 // var telephone = row.telephone;
                 // var isRealName = row.isRealName;
                 // var establishTime = row.establishTime;
-                this.$router.push({path: '/system/homepage/merchantManage/details',query:{id:id}});
+                this.$router.push({path: ApiPath.system.merchantManageDetails,query:{id:id}});
             },
             handleDelete(index, row) {
                 this.$confirm('此操作将删除这条数据, 是否继续?', '提示', {
