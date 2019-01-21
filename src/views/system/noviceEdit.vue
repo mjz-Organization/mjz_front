@@ -10,9 +10,11 @@
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="使用位置">
-                    <el-select v-model="form.address" placeholder="请选择使用位置">
-                   <el-option  label="学生端" v-model:value="form.address.student"></el-option>
-                    <el-option  label="客户端" v-model:value="form.address.customer"></el-option>
+                    <el-select v-model="form.value" placeholder="请选择使用位置">
+                    <el-option v-for="(item,index) in address" key="index"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="选择文件">
@@ -41,13 +43,19 @@
       return {
         form: {
             name: '',
-                address:{
-                    "student":"学生端",
-                    "customer":"客户端"
-                },
-                desc: '',
-                file:[],
+            desc: '',
+            file:[],
+            value:''
         },
+         address:[{
+            "value":0,
+            "label":"学生端",
+                    
+        },{
+            "value":1,
+            "label":"客户端",
+        }
+        ],
       }
     },
     methods: {

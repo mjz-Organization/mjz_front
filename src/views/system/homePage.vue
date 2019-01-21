@@ -35,7 +35,6 @@
 
 <script>
 // import NavMenu from '../../components/NavMenu'
-
   export default {
     props:{
     },

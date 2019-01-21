@@ -25,9 +25,11 @@
                 </el-form-item>
 
                 <el-form-item label="使用位置：">
-                    <el-select v-model="form.address" placeholder="请选择使用位置">
-                    <el-option  label="学生端" v-model:value="form.address.student"></el-option>
-                    <el-option  label="客户端" v-model:value="form.address.customer"></el-option>
+                    <el-select v-model="form.value" placeholder="请选择使用位置">
+                     <el-option v-for="item in address"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="广告说明：">
@@ -47,15 +49,20 @@
       return {
         form: {
             name: '',
-                address:{
-                    "student":"学生端",
-                    "customer":"客户端"
-                },
             desc: '',
             file:[],
             dialogImageUrl: '',
+            value:''
         },
         dialogVisible: false,
+         address:[{
+            "value":0,
+            "label":"学生端",
+                    
+        },{
+            "value":1,
+            "label":"客户端",
+        }],
       }
     },
     methods: {
@@ -75,7 +82,7 @@
             console.log(file, fileList);
         },
         handlePictureCardPreview(file) {
-            this.dialogImageUrl = file.url;
+            this.form.dialogImageUrl = file.url;
             this.dialogVisible = true;
         },
     }
