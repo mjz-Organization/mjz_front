@@ -15,21 +15,25 @@ export default [{
             requireAuth: true,
         },
         component: resolve => void(require(['../views/system/homePage.vue'], resolve)),
-        children: [{
-            path: 'startpage',
-            name: 'startpage',
-            meta: {
-                requireAuth: true,
+        children: [
+            /**
+             * 启动页管理
+             */
+            {
+                path: 'startpage',
+                name: 'startpage',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/startPage/startPage.vue'], resolve))
             },
-            component: resolve => void (require(['../views/system/startPage.vue'], resolve))
-        },
             {
                 path: 'startpage/add',
                 name: 'index',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void(require(['../views/system/addStartPage.vue'], resolve))
+                component: resolve => void(require(['../views/system/startPage/addStartPage.vue'], resolve))
 
             },
             /**
@@ -202,6 +206,41 @@ export default [{
                     requireAuth: true,
                 },
                 component: resolve => void (require(['../views/system/messageEdit.vue'], resolve))
+            },
+            /**
+             * 用户管理
+             */
+            {
+                path: 'merchantManage',
+                name: 'merchantManage',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/userManage/merchantManage.vue'], resolve))
+            },
+            {
+                path: 'merchantManage/details',
+                name: 'merchantManage/details',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/userManage/merchantManageDetails.vue'], resolve))
+            },
+            {
+                path: 'studentManage',
+                name: 'studentManage',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/userManage/studentManage.vue'], resolve))
+            },
+            {
+                path: 'adminManage',
+                name: 'adminManage',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/userManage/adminManage.vue'], resolve))
             },
         ]
 

@@ -11,8 +11,8 @@
                 </el-form-item>
                 <el-form-item label="消息类型">
                     <el-select v-model="form.address" placeholder="请选择">
-                   <el-option  label="工作通知" v-model:value="form.address.student"></el-option>
-                    <el-option  label="提现通知" v-model:value="form.address.customer"></el-option>
+                   <!-- <el-option  label="工作通知" v-model:value="form.address.student"></el-option>
+                    <el-option  label="提现通知" v-model:value="form.address.customer"></el-option> -->
                     </el-select>
                 </el-form-item>
                 <el-form-item label="消息内容">
