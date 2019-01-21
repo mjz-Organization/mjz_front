@@ -9,21 +9,23 @@ import router from "./index";
 var instance = axios.create({ timeout: 1000 * 12});
 instance.defaults.withCredentials=true; //跨域
 instance.defaults.baseURL = 'http://doclever.cn:8090/mock/5c3d98703dce46264b246eb3/api';// 设置默认请求url
+// instance.defaults.baseURL = 'http://mjz.test/api';
 
 instance.interceptors.request.use(
     config => {
-        if (store.state.user) { // 判断是否存在api_token,如果存在的话,则每个http_header都加上api_token
-            config.headers.Authorization = `api_token ${store.state.user.api_token}`;
-        }
         return config;
     },
     err => {
         return Promise.reject(err);
     });
 
-
 instance.interceptors.response.use(
     response => {
+        if (response.headers.api_token){
+            let user = store.state.user;
+            user.api_token = response.headers.api_token;
+            store.commit(types.USER,user);
+        }
         return response;
     },
     error => {
