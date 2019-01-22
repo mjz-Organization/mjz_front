@@ -241,6 +241,9 @@ export default [{
                 },
                 component: resolve => void (require(['../views/system/userManage/adminManage.vue'], resolve))
             },
+            /**
+             * 投诉管理
+             * */
             {
                 path: 'complaintInform',
                 name: 'complaintInform',
@@ -257,6 +260,7 @@ export default [{
                 },
                 component: resolve => void (require(['../views/system/complaint/detailed.vue'], resolve))
             },
+
         ]
 
     }
