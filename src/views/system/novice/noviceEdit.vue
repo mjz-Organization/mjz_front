@@ -61,7 +61,7 @@
     },
     methods: {
         renovice(){
-            this.$router.push(ApiPath.system.noviceAdd);
+            this.$router.push(ApiPath.system.novice);
         },
         onSubmit() {
             //  this.get(ApiPath.system.getUserinfo,{"data":this.form}).then(res => {

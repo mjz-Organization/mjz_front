@@ -62,7 +62,7 @@
     },
     methods: {
         renovice(){
-            this.$router.push(ApiPath.system.noviceAdd);
+            this.$router.push(ApiPath.system.novice);
         },
         onSubmit() {
             console.log(this.form);
