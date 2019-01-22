@@ -4,6 +4,11 @@ export default {
         getAdmininfo:'admin/user',
         checkLogin:'admin/login',
         getMenu:'admin/getMenu',
+
+        startPage:'/system/homepage/startpage',
+        startPageAdd:'/system/homepage/startpage/add',
+        merchantManage:'/system/homepage/merchantManage',
+        merchantManageDetails:'/system/homepage/merchantManage/details',
         novice:'/system/homepage/novice',
         noviceAdd:'/system/homepage/novice/noviceAdd',
         noviceEdit:'/system/homepage/novice/noviceEdit',
@@ -24,8 +29,6 @@ export default {
         jobType:'/system/homepage/jobType',
         typeAdd:'/system/homepage/jobType/typeAdd',
         typeEdit:'/system/homepage/jobType/typeEdit'
-
-
     },
     student:{
         checkLogin:'student/login'

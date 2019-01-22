@@ -1,7 +1,7 @@
 <template>
 <div class="addstart_content">
     <div class="addstart_title">
-        <el-button type="primary" icon="el-icon-back" @click="startPage">返回</el-button>
+        <el-button type="primary" icon="el-icon-back" @click="backPage">返回</el-button>
     </div>
     <el-form ref="form" :model="form" label-width="15%"  label-position="left">
         <el-form-item label="启动页名称:">
@@ -69,8 +69,8 @@ export default {
       updateSubmit(){
         console.log('update!');
       },
-      startPage(){
-          this.$router.push({path: '/system/homepage/startpage'});
+      backPage(){
+          this.$router.push({path: ApiPath.system.startPage});
       }
       
     }

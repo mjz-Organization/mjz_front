@@ -25,6 +25,7 @@
                 </el-form-item>
 
                 <el-form-item label="使用位置：">
+
                     <el-select v-model="form.value" placeholder="请选择使用位置">
                     <el-option v-for="item in address"
                     :key="item.value"

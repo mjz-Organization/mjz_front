@@ -86,7 +86,7 @@ window.ApiPath = api;
 /**
  * 加载公共组建
  * */
-import components from "./components/"
+import components from './components/'
 Object.keys(components).forEach((key)=>{
     Vue.component(key,components[key]);
 })

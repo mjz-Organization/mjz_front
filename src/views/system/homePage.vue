@@ -34,6 +34,7 @@
 </template>
 
 <script>
+// import NavMenu from '../../components/NavMenu'
   export default {
     props:{
     },
@@ -61,6 +62,9 @@
     },
     methods: {
 
+    },
+    components: {
+      // 'NavMenu': NavMenu
     }
   }
 </script>

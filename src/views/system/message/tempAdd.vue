@@ -10,6 +10,7 @@
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="消息类型">
+
                     <el-select v-model="form.value" placeholder="请选择">
                    <el-option v-for="item in address"
                    :key="item.value"
