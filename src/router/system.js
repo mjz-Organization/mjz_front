@@ -29,7 +29,7 @@ export default [{
             },
             {
                 path: 'startpage/add',
-                name: 'index',
+                name: 'startpage/add',
                 meta: {
                     requireAuth: true,
                 },

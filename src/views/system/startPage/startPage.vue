@@ -41,23 +41,43 @@
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="img"
-            label="图片"
-            align="center"
-            show-overflow-tooltip>
+                prop="imgPath"
+                label="图片"
+                align="center"
+                show-overflow-tooltip>
+                <template slot-scope="scope">
+                    <img  :src="scope.row.imgPath" alt="" style="width: 50px;height: 50px">
+                </template>
+            </el-table-column>
+            <!-- <el-table-column
+                prop="type"
+                label="类别"
+                sortable
+                align="center"
+                show-overflow-tooltip>
+            </el-table-column> -->
+            <el-table-column
+                prop="Remarks"
+                label="图片说明"
+                align="center"
+                show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="type"
-            label="类别"
-            sortable
-            align="center"
-            show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-            prop="Remarks"
-            label="备注"
-            align="center"
-            show-overflow-tooltip>
+                prop="startupSequence"
+                label="调整顺序"
+                align="center"
+                show-overflow-tooltip>
+                <template slot-scope="scope" >
+                    <el-input placeholder="输入调整位置" v-model="scope.row.zk">
+                        <el-button slot="append" icon="el-icon-check" @click="changePosition(scope.$index, scope.row)"></el-button>
+                    </el-input>
+                    <!-- <el-input
+                    size="mini"
+                    placeholder="输入调换位置"
+                    style="width:110px;">
+                    <el-button size="mini" type="success" @click="changePosition($event,scope.$index, scope.row)"></el-button>
+                    </el-input> -->
+                </template>
             </el-table-column>
             <el-table-column
             prop="address"
@@ -71,7 +91,7 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div class="startpage_paging">
+        <!-- <div class="startpage_paging">
             <span style="float:left;">共{{ currentPage1 }}条记录</span>
             <el-pagination
             @size-change="handleSizeChange"
@@ -83,7 +103,7 @@
             :total="1000"
             align="right">
             </el-pagination>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -93,42 +113,55 @@
       return {
         currentPage1: 5,
         selectContent:"",
+        search:"",
         tableData3: [{
             ID:1,
             name: '云帆喷绘',
-            img:'1.jpg',
+            imgPath:'1.jpg',
             type: '学生端',
-            Remarks: '无'
+            Remarks: '无',
+            startupSequence:1,
+            zk:""
         }, {
             ID:2,
             name: '云帆喷绘',
-            img:'1.jpg',
+            imgPath:'2.jpg',
             type: '学生端',
-            Remarks: '无'
+            Remarks: '无',
+            startupSequence:2,
+            zk:""
         }, {
             ID:3,
             name: '云帆喷绘',
-            img:'1.jpg',
+            imgPath:'3.jpg',
             type: '学生端',
-            Remarks: '无'
+            Remarks: '无',
+            startupSequence:3,
+            zk:""
         }, {
             ID:4,
             name: '云帆喷绘',
-            img:'1.jpg',
+            imgPath:'4.jpg',
             type: '商家端',
-            Remarks: '无'
+            Remarks: '无',
+            startupSequence:4,
+            zk:""
         }, {
             ID:1,
             name: '云帆喷绘',
-            img:'1.jpg',
+            imgPath:'5.jpg',
             type: '商家端',
-            Remarks: '无'
+            Remarks: '无',
+            startupSequence:5,
+            zk:""
         }, {
             ID:1,
             name: '云帆喷绘',
-            img:'1.jpg',
+            imgPath:'6.jpg',
             type: '商家端',
-            Remarks: '无'
+            Remarks: '无',
+            startupSequence:6,
+            zk:""
         }
         ],
         multipleSelection: []
@@ -202,6 +235,14 @@
         },
         selectName(){
             console.log(this.selectContent);
+        },
+        changePosition(index, row){
+            // var a = this.tableData3
+            // for (let index = 0; index < a.length; index++) {
+            //     a[index].kz = "";
+            // }
+            console.log(row);
+            row.zk = "";
         }
     }
   }
