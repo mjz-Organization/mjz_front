@@ -46,7 +46,7 @@
             name: '',
             desc: '',
             file:[],
-            value:''
+            value:'',
         },
          address:[{
             "value":0,
@@ -72,6 +72,9 @@
         handleChange(file, fileList) {
         this.file= fileList.slice(-3);
       }
+    },
+    mounted(){
+       this.form.name= this.$route.query.row.name;
     }
   }
 </script>

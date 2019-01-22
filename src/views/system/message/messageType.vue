@@ -3,7 +3,7 @@
         <div class="startpage_title">
             <div class="startpage_title_operation">
                 <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增类型</el-button>
-                <el-button type="danger" icon="el-icon-menu">全部删除</el-button>
+                <el-button type="danger" icon="el-icon-menu" @click="deleteAll">全部删除</el-button>
             </div>
             <div class="clearfloat"></div>
         </div>
@@ -76,7 +76,27 @@
     data() {
       return {
         currentPage:1,
-        tableData: [],
+        tableData: [{
+            ID:1,
+            name: '手机防骗攻略',
+            file_name:'test.txt',
+            description: '无',
+        },{
+           ID:2,
+            name: '手机防骗攻略',
+            file_name:'test.txt',
+            description: '无',
+        },{
+            ID:3,
+            name: '手机防骗攻略',
+            file_name:'test.txt',
+            description: '无',
+        },{
+           ID:4,
+            name: '手机防骗攻略',
+            file_name:'test.txt',
+            description: '无',
+        }],
         pagesize:10,
         size:0,
         multipleSelection: []
@@ -92,9 +112,24 @@
             console.log(this.multipleSelection);
         },
         handleEdit(index, row) {
-            this.$router.push(ApiPath.system.messageEdit);
+            this.$router.push({path:ApiPath.system.messageEdit, query:{index:index,row:row}});
         },
         handleDelete(index, row) {
+             this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                    }).then(() => {
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消操作'
+                        });          
+                    });
             console.log(index, row);
         },
         handleSizeChange(val) {
@@ -108,6 +143,31 @@
          handleClick() {
             
             alert('button click');
+        },
+        deleteAll(){
+             if(this.multipleSelection.length == 0){
+                    this.$message({
+                        type: 'warning',
+                        message: '请选择要删除的数据!'
+                    });
+                }else{
+                    this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                    }).then(() => {
+
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消操作'
+                        });          
+                    });
+                }
         },
     },
     mounted(){

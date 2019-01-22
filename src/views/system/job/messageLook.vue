@@ -5,7 +5,7 @@
                 <el-button type="primary" icon="el-icon-arrow-left" @click="renovice">返回</el-button>
             </div>  
             <div class="content">
-                <el-form ref="form" :model="form" label-width="90px" label-position="left">
+                <el-form ref="data" :v-model="data" label-width="90px" label-position="left">
                 <el-form-item label="商家名称">
                     <!-- <el-input v-model="form.name"></el-input> -->
                     {{data.name}}
@@ -73,6 +73,10 @@
         renovice(){
             this.$router.push(ApiPath.system.jobMessage);
         },
+    },
+    mounted(){
+        // this.data = this.$route.query.row;
+        // console.log(this.data);
     }
   }
 </script>
