@@ -65,6 +65,7 @@
     },
     mounted(){
         this.form= this.$route.query.row;
+        console.log(this.form);
     }
   }
 </script>

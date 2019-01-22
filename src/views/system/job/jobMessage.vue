@@ -1,6 +1,10 @@
 <template>
     <div>
         <div class="startpage_title">
+             <div class="startpage_title_operation">
+                <el-button type="primary" @click="exportExcel">导出</el-button>
+                <el-button type="danger" icon="el-icon-menu" @click="deleteAll">批量删除</el-button>
+            </div>
             <div class="startpage_title_search">
                 <el-select v-model="value"  placeholder="指南名称" class="select">
                     <el-option v-for="item in select"
@@ -15,6 +19,7 @@
             <div class="clearfloat"></div>
         </div>
         <el-table
+                id="table"
                 ref="multipleTable"
                 :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                 tooltip-effect="dark"
@@ -67,7 +72,8 @@
                 align="center"
                 show-overflow-tooltip>
                 <template slot-scope="scope">
-                    <el-button size="mini" type="text" @click="handlelook(scope.$index, scope.row)">查看详情</el-button>
+                    <el-button size="mini" type="success" @click="handlelook(scope.$index, scope.row)"><i class="el-icon-view"></i></el-button>
+                    <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)"><i class="el-icon-delete"></i></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -88,106 +94,176 @@
 </template>
 
 <script>
-// import mock from '../../mock/sysMock.js'
-  export default {
-    data() {
-      return {
-        currentPage:1,
-        tableData: [{
-            ID:1,
-            name: '小麦卡其',
-            type: '发传单',
-            settlement:'日结',
-            description:'招人中',
-            salary: '100.0',
-        },{
-            ID:2,
-            name: '小麦卡其',
-            type: '发传单',
-            settlement:'日结',
-            description:'招人中',
-            salary: '100.0',
-        },{
-            ID:3,
-            name: '小麦卡其',
-            type: '发传单',
-            settlement:'日结',
-            description:'招人中',
-            salary: '100.0',
-        },{
-           ID:4,
-            name: '小麦卡其',
-            type: '发传单',
-            settlement:'日结',
-            description:'招人中',
-            salary: '100.0',
-        }],
-        pagesize:10,
-        size:0,
-        multipleSelection: [],
-        value:'',
-        searchtext:'',
-        select:[
-            {
-                label:"指南名称",
-                value:0
-            },
-            {
-                label:"文件名称",
-                value:1
-            }
-        ]
-      }
-    },
-
-    methods: {
-        handleSelectionChange(val) {
-            this.multipleSelection = val;
-            console.log(this.multipleSelection);
-        },
-        handlelook(index, row) {
-            this.$router.push({path:ApiPath.system.messageLook,query:{row:row}});
-        },
-        handleSizeChange(val) {
-            this.pagesize=val;
-            console.log(`每页 ${val} 条`);
-        },
-        handleCurrentChange(val) {
-            this.currentPage=val;
-            console.log(`当前页: ${val}`);
-        },
-         handleClick() {
-            
-            alert('button click');
-        },
-        search(){
-            if(this.value==''&&$.trim(this.searchtext)==''){
-                 this.$message({
-                        type: 'warning',
-                        message: '搜索项不能为空！'
-                    });
-
-            }else{
-                this.get(ApiPath.system.novice).then(res => {
-                    // console.log;
-                    if(res.data.length==0){
-                        this.tableData=[];
-                        this.size=this.tableData.length;
-                        this.empty="您查询的数据不存在";
-                    }else{
-                        this.tableData=res.data;
-                        this.size=this.tableData.length;
-                    }
-                })
-            }
+    import FileSaver from 'file-saver'
+    import XLSX from 'xlsx'
+    export default {
+        data() {
+        return {
+            currentPage:1,
+            tableData: [{
+                ID:1,
+                name: '小麦卡其',
+                type: '发传单',
+                settlement:'日结',
+                description:'招人中',
+                salary: '100.0',
+            },{
+                ID:2,
+                name: '小麦卡其',
+                type: '发传单',
+                settlement:'日结',
+                description:'招人中',
+                salary: '100.0',
+            },{
+                ID:3,
+                name: '小麦卡其',
+                type: '发传单',
+                settlement:'日结',
+                description:'招人中',
+                salary: '100.0',
+            },{
+            ID:4,
+                name: '小麦卡其',
+                type: '发传单',
+                settlement:'日结',
+                description:'招人中',
+                salary: '100.0',
+            }],
+            pagesize:10,
+            size:0,
+            multipleSelection: [],
+            value:'',
+            searchtext:'',
+            select:[
+                {
+                    label:"指南名称",
+                    value:0
+                },
+                {
+                    label:"文件名称",
+                    value:1
+                }
+            ]
         }
-    },
-    mounted(){
-        // this.get(ApiPath.system.novice).then(res => {
-        //     this.tableData=res.data.data.array;
-        //     this.size=this.tableData.length;
-        // })
-    }
+        },
+
+        methods: {
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+                console.log(this.multipleSelection);
+            },
+            handlelook(index, row) {
+                this.$router.push({path:ApiPath.system.messageLook,query:{row:row}});
+            },
+            handleSizeChange(val) {
+                this.pagesize=val;
+                console.log(`每页 ${val} 条`);
+            },
+            handleDelete(index, row) {
+                this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                        }).then(() => {
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        }).catch(() => {
+                            this.$message({
+                                type: 'info',
+                                message: '已取消操作'
+                            });          
+                        });
+            },
+            handleCurrentChange(val) {
+                this.currentPage=val;
+                console.log(`当前页: ${val}`);
+            },
+            handleClick() {
+                
+                alert('button click');
+            },
+            search(){
+                if(this.value==''&&$.trim(this.searchtext)==''){
+                    this.$message({
+                            type: 'warning',
+                            message: '搜索项不能为空！'
+                        });
+
+                }else{
+                    this.get(ApiPath.system.novice).then(res => {
+                        // console.log;
+                        if(res.data.length==0){
+                            this.tableData=[];
+                            this.size=this.tableData.length;
+                            this.empty="您查询的数据不存在";
+                        }else{
+                            this.tableData=res.data;
+                            this.size=this.tableData.length;
+                        }
+                    })
+                }
+            },
+            deleteAll(){
+                if(this.multipleSelection.length == 0){
+                        this.$message({
+                            type: 'warning',
+                            message: '请选择要删除的数据!'
+                        });
+                    }else{
+                        this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                        }).then(() => {
+
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        }).catch(() => {
+                            this.$message({
+                                type: 'info',
+                                message: '已取消操作'
+                            });          
+                        });
+                    }
+            },
+            exportExcel(){
+                this.$confirm('是否要导出数据?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                        }).then(() => {
+                            var wb = XLSX.utils.table_to_book(document.querySelector('#table'))
+                            var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+                            try {
+                                FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'jobMessage.xlsx')
+                            } catch (e) { 
+                                if (typeof console !== 'undefined') 
+                                    console.log(e, wbout) 
+                                    this.$message({
+                                    type: 'danger',
+                                    message: '导出失败!'
+                                    });
+                                    }
+                            return wbout
+                            
+                        }).catch(() => {
+                            this.$message({
+                                type: 'info',
+                                message: '已取消导出！'
+                            });          
+                        });
+            }
+        },
+        mounted(){
+            // this.get(ApiPath.system.novice).then(res => {
+            //     this.tableData=res.data.data.array;
+            //     this.size=this.tableData.length;
+            // })
+        }
   }
 </script>
 
