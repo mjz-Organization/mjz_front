@@ -20,20 +20,37 @@ export default [{
              * 启动页管理
              */
             {
-                path: 'startpage',
-                name: 'startpage',
+                path: 'studentStartPage',
+                name: 'studentStartPage',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/startPage/startPage.vue'], resolve))
+                component: resolve => void (require(['../views/system/startPage/studentStartPage.vue'], resolve))
             },
             {
-                path: 'startpage/add',
-                name: 'startpage/add',
+                path: 'studentStartPage/add',
+                name: 'studentStartPage/add',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void(require(['../views/system/startPage/addStartPage.vue'], resolve))
+                component: resolve => void(require(['../views/system/startPage/studentStartPageAdd.vue'], resolve))
+
+            },
+            {
+                path: 'businessStartPage',
+                name: 'businessStartPage',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/startPage/businessStartPage.vue'], resolve))
+            },
+            {
+                path: 'businessStartPage/add',
+                name: 'businessStartPage/add',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void(require(['../views/system/startPage/businessStartPageAdd.vue'], resolve))
 
             },
             /**

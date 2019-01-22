@@ -5,8 +5,10 @@ export default {
         checkLogin:'admin/login',
         getMenu:'admin/getMenu',
 
-        startPage:'/system/homepage/startpage',
-        startPageAdd:'/system/homepage/startpage/add',
+        studentStartPage:'/system/homepage/studentStartPage',
+        studentStartPageAdd:'/system/homepage/studentStartPage/add',
+        businessStartPage:'/system/homepage/businessStartPage',
+        businessStartPageAdd:'/system/homepage/businessStartPage/add',
         adminManage:'/system/homepage/adminManage',
         adminManageAdd:'/system/homepage/adminManage/add',
         merchantManage:'/system/homepage/merchantManage',
