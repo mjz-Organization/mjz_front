@@ -23,7 +23,7 @@ export default {
         adverEdit:'/system/homepage/advertisement/adverEdit',
         messageTemplate:'/system/homepage/messageTemplate',
         tempAdd:'/system/homepage/messageTemplate/tempAdd',
-        tempEdit: '/system/homepage/messageTemplate/tempAdd',
+        tempEdit: '/system/homepage/messageTemplate/tempEdit',
         messageType: '/system/homepage/messageType',
         messageAdd: '/system/homepage/messageType/messageAdd',
         messageEdit:'/system/homepage/messageType/messageEdit',
