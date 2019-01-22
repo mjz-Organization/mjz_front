@@ -3,11 +3,11 @@
         <div class="startpage_title">
             <div class="startpage_title_operation">
                 <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增类型</el-button>
-                <el-button type="danger" icon="el-icon-menu">全部删除</el-button>
+                <el-button type="danger" icon="el-icon-menu" @click="deleteAll">全部删除</el-button>
             </div>
             <div class="startpage_title_search">
-                <el-input placeholder="类型名称"  class="startpage_title_text" ></el-input>
-                <el-button type="success" icon="el-icon-search">搜索</el-button>
+                <el-input placeholder="类型名称"  class="startpage_title_text" v-model="searchtext"></el-input>
+                <el-button type="success" icon="el-icon-search" @click="search">搜索</el-button>
             </div>
             <div class="clearfloat"></div>
         </div>
@@ -33,12 +33,6 @@
                 label="类型名称"
                 align="center"
                 show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-            prop="file_name"
-            label="文件"
-            align="center"
-            show-overflow-tooltip>
             </el-table-column>
             <el-table-column
             prop="description"
@@ -80,10 +74,27 @@
     data() {
       return {
         currentPage:1,
-        tableData: [],
+        tableData: [{
+            ID:1,
+            name: '发传单',
+            description: '无',
+        },{
+           ID:2,
+            name: '饭店服务员',
+            description: '无',
+        },{
+            ID:3,
+            name: '手机防骗攻略',
+            description: '无',
+        },{
+           ID:4,
+            name: '手机防骗攻略',
+            description: '无',
+        }],
         pagesize:10,
         size:0,
-        multipleSelection: []
+        multipleSelection: [],
+        searchtext:'',
       }
     },
 
@@ -96,7 +107,7 @@
             console.log(this.multipleSelection);
         },
         handleEdit(index, row) {
-            this.$router.push(ApiPath.system.typeEdit);
+            this.$router.push({path:ApiPath.system.typeEdit,query:{row:row}});
         },
         handleDelete(index, row) {
             console.log(index, row);
@@ -113,6 +124,52 @@
             
             alert('button click');
         },
+        deleteAll(){
+             if(this.multipleSelection.length == 0){
+                    this.$message({
+                        type: 'warning',
+                        message: '请选择要删除的数据!'
+                    });
+                }else{
+                    this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                    }).then(() => {
+
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消操作'
+                        });          
+                    });
+                }
+        },
+        search(){
+            if($.trim(this.searchtext)==''){
+                 this.$message({
+                        type: 'warning',
+                        message: '搜索项不能为空！'
+                    });
+
+            }else{
+                this.get(ApiPath.system.novice).then(res => {
+                    // console.log;
+                    if(res.data.length==0){
+                        this.tableData=[];
+                        this.size=this.tableData.length;
+                        this.empty="您查询的数据不存在";
+                    }else{
+                        this.tableData=res.data;
+                        this.size=this.tableData.length;
+                    }
+                })
+            }
+        }
     },
     mounted(){
         // this.get(ApiPath.system.novice).then(res => {

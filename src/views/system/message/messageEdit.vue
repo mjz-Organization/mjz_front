@@ -19,7 +19,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="消息内容">
-                    <el-input type="textarea" rows="8" v-model="form.desc"></el-input>
+                    <el-input type="textarea" rows="8" v-model="form.description"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">确认修改</el-button>
@@ -35,8 +35,7 @@
       return {
         form: {
             name: '',
-            desc: '',
-            file:[],
+            content: '',
             value:''
         },
         address:[{
@@ -63,6 +62,9 @@
         handleChange(file, fileList) {
         this.file= fileList.slice(-3);
       }
+    },
+     mounted(){
+        this.form= this.$route.query.row;
     }
   }
 </script>

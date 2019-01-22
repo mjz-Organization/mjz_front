@@ -27,7 +27,7 @@
                 </div>
                 <div class="content-inform">
                     <p class="content-p content-top">具体愿因</p>
-                    <textarea  readonly unselectable="on" class="text-col">{{detailInformation.detailReason}}</textarea>
+                    <!-- <textarea  readonly unselectable="on" class="text-col">{{detailInformation.detailReason}}</textarea> -->
                 </div>
                 <div class="content-inform">
                     <p class="content-p">附属图片</p>

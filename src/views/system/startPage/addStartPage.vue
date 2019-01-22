@@ -83,7 +83,7 @@ export default {
         width: 70%;
     }
     .addstart_title{
-        margin: 0 0 20px 10px;
+        margin-bottom:20px;
         padding-bottom: 20px;
         border-bottom: 2px solid #aaa;
     }

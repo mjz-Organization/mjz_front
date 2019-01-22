@@ -15,8 +15,7 @@
                     list-type="picture-card"
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove"
-                    :auto-upload="false"
-                    >
+                    :auto-upload="false">
                     <i class="el-icon-plus"></i>
                     </el-upload>
                     <el-dialog :visible.sync="dialogVisible">

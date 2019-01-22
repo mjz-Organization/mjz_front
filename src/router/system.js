@@ -234,12 +234,28 @@ export default [{
                 component: resolve => void (require(['../views/system/userManage/studentManage.vue'], resolve))
             },
             {
+                path: 'studentManage/details',
+                name: 'studentManage/details',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/userManage/studentManageDetails.vue'], resolve))
+            },
+            {
                 path: 'adminManage',
                 name: 'adminManage',
                 meta: {
                     requireAuth: true,
                 },
                 component: resolve => void (require(['../views/system/userManage/adminManage.vue'], resolve))
+            },
+            {
+                path: 'adminManage/add',
+                name: 'adminManage/add',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/userManage/adminManageAdd.vue'], resolve))
             },
             {
                 path: 'complaintInform',
