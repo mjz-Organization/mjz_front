@@ -9,8 +9,8 @@
                     :value="item.value">
                     </el-option>
                     </el-select>
-                <el-input placeholder="请输入内容" class="startpage_title_text" ></el-input>
-                <el-button type="success" icon="el-icon-search">搜索</el-button>
+                <el-input placeholder="请输入内容" class="startpage_title_text" v-model="searchtext"></el-input>
+                <el-button type="success" icon="el-icon-search" @click="search">搜索</el-button>
             </div>
             <div class="clearfloat"></div>
         </div>
@@ -38,35 +38,34 @@
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="type"
-            label="兼职类型"
-            align="center"
-            show-overflow-tooltip>
+                prop="type"
+                label="兼职类型"
+                align="center"
+                show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="settlement"
-            label="薪资结算类型"
-            align="center"
-            show-overflow-tooltip>
+                prop="settlement"
+                label="薪资结算类型"
+                align="center"
+                show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="description"
-            label="状态"
-            align="center"
-            show-overflow-tooltip>
+                prop="description"
+                label="状态"
+                align="center"
+                show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="salary"
-            label="薪资"
-            align="center"
-            show-overflow-tooltip>
+                prop="salary"
+                label="薪资"
+                align="center"
+                show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="address"
-            label="操作"
-            align="center"
-            show-overflow-tooltip
-            >
+                prop="address"
+                label="操作"
+                align="center"
+                show-overflow-tooltip>
                 <template slot-scope="scope">
                     <el-button size="mini" type="text" @click="handlelook(scope.$index, scope.row)">查看详情</el-button>
                 </template>
@@ -94,11 +93,40 @@
     data() {
       return {
         currentPage:1,
-        tableData: [],
+        tableData: [{
+            ID:1,
+            name: '小麦卡其',
+            type: '发传单',
+            settlement:'日结',
+            description:'招人中',
+            salary: '100.0',
+        },{
+            ID:2,
+            name: '小麦卡其',
+            type: '发传单',
+            settlement:'日结',
+            description:'招人中',
+            salary: '100.0',
+        },{
+            ID:3,
+            name: '小麦卡其',
+            type: '发传单',
+            settlement:'日结',
+            description:'招人中',
+            salary: '100.0',
+        },{
+           ID:4,
+            name: '小麦卡其',
+            type: '发传单',
+            settlement:'日结',
+            description:'招人中',
+            salary: '100.0',
+        }],
         pagesize:10,
         size:0,
         multipleSelection: [],
         value:'',
+        searchtext:'',
         select:[
             {
                 label:"指南名称",
@@ -118,7 +146,7 @@
             console.log(this.multipleSelection);
         },
         handlelook(index, row) {
-            this.$router.push(ApiPath.system.messageLook);
+            this.$router.push({path:ApiPath.system.messageLook,query:{row:row}});
         },
         handleSizeChange(val) {
             this.pagesize=val;
@@ -132,6 +160,27 @@
             
             alert('button click');
         },
+        search(){
+            if(this.value==''&&$.trim(this.searchtext)==''){
+                 this.$message({
+                        type: 'warning',
+                        message: '搜索项不能为空！'
+                    });
+
+            }else{
+                this.get(ApiPath.system.novice).then(res => {
+                    // console.log;
+                    if(res.data.length==0){
+                        this.tableData=[];
+                        this.size=this.tableData.length;
+                        this.empty="您查询的数据不存在";
+                    }else{
+                        this.tableData=res.data;
+                        this.size=this.tableData.length;
+                    }
+                })
+            }
+        }
     },
     mounted(){
         // this.get(ApiPath.system.novice).then(res => {

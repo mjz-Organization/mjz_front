@@ -46,7 +46,7 @@
             name: '',
             desc: '',
             file:[],
-            value:''
+            value:'',
         },
          address:[{
             "value":0,
@@ -61,7 +61,7 @@
     },
     methods: {
         renovice(){
-            this.$router.push(ApiPath.system.noviceAdd);
+            this.$router.push(ApiPath.system.novice);
         },
         onSubmit() {
             //  this.get(ApiPath.system.getUserinfo,{"data":this.form}).then(res => {
@@ -72,6 +72,9 @@
         handleChange(file, fileList) {
         this.file= fileList.slice(-3);
       }
+    },
+    mounted(){
+       this.form.name= this.$route.query.row.name;
     }
   }
 </script>

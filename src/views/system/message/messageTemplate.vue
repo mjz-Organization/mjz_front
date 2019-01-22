@@ -3,7 +3,7 @@
         <div class="startpage_title">
             <div class="startpage_title_operation">
                 <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增文件</el-button>
-                <el-button type="danger" icon="el-icon-menu">全部删除</el-button>
+                <el-button type="danger" icon="el-icon-menu" @click="deleteAll">全部删除</el-button>
             </div>
             <div class="startpage_title_search">
                 <el-select v-model="value"  placeholder="指南名称" class="select">
@@ -13,8 +13,8 @@
                     :value="item.value">
                     </el-option>
                     </el-select>
-                <el-input placeholder="请输入内容" class="startpage_title_text" ></el-input>
-                <el-button type="success" icon="el-icon-search">搜索</el-button>
+                <el-input placeholder="请输入内容" class="startpage_title_text" v-model="searchtext"></el-input>
+                <el-button type="success" icon="el-icon-search" @click="search">搜索</el-button>
             </div>
             <div class="clearfloat"></div>
         </div>
@@ -93,9 +93,34 @@
     data() {
       return {
         currentPage:1,
-        tableData: [],
+        tableData: [{
+            ID:1,
+            name: '录取通知',
+            content:'您已被XXX录取，请及时查看通知',
+            type: '工作通知',
+            description: '无',
+        },{
+           ID:2,
+            name: '录取通知',
+            content:'您已被XXX录取，请及时查看通知',
+            type: '工作通知',
+            description: '无',
+        },{
+            ID:3,
+            name: '录取通知',
+            content:'您已被XXX录取，请及时查看通知',
+            type: '工作通知',
+            description: '无',
+        },{
+           ID:4,
+            name: '录取通知',
+            content:'您已被XXX录取，请及时查看通知',
+            type: '工作通知',
+            description: '无',
+        }],
         pagesize:10,
         size:0,
+        searchtext:'',
         multipleSelection: [],
         value:'',
         select:[
@@ -120,9 +145,24 @@
             console.log(this.multipleSelection);
         },
         handleEdit(index, row) {
-            this.$router.push(ApiPath.system.tempEdit);
+            this.$router.push({path:ApiPath.system.tempEdit, query:{index:index,row:row}});
         },
         handleDelete(index, row) {
+             this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                    }).then(() => {
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消操作'
+                        });          
+                    });
             console.log(index, row);
         },
         handleSizeChange(val) {
@@ -137,6 +177,52 @@
             
             alert('button click');
         },
+         deleteAll(){
+             if(this.multipleSelection.length == 0){
+                    this.$message({
+                        type: 'warning',
+                        message: '请选择要删除的数据!'
+                    });
+                }else{
+                    this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                    }).then(() => {
+
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消操作'
+                        });          
+                    });
+                }
+        },
+         search(){
+            if(this.value==''&&$.trim(this.searchtext)==''){
+                 this.$message({
+                        type: 'warning',
+                        message: '搜索项不能为空！'
+                    });
+
+            }else{
+                this.get(ApiPath.system.novice).then(res => {
+                    // console.log;
+                    if(res.data.length==0){
+                        this.tableData=[];
+                        this.size=this.tableData.length;
+                        this.empty="您查询的数据不存在";
+                    }else{
+                        this.tableData=res.data;
+                        this.size=this.tableData.length;
+                    }
+                })
+            }
+        }
     },
     mounted(){
         // this.get(ApiPath.system.novice).then(res => {
