@@ -273,6 +273,25 @@ export default [{
                 },
                 component: resolve => void (require(['../views/system/complaint/detailed.vue'], resolve))
             },
+            /**
+             * 提现管理
+             */
+            {
+                path: 'withdrawalAudit',
+                name: 'withdrawalAudit',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/withdrawalManage/withdrawalAudit.vue'], resolve))
+            }, 
+            {
+                path: 'withdrawalRules',
+                name: 'withdrawalRules',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/withdrawalManage/withdrawalRules.vue'], resolve))
+            }, 
         ]
 
     }
