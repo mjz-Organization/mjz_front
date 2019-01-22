@@ -25,8 +25,7 @@
                 </el-form-item>
 
                 <el-form-item label="使用位置：">
-
-                    <el-select v-model="form.value" placeholder="请选择使用位置">
+                    <el-select v-model="form.type" placeholder="请选择使用位置">
                     <el-option v-for="item in address"
                     :key="item.value"
                     :label="item.label"
@@ -35,7 +34,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="启动页说明：">
-                    <el-input type="textarea" rows="8" v-model="form.desc"></el-input>
+                    <el-input type="textarea" rows="8" v-model="form.description"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">确认修改</el-button>
@@ -51,10 +50,9 @@
       return {
         form: {
             name: '',
-            desc: '',
-            file:[],
+            description: '',
             dialogImageUrl: '',
-            value:''
+            type:''
         },
         dialogVisible: false,
          address:[{
@@ -64,8 +62,8 @@
         },{
             "value":1,
             "label":"客户端",
-        }
-        ],
+        }],
+
       }
     },
     methods: {
@@ -88,6 +86,10 @@
             this.dialogImageUrl = file.url;
             this.dialogVisible = true;
         },
+    },
+    mounted(){
+        this.form= this.$route.query.row;
+        console.log(this.form);
     }
   }
 </script>
