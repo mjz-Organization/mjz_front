@@ -7,8 +7,12 @@ export default {
 
         startPage:'/system/homepage/startpage',
         startPageAdd:'/system/homepage/startpage/add',
+        adminManage:'/system/homepage/adminManage',
+        adminManageAdd:'/system/homepage/adminManage/add',
         merchantManage:'/system/homepage/merchantManage',
         merchantManageDetails:'/system/homepage/merchantManage/details',
+        studentManage:'/system/homepage/studentManage',
+        studentManageDetails:'/system/homepage/studentManage/details',
         novice:'/system/homepage/novice',
         noviceAdd:'/system/homepage/novice/noviceAdd',
         noviceEdit:'/system/homepage/novice/noviceEdit',

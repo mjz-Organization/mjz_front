@@ -2,8 +2,8 @@
     <div>
         <div class="startpage_title">
             <div class="startpage_title_operation">
-                <el-button type="primary" icon="el-icon-share" @click="exportData">导出数据</el-button>
-                <el-button type="danger" icon="el-icon-menu" @click="deleteStartPage">全部删除</el-button>
+                <el-button type="primary" icon="el-icon-download" @click="exportData">导出数据</el-button>
+                <el-button type="danger" icon="el-icon-menu" @click="deleteStartPage">批量删除</el-button>
             </div>
             <div class="startpage_title_search">
                 <el-select v-model="selecttype" placeholder="请选择查询类别">

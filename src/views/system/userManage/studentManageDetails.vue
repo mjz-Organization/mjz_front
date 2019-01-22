@@ -6,7 +6,7 @@
         <el-row>
          	<el-col :span="24">
 				<div class="grid-content bg-purple-dark">
-					商家用户详情
+					学生用户详情
 				</div>
 			</el-col>
         </el-row>
@@ -20,34 +20,25 @@
 						<el-form-item label="真实姓名" >
 							<span class="mylabel">{{ manage.address }}</span>
 						</el-form-item>
+						<el-form-item label="生日" >
+							<span class="mylabel">{{ manage.address }}</span>
+						</el-form-item>
+						<el-form-item label="身高" >
+							<span class="mylabel">{{ manage.address }}</span>
+						</el-form-item>
 						<el-form-item label="身份证号" >
 							<span class="mylabel">{{ manage.address }}</span>
 						</el-form-item>
 						<el-form-item label="居住地址" >
 							<span class="mylabel">{{ manage.address }}</span>
 						</el-form-item>
+						<el-form-item label="所在学校" >
+							<span class="mylabel">{{ manage.address }}</span>
+						</el-form-item>
+						<el-form-item label="专业" >
+							<span class="mylabel">{{ manage.address }}</span>
+						</el-form-item>
 						<el-form-item label="联系方式" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="机构名称" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="机构编号" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="企业性质" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="企业规模" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="企业负责人" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="负责人联系方式" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="企业地址" >
 							<span class="mylabel">{{ manage.address }}</span>
 						</el-form-item>
 					</el-form>
@@ -56,18 +47,13 @@
 			<el-col :span="12">
 				<div class="grid-content bg-purple-light">
 					<el-form ref="manage" :model="manage" label-width="25%" label-position="left">
-						<el-form-item label="企业介绍" >
+						<el-form-item label="自我介绍" >
 							<el-input 
 								type="textarea" 
 								v-model="manage.address" 
 								:autosize="{ minRows: 2, maxRows: 6}"
 								>
 							</el-input>
-						</el-form-item>
-						<el-form-item label="企业营业执照" >
-							<span class="mylabel">
-								<img :src="manage.address" alt="">
-							</span>
 						</el-form-item>
 						<el-form-item label="身份证正面图" >
 							<span class="mylabel">
@@ -101,7 +87,7 @@
 	},
 	methods:{
 		backPage(){
-        	this.$router.push({path: ApiPath.system.merchantManage});
+        	this.$router.push({path: ApiPath.system.studentManage});
     	}
 	}
   }
