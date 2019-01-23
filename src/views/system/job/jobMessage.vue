@@ -24,46 +24,53 @@
                 :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                 tooltip-effect="dark"
                 style="width: 100%"
+                :empty-text="empty"
                 @selection-change="handleSelectionChange">
             <el-table-column
                 type="selection"
-                width="55">
+                width="60">
             </el-table-column>
             <el-table-column
                 prop="ID"
                 label="#"
                 align="center"
                 sortable
+                width="140"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="name"
                 label="商家名称"
                 align="center"
+                width="140"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="type"
                 label="兼职类型"
                 align="center"
+                 width="140"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="settlement"
                 label="薪资结算类型"
                 align="center"
+                width="140"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="description"
                 label="状态"
                 align="center"
+                width="140"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="salary"
                 label="薪资"
                 align="center"
+                width="140"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
@@ -134,6 +141,7 @@
             multipleSelection: [],
             value:'',
             searchtext:'',
+            empty:"暂无数据",
             select:[
                 {
                     label:"指南名称",
@@ -283,7 +291,9 @@
     .startpage_title_search{
         float: right;
     }
-
+    .el-table{
+        margin: 30px;
+    }
     .startpage_paging{
         margin: 10px 20px;
     }

@@ -16,6 +16,7 @@
         :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
         tooltip-effect="dark"
         style="width: 100%"
+        :empty-text="empty"
         @selection-change="handleSelectionChange">
             <el-table-column
                 type="selection"
@@ -32,6 +33,7 @@
                 prop="name"
                 label="名称"
                 align="center"
+                sortable
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
@@ -50,6 +52,7 @@
                 prop="type"
                 label="类型"
                 align="center"
+                sortable
             show-overflow-tooltip>
             </el-table-column>
             <el-table-column
@@ -114,6 +117,7 @@
         size:0,
         multipleSelection: [],
         searchtext:'',
+        empty:"暂无数据",
       }
     },
 
@@ -235,7 +239,9 @@
     .startpage_paging{
         margin: 10px 20px;
     }
-
+    .el-table{
+        margin: 30px;
+    }
     .clearfloat{
         clear:both
     }

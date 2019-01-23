@@ -6,7 +6,7 @@
             </div>  
             <div class="content">
                 <el-form ref="form" :model="form" label-width="90px" label-position="left">
-                <el-form-item label="消息名称名称">
+                <el-form-item label="消息名称">
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="消息类型">

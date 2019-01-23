@@ -247,7 +247,9 @@
     .startpage_title_search{
         float: right;
     }
-
+    .el-table{
+        margin: 30px;
+    }
     .startpage_paging{
         margin: 10px 20px;
     }

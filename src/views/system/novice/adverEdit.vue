@@ -79,6 +79,7 @@
         this.file= fileList.slice(-3);
       },
         handleRemove(file, fileList) {
+            $(".el-upload--picture-card").hide();
             console.log(file, fileList);
         },
         handlePictureCardPreview(file) {
@@ -88,6 +89,7 @@
     },
     mounted(){
         this.form= this.$route.query.row;
+        $(".el-upload--picture-card").hide();
     }
   }
 </script>
