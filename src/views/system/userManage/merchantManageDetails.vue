@@ -1,94 +1,100 @@
 <template>
-    <div class="merchantManageStyle">
-		<div>
+	<div>
+	    <el-breadcrumb separator="/" class="breadcrumb">
+			<el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+            <el-breadcrumb-item>商家管理</el-breadcrumb-item>
+			<el-breadcrumb-item>商家用户详情</el-breadcrumb-item>
+    	</el-breadcrumb>
+		<div class="merchantManageStyle">
 			<el-button type="primary" icon="el-icon-back" @click="backPage">返回</el-button>
+			<el-row>
+				<el-col :span="24">
+					<div class="grid-content bg-purple-dark">
+						商家用户详情
+					</div>
+				</el-col>
+			</el-row>
+			<el-row>
+				<el-col :span="12">
+					<div class="grid-content">
+						<el-form ref="manage" :model="manage" label-width="40%">
+							<el-form-item label="用户名" >
+								<span class="mylabel">{{ manage.address }}</span>
+							</el-form-item>
+							<el-form-item label="真实姓名" >
+								<span class="mylabel">{{ manage.address }}</span>
+							</el-form-item>
+							<el-form-item label="身份证号" >
+								<span class="mylabel">{{ manage.address }}</span>
+							</el-form-item>
+							<el-form-item label="居住地址" >
+								<span class="mylabel">{{ manage.address }}</span>
+							</el-form-item>
+							<el-form-item label="联系方式" >
+								<span class="mylabel">{{ manage.address }}</span>
+							</el-form-item>
+							<el-form-item label="机构名称" >
+								<span class="mylabel">{{ manage.address }}</span>
+							</el-form-item>
+							<el-form-item label="机构编号" >
+								<span class="mylabel">{{ manage.address }}</span>
+							</el-form-item>
+							<el-form-item label="企业性质" >
+								<span class="mylabel">{{ manage.address }}</span>
+							</el-form-item>
+							<el-form-item label="企业规模" >
+								<span class="mylabel">{{ manage.address }}</span>
+							</el-form-item>
+							<el-form-item label="企业负责人" >
+								<span class="mylabel">{{ manage.address }}</span>
+							</el-form-item>
+							<el-form-item label="负责人联系方式" >
+								<span class="mylabel">{{ manage.address }}</span>
+							</el-form-item>
+							<el-form-item label="企业地址" >
+								<span class="mylabel">{{ manage.address }}</span>
+							</el-form-item>
+						</el-form>
+					</div>
+				</el-col>
+				<el-col :span="12">
+					<div class="grid-content bg-purple-light">
+						<el-form ref="manage" :model="manage" label-width="25%" label-position="left">
+							<el-form-item label="企业介绍" >
+								<el-input 
+									type="textarea" 
+									v-model="manage.address" 
+									:autosize="{ minRows: 2, maxRows: 6}"
+									>
+								</el-input>
+							</el-form-item>
+							<el-form-item label="企业营业执照" >
+								<span class="mylabel">
+									<img :src="manage.address" alt="">
+								</span>
+							</el-form-item>
+							<el-form-item label="身份证正面图" >
+								<span class="mylabel">
+									<img :src="manage.address" alt="">
+								</span>
+							</el-form-item>
+							<el-form-item label="身份证反面图" >
+								<span class="mylabel">
+									<img :src="manage.address" alt="">
+								</span>
+							</el-form-item>
+							<el-form-item label="手持身份证图" >
+								<span class="mylabel">
+									<img :src="manage.address" alt="">
+								</span>
+							</el-form-item>
+						</el-form>
+					</div>
+				</el-col>
+			</el-row>
 		</div>
-        <el-row>
-         	<el-col :span="24">
-				<div class="grid-content bg-purple-dark">
-					商家用户详情
-				</div>
-			</el-col>
-        </el-row>
-        <el-row>
-			<el-col :span="12">
-				<div class="grid-content">
-					<el-form ref="manage" :model="manage" label-width="40%">
-						<el-form-item label="用户名" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="真实姓名" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="身份证号" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="居住地址" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="联系方式" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="机构名称" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="机构编号" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="企业性质" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="企业规模" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="企业负责人" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="负责人联系方式" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-						<el-form-item label="企业地址" >
-							<span class="mylabel">{{ manage.address }}</span>
-						</el-form-item>
-					</el-form>
-				</div>
-			</el-col>
-			<el-col :span="12">
-				<div class="grid-content bg-purple-light">
-					<el-form ref="manage" :model="manage" label-width="25%" label-position="left">
-						<el-form-item label="企业介绍" >
-							<el-input 
-								type="textarea" 
-								v-model="manage.address" 
-								:autosize="{ minRows: 2, maxRows: 6}"
-								>
-							</el-input>
-						</el-form-item>
-						<el-form-item label="企业营业执照" >
-							<span class="mylabel">
-								<img :src="manage.address" alt="">
-							</span>
-						</el-form-item>
-						<el-form-item label="身份证正面图" >
-							<span class="mylabel">
-								<img :src="manage.address" alt="">
-							</span>
-						</el-form-item>
-						<el-form-item label="身份证反面图" >
-							<span class="mylabel">
-								<img :src="manage.address" alt="">
-							</span>
-						</el-form-item>
-						<el-form-item label="手持身份证图" >
-							<span class="mylabel">
-								<img :src="manage.address" alt="">
-							</span>
-						</el-form-item>
-					</el-form>
-				</div>
-			</el-col>
-        </el-row>
-    </div>
+	</div>
 </template>
 <script>
   export default {
@@ -109,7 +115,7 @@
 
 <style scoped>
 	.merchantManageStyle{
-		margin: 50px 80px 0;
+		margin: 30px 80px 0 30px;
 	}
 	.bg-purple-dark {
 		color: #009900;
@@ -129,4 +135,10 @@
 	.mylabel{
 		margin-left:20px;
 	}
+
+    .breadcrumb{
+        padding-left: 30px;
+        line-height: 54px;
+        border-bottom: 2px solid #e7e7e7;
+    }
 </style>

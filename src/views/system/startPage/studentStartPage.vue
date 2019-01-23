@@ -1,5 +1,10 @@
 <template>
     <div>
+        <el-breadcrumb separator="/" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>启动页管理</el-breadcrumb-item>
+            <el-breadcrumb-item>学生端</el-breadcrumb-item>
+        </el-breadcrumb>
         <div class="startpage_title">
             <div class="startpage_title_operation">
                 <el-button type="primary" icon="el-icon-plus" @click="addStartPage">新增启动页</el-button>
@@ -91,7 +96,7 @@
                 </template>
             </el-table-column>
         </el-table>
-        <!-- <div class="startpage_paging">
+        <div class="startpage_paging">
             <span style="float:left;">共{{ currentPage1 }}条记录</span>
             <el-pagination
             @size-change="handleSizeChange"
@@ -103,7 +108,7 @@
             :total="1000"
             align="right">
             </el-pagination>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -167,7 +172,17 @@
         multipleSelection: []
       }
     },
-
+    mounted(){
+        this.get(ApiPath.system.getAd)
+        .then(function(res){
+            if(res.data.code == 0)
+                console.log(res);
+                // self.leftMenus = res.data;
+        })
+        .catch(function(err){
+          console.log(err);
+        });
+    },
     methods: {
         handleSelectionChange(val) {
             this.multipleSelection = val;
@@ -267,6 +282,12 @@
 
     .startpage_paging{
         margin: 10px 30px;
+    }
+
+    .breadcrumb{
+        padding-left: 30px;
+        line-height: 54px;
+        border-bottom: 2px solid #e7e7e7;
     }
 
     .clearfloat{clear:both}

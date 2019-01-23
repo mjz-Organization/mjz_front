@@ -1,27 +1,46 @@
 <template>
-<div class="addstart_content">
-    <div class="addstart_title">
+<div>
+    <el-breadcrumb separator="/" class="breadcrumb">
+        <el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>启动页管理</el-breadcrumb-item>
+        <el-breadcrumb-item>商家端</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ navtitle }}</el-breadcrumb-item>
+    </el-breadcrumb>
+    <div class="addstart_title addstart_content">
         <el-button type="primary" icon="el-icon-back" @click="backPage">返回</el-button>
     </div>
-    <h1 class="font-style">添加商家端启动页</h1>
-    <el-form ref="form" :model="form" label-width="15%"  label-position="left">
-        <el-form-item label="启动页名称:">
-            <el-input v-model="form.name" style="width:300px;"></el-input>
-        </el-form-item>
-        <el-form-item label="启动页图片:">
-
-        </el-form-item>
-        <el-form-item label="图片说明">
-            <el-input 
-                type="textarea" 
-                v-model="form.desc" 
-                :autosize="{ minRows: 2, maxRows: 6}"
-                >
-            </el-input>
-        </el-form-item>
-        <el-button type="primary" @click="onSubmit" v-if="addorupdate">添加</el-button>
-        <el-button type="primary" @click="updateSubmit" v-if="!addorupdate">修改</el-button>
-    </el-form>
+    <div class="addstart_content">
+        <h1 class="font-style">添加商家端启动页</h1>
+        <el-form ref="form" :model="form" label-width="15%"  label-position="left">
+            <el-form-item label="启动页名称:">
+                <el-input v-model="form.name" style="width:300px;"></el-input>
+            </el-form-item>
+            <el-form-item label="启动页图片:">
+                <el-upload 
+                    action=""
+                    list-type="picture-card"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    :on-change="change"
+                    :auto-upload="false">
+                <i class="el-icon-plus"></i>
+                </el-upload>
+                <el-dialog :visible.sync="dialogVisible">
+                <img width="100%" :src="form.dialogImageUrl" alt="">
+                </el-dialog>
+            </el-form-item>
+            <el-form-item label="图片说明">
+                <el-input 
+                    type="textarea" 
+                    v-model="form.desc" 
+                    :autosize="{ minRows: 2, maxRows: 6}"
+                    >
+                </el-input>
+            </el-form-item>
+            <el-button type="primary" @click="onSubmit" v-if="addorupdate">添加</el-button>
+            <el-button type="primary" @click="updateSubmit" v-if="!addorupdate">修改</el-button>
+        </el-form>
+    </div>
 </div>
 </template>
 <script>
@@ -32,41 +51,61 @@ export default {
             name: '',
             img:'',
             desc: '',
+            dialogImageUrl:''
         },
         param:"",
-        addorupdate:true
+        addorupdate:true,
+        navtitle:"",
+        dialogVisible: false
       }
     },
     mounted(){
         this.form.name = this.$route.query.name;
         this.form.region = this.$route.query.types;
         this.form.desc = this.$route.query.Remarks;
-        if(this.form.name==undefined)
+        if(this.form.name==undefined){
             this.addorupdate = true;
-        else
+            this.navtitle = "新增启动页" 
+        }
+        else{
             this.addorupdate = false;
+            this.navtitle = "修改启动页" 
+        }
     },
     methods: {
-      onSubmit() {
-        console.log('add!');
+        onSubmit() {
+            console.log('add!');
 
-        // let config = {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data'
-        //     }
-        // };
-        // this.$reqs.post("/upload", this.param, config)
-        // .then(function(result) {
-        //     console.log(result);
-        // })
-      },
-      updateSubmit(){
-        console.log('update!');
-      },
-      backPage(){
-          this.$router.push({path: ApiPath.system.businessStartPage});
-      }
-      
+            // let config = {
+            //     headers: {
+            //         'Content-Type': 'multipart/form-data'
+            //     }
+            // };
+            // this.$reqs.post("/upload", this.param, config)
+            // .then(function(result) {
+            //     console.log(result);
+            // })
+        },
+        updateSubmit(){
+            console.log('update!');
+        },
+        backPage(){
+            this.$router.push({path: ApiPath.system.businessStartPage});
+        },
+        handleRemove(file, fileList) {
+            $(".el-upload--picture-card").show();
+            console.log(file, fileList);
+        },
+        handlePictureCardPreview(file) {
+            this.form.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+        },
+        change(file,fileList){
+            this.form.dialogImageUrl=file.name;
+            if(this.form.dialogImageUrl!=''){
+                $(".el-upload--picture-card").hide();
+            }
+        }
     }
   }
 </script>
@@ -85,5 +124,10 @@ export default {
         color: #00bb00;
         margin: 50px 0;
         font-size: 30px;
+    }
+    .breadcrumb{
+        padding-left: 30px;
+        line-height: 54px;
+        border-bottom: 2px solid #e7e7e7;
     }
 </style>

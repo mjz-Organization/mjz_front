@@ -1,5 +1,10 @@
 <template>
     <div>
+        <el-breadcrumb separator="/" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>启动页管理</el-breadcrumb-item>
+            <el-breadcrumb-item>商家端</el-breadcrumb-item>
+        </el-breadcrumb>
         <div class="startpage_title">
             <div class="startpage_title_operation">
                 <el-button type="primary" icon="el-icon-plus" @click="addStartPage">新增启动页</el-button>
@@ -269,5 +274,10 @@
         margin: 10px 30px;
     }
 
+    .breadcrumb{
+        padding-left: 30px;
+        line-height: 54px;
+        border-bottom: 2px solid #e7e7e7;
+    }
     .clearfloat{clear:both}
 </style>
