@@ -5,7 +5,7 @@
                 <el-button type="primary" icon="el-icon-arrow-left" @click="renovice">返回</el-button>
             </div>
             <div class="content">
-                <el-form ref="form" :model="form" label-width="100px" label-position="left">
+                <el-form ref="form" :v-model="form" label-width="100px" label-position="left">
                 <el-form-item label="启动页名称：">
                     <el-input v-model="form.name"></el-input>
                 </el-form-item >
@@ -15,8 +15,7 @@
                     list-type="picture-card"
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove"
-                    :auto-upload="false"
-                    >
+                    :auto-upload="false">
                     <i class="el-icon-plus"></i>
                     </el-upload>
                     <el-dialog :visible.sync="dialogVisible">
@@ -80,16 +79,17 @@
         this.file= fileList.slice(-3);
       },
         handleRemove(file, fileList) {
+            $(".el-upload--picture-card").hide();
             console.log(file, fileList);
         },
         handlePictureCardPreview(file) {
-            this.dialogImageUrl = file.url;
+            this.form.dialogImageUrl = file.url;
             this.dialogVisible = true;
         },
     },
     mounted(){
         this.form= this.$route.query.row;
-        console.log(this.form);
+        $(".el-upload--picture-card").hide();
     }
   }
 </script>
