@@ -38,12 +38,6 @@
                  <el-form-item label="已招人数">
                     {{data.count}}
                 </el-form-item>
-                 <el-form-item label="已招员工">
-                    {{data.staff}}
-                </el-form-item>
-                <!-- <el-form-item>
-                    <el-button type="primary" @click="onSubmit">确认修改</el-button>
-                </el-form-item> -->
                 </el-form>
             </div>
         </div>
@@ -64,8 +58,6 @@
             phone:"15136790965",
             adress:"河南省新乡",
             count:"30/10",
-            staff:"张三,李四"
-
         },
       }
     },
