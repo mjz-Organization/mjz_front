@@ -2,7 +2,7 @@
     <div>
         <div class="detailed-content">
             <div class="detailed-header">
-                <el-button type="primary" @click="back">反回</el-button>
+                <el-button type="primary" @click="back">返回</el-button>
             </div>
             <div class="font-content">
                 <div class="content-inform">

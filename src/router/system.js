@@ -274,6 +274,10 @@ export default [{
                 },
                 component: resolve => void (require(['../views/system/userManage/adminManageAdd.vue'], resolve))
             },
+            /**
+             *
+             * 投诉管理 信息管理
+             * */
             {
                 path: 'complaintInform',
                 name: 'complaintInform',
@@ -282,13 +286,73 @@ export default [{
                 },
                 component: resolve => void (require(['../views/system/complaint/information.vue'], resolve))
             },
+            /**
+             * 详情
+             * */
             {
-                path: 'detailed',
+                path: 'complaintInform/detailed',
                 name: 'detailed',
                 meta: {
                     requireAuth: true,
                 },
                 component: resolve => void (require(['../views/system/complaint/detailed.vue'], resolve))
+            },
+            /**
+<<<<<<< HEAD
+             *
+             * 投诉管理 类型管理
+             * */
+            {
+                path: 'manager',
+                name: 'manager',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/complaint/manager.vue'], resolve))
+            },
+            {
+                path: 'manager/detail',
+                name: 'managerDetailed',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/complaint/managerDetailed.vue'], resolve))
+            },
+            /**
+             *
+             * 角色权限管理
+             * */
+            {
+                path: 'roleManager',
+                name: 'roleManager',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/jurisdiction/roleManager.vue'], resolve))
+            },
+            {
+                path: 'roleManager/addRole',
+                name: 'addRole',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/jurisdiction/addRole.vue'], resolve))
+            },
+            {
+                path: 'rightPower',
+                name: 'rightPower',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/jurisdiction/rightPower.vue'], resolve))
+            },
+            {
+                path: 'rightPower/addRight',
+                name: 'addRight',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/jurisdiction/addRight.vue'], resolve))
             },
             /**
              * 提现管理
@@ -308,7 +372,7 @@ export default [{
                     requireAuth: true,
                 },
                 component: resolve => void (require(['../views/system/withdrawalManage/withdrawalRules.vue'], resolve))
-            }, 
+            },
         ]
 
     }
