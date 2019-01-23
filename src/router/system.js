@@ -269,14 +269,29 @@ export default [{
                 component: resolve => void (require(['../views/system/complaint/information.vue'], resolve))
             },
             {
-                path: 'detailed',
+                path: 'complaintInform/detailed',
                 name: 'detailed',
                 meta: {
                     requireAuth: true,
                 },
                 component: resolve => void (require(['../views/system/complaint/detailed.vue'], resolve))
             },
-
+            {
+                path: 'manager',
+                name: 'manager',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/complaint/manager.vue'], resolve))
+            },
+            {
+                path: 'manager/detail',
+                name: 'managerDetailed',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/complaint/managerDetailed.vue'], resolve))
+            },
         ]
 
     }

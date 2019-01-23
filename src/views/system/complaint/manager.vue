@@ -2,12 +2,8 @@
     <div>
         <div class="startpage_title">
             <div class="startpage_title_operation">
-                <el-button type="primary" icon="el-icon-download" @click="exportInform">导出</el-button>
+                <el-button type="primary" icon="el-icon-plus" @click="exportInform">导出</el-button>
                 <el-button type="danger" icon="el-icon-delete">全部删除</el-button>
-            </div>
-            <div class="startpage_title_search">
-                <el-input placeholder="请输入内容" class="startpage_title_text"></el-input>
-                <el-button type="success" icon="el-icon-search">搜索</el-button>
             </div>
             <div class="clearfloat distance"></div>
             <el-table
@@ -26,34 +22,15 @@
                         align="center">
                 </el-table-column>
                 <el-table-column
-                        prop="complainant"
-                        label="被投诉者"
-                        sortable
-                        align="center"
-                        show-overflow-tooltip>
-                </el-table-column>
-                <el-table-column
-                        prop="complainants"
-                        label="投诉者"
-                        align="center"
-                        show-overflow-tooltip>
-                </el-table-column>
-                <el-table-column
                         prop="kind"
-                        label="投诉类型"
+                        label="类型名称"
                         sortable
                         align="center"
                         show-overflow-tooltip>
                 </el-table-column>
                 <el-table-column
                         prop="reason"
-                        label="投诉原因"
-                        align="center"
-                        show-overflow-tooltip>
-                </el-table-column>
-                <el-table-column
-                        prop="time"
-                        label="投诉时间"
+                        label="说明"
                         align="center"
                         show-overflow-tooltip>
                 </el-table-column>
@@ -64,7 +41,7 @@
                         show-overflow-tooltip
                 >
                     <template slot-scope="scope">
-                        <el-button size="mini" type="success" @click="handleEdit(scope.$index, scope.row)"><i class="el-icon-tickets"></i></el-button>
+                        <el-button size="mini" type="success" @click="handleEdit(scope.$index, scope.row)"><i class="el-icon-edit"></i></el-button>
                         <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)"><i class="el-icon-delete"></i></el-button>
                     </template>
                 </el-table-column>
@@ -115,9 +92,6 @@
                 console.log(val)
             },
             handleEdit:function(index, row){
-                if (sessionStorage.getItem("information") != "")
-                    sessionStorage.removeItem("information")
-                sessionStorage.setItem("information",JSON.stringify(this.tableData3[index]))
                 this.$router.push({name:"detailed"});
             },
             handleDelete:function(index,row){
