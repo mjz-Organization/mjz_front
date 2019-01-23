@@ -23,54 +23,48 @@
                 ref="multipleTable"
                 :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                 tooltip-effect="dark"
-                style="width: 100%"
+                style="width: 95%;margin: 30px;"
                 :empty-text="empty"
                 @selection-change="handleSelectionChange">
             <el-table-column
                 type="selection"
-                width="60">
+                width="55">
             </el-table-column>
             <el-table-column
                 prop="ID"
                 label="#"
                 align="center"
                 sortable
-                width="140"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="name"
                 label="商家名称"
                 align="center"
-                width="140"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="type"
                 label="兼职类型"
                 align="center"
-                 width="140"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="settlement"
                 label="薪资结算类型"
                 align="center"
-                width="140"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="description"
                 label="状态"
                 align="center"
-                width="140"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="salary"
                 label="薪资"
                 align="center"
-                width="140"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column

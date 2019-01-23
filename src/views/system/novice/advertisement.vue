@@ -15,7 +15,7 @@
         ref="multipleTable"
         :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
         tooltip-effect="dark"
-        style="width: 100%"
+        style="width: 95%;margin: 30px;"
         :empty-text="empty"
         @selection-change="handleSelectionChange">
             <el-table-column
