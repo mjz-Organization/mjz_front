@@ -146,7 +146,6 @@
             this.multipleSelection = val;
         },
         handleEdit(index, row) {
-            
             this.$router.push({path:ApiPath.system.noviceEdit, query:{index:index,row:row}});
         },
         handleDelete(index, row) {
@@ -165,15 +164,12 @@
                             message: '已取消操作'
                         });          
                     });
-            // console.log(index, row);
         },
         handleSizeChange(val) {
             this.pagesize=val;
-            // console.log(`每页 ${val} 条`);
         },
         handleCurrentChange(val) {
             this.currentPage=val;
-            // console.log(`当前页: ${val}`);
         },
         handleClick() {
             
