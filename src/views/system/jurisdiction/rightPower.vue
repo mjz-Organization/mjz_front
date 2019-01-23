@@ -23,14 +23,14 @@
                 </el-table-column>
                 <el-table-column
                         prop="kind"
-                        label="类型名称"
+                        label="一级权限"
                         sortable
                         align="center"
                         show-overflow-tooltip>
                 </el-table-column>
                 <el-table-column
                         prop="reason"
-                        label="说明"
+                        label="二级权限"
                         align="center"
                         show-overflow-tooltip>
                 </el-table-column>
@@ -92,7 +92,7 @@
                 console.log(val)
             },
             handleEdit:function(index, row){
-                this.$router.push({name:"managerDetailed"});
+                this.$router.push({name:"addRight"});
             },
             handleDelete:function(index,row){
                 this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {

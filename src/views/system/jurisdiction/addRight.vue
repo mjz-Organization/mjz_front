@@ -8,6 +8,24 @@
                 <div class="content-inform">
                     <p class="content-p">投诉名称</p>
                     <div class="content-p input-width">
+                        <el-select v-model="power" placeholder="请选择活动区域">
+                            <el-option label="区域一" value="shanghai"></el-option>
+                            <el-option label="区域二" value="beijing"></el-option>
+                        </el-select>
+                    </div>
+                </div>
+                <div class="content-inform">
+                    <p class="content-p">投诉名称</p>
+                    <div class="input-width">
+                        <el-select v-model="power" placeholder="请选择活动区域">
+                            <el-option label="区域一" value="shanghai"></el-option>
+                            <el-option label="区域二" value="beijing"></el-option>
+                        </el-select>
+                    </div>
+                </div>
+                <div class="content-inform">
+                    <p class="content-p">投诉名称</p>
+                    <div class="input-width">
                         <el-input v-model="complainName" placeholder="请输入内容"></el-input>
                     </div>
                 </div>
@@ -23,7 +41,7 @@
                     </div>
                 </div>
                 <div class="submit-button">
-                    <el-button type="primary">确认修改</el-button>
+                    <el-button type="primary">确认添加</el-button>
                 </div>
             </div>
         </div>
@@ -34,7 +52,8 @@
         data(){
             return{
                 complainName:"",
-                explain:""
+                explain:"",
+                power:""
             }
         },
         methods:{
@@ -62,7 +81,7 @@
         color: grey;
         font-family: Caladea;
         font-size: 16px;
-        line-height: 40px;
+        line-height: 60px;
     }
     .content-p{
         display: inline-block;
@@ -71,6 +90,8 @@
     }
     .input-width{
         width: 300px;
+        display: inline-block;
+        text-align: left;
     }
     .submit-button{
         margin-top: 25px;
@@ -89,4 +110,8 @@
         width: 100%;
         height: 100%;
     }
+    .el-select {
+        width: 300px;
+    }
+
 </style>
