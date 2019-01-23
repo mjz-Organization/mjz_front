@@ -20,20 +20,37 @@ export default [{
              * 启动页管理
              */
             {
-                path: 'startpage',
-                name: 'startpage',
+                path: 'studentStartPage',
+                name: 'studentStartPage',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void (require(['../views/system/startPage/startPage.vue'], resolve))
+                component: resolve => void (require(['../views/system/startPage/studentStartPage.vue'], resolve))
             },
             {
-                path: 'startpage/add',
-                name: 'index',
+                path: 'studentStartPage/add',
+                name: 'studentStartPage/add',
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void(require(['../views/system/startPage/addStartPage.vue'], resolve))
+                component: resolve => void(require(['../views/system/startPage/studentStartPageAdd.vue'], resolve))
+
+            },
+            {
+                path: 'businessStartPage',
+                name: 'businessStartPage',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/startPage/businessStartPage.vue'], resolve))
+            },
+            {
+                path: 'businessStartPage/add',
+                name: 'businessStartPage/add',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void(require(['../views/system/startPage/businessStartPageAdd.vue'], resolve))
 
             },
             /**
@@ -281,6 +298,7 @@ export default [{
                 component: resolve => void (require(['../views/system/complaint/detailed.vue'], resolve))
             },
             /**
+<<<<<<< HEAD
              *
              * 投诉管理 类型管理
              * */
@@ -335,6 +353,25 @@ export default [{
                     requireAuth: true,
                 },
                 component: resolve => void (require(['../views/system/jurisdiction/addRight.vue'], resolve))
+            },
+            /**
+             * 提现管理
+             */
+            {
+                path: 'withdrawalAudit',
+                name: 'withdrawalAudit',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/withdrawalManage/withdrawalAudit.vue'], resolve))
+            }, 
+            {
+                path: 'withdrawalRules',
+                name: 'withdrawalRules',
+                meta: {
+                    requireAuth: true,
+                },
+                component: resolve => void (require(['../views/system/withdrawalManage/withdrawalRules.vue'], resolve))
             },
         ]
 

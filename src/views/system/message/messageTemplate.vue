@@ -23,6 +23,7 @@
                 :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                 tooltip-effect="dark"
                 style="width: 100%"
+                :empty-text="empty"
                 @selection-change="handleSelectionChange">
             <el-table-column
                 type="selection"
@@ -123,6 +124,7 @@
         searchtext:'',
         multipleSelection: [],
         value:'',
+        empty:"暂无数据",
         select:[
             {
                 label:"指南名称",
@@ -245,7 +247,9 @@
     .startpage_title_text{
         width: 200px;
     }
-
+    .el-table{
+        margin: 30px;
+    }
     .startpage_title_search{
         width: 40%;
         float: right;

@@ -3,6 +3,7 @@
     <div class="addstart_title">
         <el-button type="primary" icon="el-icon-back" @click="backPage">返回</el-button>
     </div>
+    <h1 class="font-style">添加商家端启动页</h1>
     <el-form ref="form" :model="form" label-width="15%"  label-position="left">
         <el-form-item label="启动页名称:">
             <el-input v-model="form.name" style="width:300px;"></el-input>
@@ -10,13 +11,7 @@
         <el-form-item label="启动页图片:">
 
         </el-form-item>
-        <el-form-item label="选择使用位置">
-            <el-select v-model="form.region" placeholder="请选择活动区域">
-                <el-option label="学生端" value="学生端"></el-option>
-                <el-option label="商家端" value="商家端"></el-option>
-            </el-select>
-        </el-form-item>
-        <el-form-item label="启动页说明">
+        <el-form-item label="图片说明">
             <el-input 
                 type="textarea" 
                 v-model="form.desc" 
@@ -36,7 +31,6 @@ export default {
         form: {
             name: '',
             img:'',
-            region: '',
             desc: '',
         },
         param:"",
@@ -70,7 +64,7 @@ export default {
         console.log('update!');
       },
       backPage(){
-          this.$router.push({path: ApiPath.system.startPage});
+          this.$router.push({path: ApiPath.system.businessStartPage});
       }
       
     }
@@ -86,5 +80,10 @@ export default {
         margin-bottom:20px;
         padding-bottom: 20px;
         border-bottom: 2px solid #aaa;
+    }
+    .font-style{
+        color: #00bb00;
+        margin: 50px 0;
+        font-size: 30px;
     }
 </style>

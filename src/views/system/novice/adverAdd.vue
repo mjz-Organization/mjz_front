@@ -10,11 +10,12 @@
                     <el-input v-model="form.name"></el-input>
                 </el-form-item >
                 <el-form-item label="广告图片：">
-                    <el-upload
+                    <el-upload 
                     action=""
                     list-type="picture-card"
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove"
+                    :on-change="change"
                     :auto-upload="false">
                     <i class="el-icon-plus"></i>
                     </el-upload>
@@ -66,19 +67,27 @@
       }
     },
     methods: {
+        change(file,fileList){
+            this.form.dialogImageUrl=file.name;
+            if(this.form.dialogImageUrl!=''){
+                $(".el-upload--picture-card").hide();
+            }
+        },
         renovice(){
             this.$router.push(ApiPath.system.advertisement);
         },
         onSubmit() {
+            console.log(this.form);
              this.get(ApiPath.system.getUserinfo,{"data":this.form}).then(res => {
                     console.log(res.data);
                 });
-        
         },
         handleChange(file, fileList) {
         this.file= fileList.slice(-3);
+        console.log(file);
       },
         handleRemove(file, fileList) {
+            $(".el-upload--picture-card").show();
             console.log(file, fileList);
         },
         handlePictureCardPreview(file) {
