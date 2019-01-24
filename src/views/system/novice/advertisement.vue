@@ -1,5 +1,10 @@
 <template>
     <div>
+        <el-breadcrumb separator="/" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>首页管理</el-breadcrumb-item>
+            <el-breadcrumb-item>广告管理</el-breadcrumb-item>
+        </el-breadcrumb>
         <div class="startpage_title">
             <div class="startpage_title_operation">
                 <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增广告</el-button>
@@ -253,6 +258,11 @@
     }
     .el-icon-arrow-down {
         font-size: 12px;
+    }
+    .breadcrumb{
+    padding-left: 30px;
+    line-height: 54px;
+    border-bottom: 2px solid #e7e7e7;
     }
 
 </style>

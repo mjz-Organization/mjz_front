@@ -1,5 +1,11 @@
 <template>
    <div>
+        <el-breadcrumb separator="/" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>兼职管理</el-breadcrumb-item>
+            <el-breadcrumb-item>薪资结算类型管理</el-breadcrumb-item>
+            <el-breadcrumb-item>新增类型</el-breadcrumb-item>
+        </el-breadcrumb>
         <div class="main">
             <div class="head">
                 <el-button type="primary" icon="el-icon-arrow-left" @click="rejob">返回</el-button>
@@ -55,6 +61,10 @@
         border-bottom: 2px solid #dcdfe6;
         margin-bottom: 5%;
     }
-    
+    .breadcrumb{
+    padding-left: 30px;
+    line-height: 54px;
+    border-bottom: 2px solid #e7e7e7;
+    }
 </style>
 
