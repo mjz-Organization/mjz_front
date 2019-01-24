@@ -13,7 +13,7 @@
         <h1 class="font-style">添加商家端启动页</h1>
         <el-form ref="form" :model="form" label-width="15%"  label-position="left">
             <el-form-item label="启动页名称:">
-                <el-input v-model="form.name" style="width:300px;"></el-input>
+                <el-input v-model="form.ad_name" style="width:300px;"></el-input>
             </el-form-item>
             <el-form-item label="启动页图片:">
                 <el-upload 
@@ -22,6 +22,7 @@
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove"
                     :on-change="change"
+                    :file-list="fileList"
                     :auto-upload="false">
                 <i class="el-icon-plus"></i>
                 </el-upload>
@@ -32,7 +33,7 @@
             <el-form-item label="图片说明">
                 <el-input 
                     type="textarea" 
-                    v-model="form.desc" 
+                    v-model="form.content" 
                     :autosize="{ minRows: 2, maxRows: 6}"
                     >
                 </el-input>
@@ -48,46 +49,87 @@ export default {
     data() {
     return {
         form: {
-            name: '',
-            img:'',
-            desc: '',
+            id:'',
+            images_id:'',
+            ad_name: '',
+            content: '',
             dialogImageUrl:''
         },
+        fileList:[],
         param:"",
         addorupdate:true,
         navtitle:"",
-        dialogVisible: false
+        dialogVisible: false,
+        myfile:""
       }
     },
     mounted(){
-        this.form.name = this.$route.query.name;
-        this.form.region = this.$route.query.types;
-        this.form.desc = this.$route.query.Remarks;
-        if(this.form.name==undefined){
+        this.form.id = this.$route.query.id;
+        this.form.images_id = this.$route.query.images_id;
+        this.form.ad_name = this.$route.query.ad_name;
+        this.form.dialogImageUrl = this.$route.query.path;
+        this.form.content = this.$route.query.content;
+        if(this.form.ad_name==undefined){
             this.addorupdate = true;
             this.navtitle = "新增启动页" 
         }
         else{
+            $(".el-upload--picture-card").hide();
+            this.fileList.push({url:this.$route.query.path});   
             this.addorupdate = false;
             this.navtitle = "修改启动页" 
         }
     },
     methods: {
         onSubmit() {
-            console.log('add!');
-
-            // let config = {
-            //     headers: {
-            //         'Content-Type': 'multipart/form-data'
-            //     }
-            // };
-            // this.$reqs.post("/upload", this.param, config)
-            // .then(function(result) {
-            //     console.log(result);
-            // })
+            let left = this;
+            this.post(ApiPath.system.createAd,{
+                "image":left.myfile,
+                "record_type":1,
+                "name":left.form.ad_name,
+                "content":left.form.content
+            }).then(function(res){
+                if(res.data.code == 0){
+                    left.$message({
+                        type: 'success',
+                        message: '添加成功!'
+                    });
+                }else{
+                    left.$message({
+                        type: 'error',
+                        message: '添加失败!'
+                    });
+                }
+            })
+            .catch(function(err){
+                console.log(err);
+            });
         },
         updateSubmit(){
-            console.log('update!');
+            let left = this;
+            this.post(ApiPath.system.updateAd,{
+                "ad_id":left.form.id,
+                "images_id":left.form.images_id,
+                "record_type":1,
+                "path":left.form.dialogImageUrl,    //搞清楚这个是那个图片路径
+                "name":left.form.ad_name,
+                "content":left.form.content
+            }).then(function(res){
+                if(res.data.code == 0){
+                    left.$message({
+                        type: 'success',
+                        message: '更新成功!'
+                    });
+                }else{
+                    left.$message({
+                        type: 'error',
+                        message: '更新失败!'
+                    });
+                }
+            })
+            .catch(function(err){
+                console.log(err);
+            });
         },
         backPage(){
             this.$router.push({path: ApiPath.system.businessStartPage});
@@ -122,7 +164,7 @@ export default {
     }
     .font-style{
         color: #00bb00;
-        margin: 50px 0;
+        margin: 30px 0;
         font-size: 30px;
     }
     .breadcrumb{

@@ -19,69 +19,51 @@
         <el-table
                 id="out-table"
                 ref="multipleTable"
-                :data="tableData3"
+                :data="tableData"
                 tooltip-effect="dark"
                 style="width: 95%;margin: 30px;"
                 @selection-change="handleSelectionChange">
-            <el-table-column
-                prop="ID"
-                name="id"
-                v-if="false"
-                >
-            </el-table-column>
             <el-table-column
                 type="selection"
                 width="55">
             </el-table-column>
             <el-table-column
-                label="#"
-                type="index"
+                label="启动页顺序"
+                prop="img_order"
                 align="center">
             </el-table-column>
             <el-table-column
-                prop="name"
+                prop="ad_name"
                 label="名称"
                 sortable
                 align="center"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                prop="imgPath"
+                prop="path"
                 label="图片"
                 align="center"
                 show-overflow-tooltip>
                 <template slot-scope="scope">
-                    <img  :src="scope.row.imgPath" alt="" style="width: 50px;height: 50px">
+                    <img  :src="scope.row.path" alt="" style="width: 50px;height: 50px">
                 </template>
             </el-table-column>
-            <!-- <el-table-column
-                prop="type"
-                label="类别"
-                sortable
-                align="center"
-                show-overflow-tooltip>
-            </el-table-column> -->
             <el-table-column
-                prop="Remarks"
+                prop="content"
                 label="图片说明"
                 align="center"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                prop="startupSequence"
+                prop="img_order"
                 label="调整顺序"
                 align="center"
+                width="200"
                 show-overflow-tooltip>
                 <template slot-scope="scope" >
-                    <el-input placeholder="输入调整位置" v-model="scope.row.zk">
+                    <el-input placeholder="输入调整位置" v-model="scope.row.target">
                         <el-button slot="append" icon="el-icon-check" @click="changePosition(scope.$index, scope.row)"></el-button>
                     </el-input>
-                    <!-- <el-input
-                    size="mini"
-                    placeholder="输入调换位置"
-                    style="width:110px;">
-                    <el-button size="mini" type="success" @click="changePosition($event,scope.$index, scope.row)"></el-button>
-                    </el-input> -->
                 </template>
             </el-table-column>
             <el-table-column
@@ -97,15 +79,13 @@
             </el-table-column>
         </el-table>
         <div class="startpage_paging">
-            <span style="float:left;">共{{ currentPage1 }}条记录</span>
+            <span style="float:left;">共{{ total }}条记录</span>
             <el-pagination
-            @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page.sync="currentPage1"
-            :page-size="100"
-            background
+            :page-size="pageCount"
             layout="prev, pager, next"
-            :total="1000"
+            :total="total"
+            background
             align="right">
             </el-pagination>
         </div>
@@ -116,67 +96,86 @@
   export default {
     data() {
       return {
-        currentPage1: 5,
-        selectContent:"",
+        total: 0,   //总条数
+        pageCount:10,    //每页显示条数
+        currentPage:1,    //当前页
+        selectContent:"",       
         search:"",
-        tableData3: [{
-            ID:1,
-            name: '云帆喷绘',
-            imgPath:'1.jpg',
-            type: '学生端',
-            Remarks: '无',
-            startupSequence:1,
-            zk:""
-        }, {
-            ID:2,
-            name: '云帆喷绘',
-            imgPath:'2.jpg',
-            type: '学生端',
-            Remarks: '无',
-            startupSequence:2,
-            zk:""
-        }, {
-            ID:3,
-            name: '云帆喷绘',
-            imgPath:'3.jpg',
-            type: '学生端',
-            Remarks: '无',
-            startupSequence:3,
-            zk:""
-        }, {
-            ID:4,
-            name: '云帆喷绘',
-            imgPath:'4.jpg',
-            type: '商家端',
-            Remarks: '无',
-            startupSequence:4,
-            zk:""
-        }, {
-            ID:1,
-            name: '云帆喷绘',
-            imgPath:'5.jpg',
-            type: '商家端',
-            Remarks: '无',
-            startupSequence:5,
-            zk:""
-        }, {
-            ID:1,
-            name: '云帆喷绘',
-            imgPath:'6.jpg',
-            type: '商家端',
-            Remarks: '无',
-            startupSequence:6,
-            zk:""
-        }
-        ],
-        multipleSelection: []
+        tableData:[],
+            // tableData: [{
+            //     ID:1,
+            //     ad_name: '云帆喷绘',
+            //     path:'1.jpg',
+            //     type: '学生端',
+            //     content: '无',
+            //     img_order:1,
+            //     zk:""
+            // }, {
+            //     ID:2,
+            //     ad_name: '云帆喷绘',
+            //     path:'2.jpg',
+            //     type: '学生端',
+            //     content: '无',
+            //     img_order:2,
+            //     zk:""
+            // }, {
+            //     ID:3,
+            //     ad_name: '云帆喷绘',
+            //     path:'3.jpg',
+            //     type: '学生端',
+            //     content: '无',
+            //     img_order:3,
+            //     zk:""
+            // }, {
+            //     ID:4,
+            //     ad_name: '云帆喷绘',
+            //     path:'4.jpg',
+            //     type: '商家端',
+            //     content: '无',
+            //     img_order:4,
+            //     zk:""
+            // }, {
+            //     ID:1,
+            //     ad_name: '云帆喷绘',
+            //     path:'5.jpg',
+            //     type: '商家端',
+            //     content: '无',
+            //     img_order:5,
+            //     zk:""
+            // }, {
+            //     ID:1,
+            //     ad_name: '云帆喷绘',
+            //     path:'6.jpg',
+            //     type: '商家端',
+            //     content: '无',
+            //     img_order:6,
+            //     zk:""
+            // }
+            // ],
+        multipleSelection: [],
+        deleteAd:[]
       }
     },
+    //页面加载时获取广告列表
     mounted(){
-        this.get(ApiPath.system.getAd)
+        let left = this;
+        this.get(ApiPath.system.selectAd,{"page":left.currentPage,"per_page":left.pageCount,"record_type":0})
         .then(function(res){
-            if(res.data.code == 0)
-                console.log(res);
+            if(res.data.code == 0){
+                var a = res.data.result.data
+                //将得到结果数据遍历，添加一个字段，用来存储输入的调整顺序
+                for (let index = 0; index < a.length; index++) {
+                    a[index].target = "";
+                }
+                left.tableData = a;
+                left.total = res.data.result.total;
+                left.pageCount = res.data.result.per_page;
+            }else if(res.data.code == 2){
+                left.$message({
+                message: '获取广告列表失败',
+                type: 'error'
+                });
+            }
                 // self.leftMenus = res.data;
         })
         .catch(function(err){
@@ -184,45 +183,89 @@
         });
     },
     methods: {
+        //选中某条数据时添加到multiple数组中
         handleSelectionChange(val) {
             this.multipleSelection = val;
-            console.log(this.multipleSelection);
         },
+
+        //修改数据
         handleEdit(index, row) {
-            var id = row.ID;
-            var name = row.name;
-            var img = row.img;
-            var types = row.type;
-            var Remarks = row.Remarks;
-            this.$router.push({path: ApiPath.system.studentStartPageAdd,query:{id:id,name:name,img:img,types:types,Remarks:Remarks}});
+            console.log(row);
+            var id = row.id;
+            var ad_name = row.ad_name;
+            var path = row.path;
+            // var path = 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+            var content = row.content;
+            var images_id = row.images_id;
+            this.$router.push({path: ApiPath.system.studentStartPageAdd,query:{id:id,images_id:images_id,ad_name:ad_name,path:path,types:types,content:content}});
         },
+
+        //删除单条记录
         handleDelete(index, row) {
-            this.$confirm('此操作将删除这条数据, 是否继续?', '提示', {
+            this.deleteFun(row);
+        },
+
+        //删除操作
+        deleteFun(row){
+            let left = this;
+            this.$confirm('此操作将要删除数据, 是否继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                this.$message({
-                    type: 'success',
-                    message: '删除成功!'
+                if(!(row instanceof Array)){
+                    left.deleteAd.push({
+                        ad_id:row.id,
+                        images_id:row.images_id,
+                        path:row.path
+                    });
+                }else{
+                    for (let index = 0; index < row.length; index++) {
+                        left.deleteAd.push({
+                            ad_id:row[index].id,
+                            images_id:row[index].images_id,
+                            path:row[index].path
+                        });     
+                    }
+                }
+                // console.log(left.deleteAd);
+                left.post(ApiPath.system.deleteAd,{"ad":left.deleteAd})
+                .then(function(res){
+                    if(res.data.code == 0){
+                        left.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }else{
+                        left.$message({
+                            type: 'error',
+                            message: '删除失败!'
+                        });
+                    }
+                })
+                .catch(function(err){
+                    console.log(err);
                 });
             }).catch(() => {
-                this.$message({
+                left.$message({
                     type: 'info',
                     message: '已取消操作'
                 });          
             });
-            console.log(index, row);
         },
-        handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
-        },
+
+        //点击分页时跳转到此方法
         handleCurrentChange(val) {
+            this.currentPage = val;
             console.log(`当前页: ${val}`);
         },
+
+        //跳转到新增启动页页面
         addStartPage(){
             this.$router.push({path: ApiPath.system.studentStartPageAdd});
         },
+
+        //删除多条记录
         deleteStartPage(){
             if(this.multipleSelection.length == 0){
                 this.$message({
@@ -230,38 +273,116 @@
                     message: '请选择要删除的数据!'
                 });
             }else{
-                this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消操作'
-                    });          
-                });
+                this.deleteFun(this.multipleSelection);
             }
-            console.log(this.multipleSelection);
+            // console.log(this.multipleSelection);
         },
+
+        //获取文本框的内容进行搜索
         selectName(){
+            let left = this;
+            this.get(ApiPath.system.selectAd,{
+                "page":left.currentPage,
+                "per_page":left.pageCount,
+                "record_type":1,
+                "xxxx":left.selectContent
+            }).then(function(res){
+                if(res.data.code == 0){
+                    var a = res.data.result.data
+                    //将得到结果数据遍历，添加一个字段，用来存储输入的调整顺序
+                    for (let index = 0; index < a.length; index++) {
+                        a[index].target = "";
+                    }
+                    left.tableData = a;
+                    left.total = res.data.result.total;
+                    left.pageCount = res.data.result.per_page;
+                }else if(res.data.code == 2){
+                    left.$message({
+                        message: '搜索启动页失败',
+                        type: 'error'
+                    });
+                }
+            })
+            .catch(function(err){
+                console.log(err);
+            });
             console.log(this.selectContent);
         },
+
+        //根据输入的目标顺序进行调整
         changePosition(index, row){
-            // var a = this.tableData3
-            // for (let index = 0; index < a.length; index++) {
-            //     a[index].kz = "";
-            // }
-            console.log(row);
-            row.zk = "";
+            let left  = this;
+            var from_id = row.img_order;
+            var to_id = row.target;
+
+            if(from_id == to_id){
+                this.$message({
+                    type: 'warning',
+                    message: '该图片本身就在该位置!'
+                });
+                return;
+            }
+            if(to_id < 1 || to_id > this.total){
+                this.$message({
+                    type: 'error',
+                    message: '您要调整的位置不存在!'
+                });
+                return;
+            }
+
+            this.post(ApiPath.system.changeOrderAd,{"from_id":from_id,"to_id":to_id})
+            .then(function(res){
+                if(res.data.code == 0){
+                    left.$message({
+                        type: 'success',
+                        message: '调整成功!'
+                    });
+                }else{
+                    left.$message({
+                        type: 'error',
+                        message: '调整失败!'
+                    });
+                }
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+            var a = row.target;
+            row.target = "";
         }
     }
   }
 </script>
+
+<style scoped>
+    .startpage_title{
+        margin: 30px;
+    }
+
+    .startpage_title_operation{
+        float: left;
+    }
+
+    .startpage_title_text{
+        width: 200px;
+    }
+
+    .startpage_title_search{
+        float: right;
+    }
+
+    .startpage_paging{
+        margin: 10px 30px;
+    }
+
+    .breadcrumb{
+        padding-left: 30px;
+        line-height: 54px;
+        border-bottom: 2px solid #e7e7e7;
+    }
+    .clearfloat{clear:both}
+</style>
+
 
 <style scoped>
     .startpage_title{
