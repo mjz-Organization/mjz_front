@@ -48,12 +48,6 @@
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="file_name"
-            label="文件"
-            align="center"
-            show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
             prop="type"
             label="类型"
             align="center"
@@ -61,7 +55,7 @@
             </el-table-column>
             <el-table-column
             prop="description"
-            label="文件描述"
+            label="添加时间"
             align="center"
             show-overflow-tooltip>
             </el-table-column>
@@ -103,25 +97,25 @@
             name: '手机防骗攻略',
             file_name:'test.txt',
             type: '学生端',
-            description: '无',
+            description: '2018.12.31',
         },{
            ID:2,
             name: '手机防骗攻略',
             file_name:'test.txt',
             type: '学生端',
-            description: '无',
+            description: '2018.12.31',
         },{
             ID:3,
             name: '手机防骗攻略',
             file_name:'test.txt',
             type: '学生端',
-            description: '无',
+            description: '2018.12.31',
         },{
            ID:4,
             name: '手机防骗攻略',
             file_name:'test.txt',
             type: '学生端',
-            description: '无',
+            description: '2018.12.31',
         }],
         pagesize:10,
         size:0,
