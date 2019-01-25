@@ -8,8 +8,11 @@ export default {
         getAdmininfo:'admin/user',
         checkLogin:'admin/login',
         getMenu:'admin/getMenu',
-        getAd:'admin/startPage/getAd',
-        
+        selectAd:'admin/startPage/selectAd',
+        deleteAd:'/admin/startPage/deleteAd',
+        changeOrderAd:'admin/startPage/changeOrderAd',
+        updateAd:'admin/startPage/updateAd',
+        createAd:'admin/startPage/createAd',
         /**
          * 页面路由
          */
