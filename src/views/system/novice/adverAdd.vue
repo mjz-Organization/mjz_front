@@ -59,7 +59,8 @@
             desc: '',
             file:[],
             dialogImageUrl: '',
-            value:''
+            value:'',
+            type:0,
         },
         dialogVisible: false,
          address:[{
@@ -100,6 +101,9 @@
             this.form.dialogImageUrl = file.url;
             this.dialogVisible = true;
         },
+    },
+    mounted(){
+        this.form.type=this.$route.query.type;
     }
   }
 </script>
