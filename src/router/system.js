@@ -298,7 +298,6 @@ export default [{
                 component: resolve => void (require(['../views/system/complaint/detailed.vue'], resolve))
             },
             /**
-<<<<<<< HEAD
              *
              * 投诉管理 类型管理
              * */
