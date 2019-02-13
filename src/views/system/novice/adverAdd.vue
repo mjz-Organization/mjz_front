@@ -1,5 +1,11 @@
 <template>
    <div>
+       <el-breadcrumb separator="/" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>首页管理</el-breadcrumb-item>
+            <el-breadcrumb-item>广告管理</el-breadcrumb-item>
+            <el-breadcrumb-item>新增广告</el-breadcrumb-item>
+        </el-breadcrumb>
         <div class="main">
             <div class="head">
                 <el-button type="primary" icon="el-icon-arrow-left" @click="renovice">返回</el-button>
@@ -53,7 +59,8 @@
             desc: '',
             file:[],
             dialogImageUrl: '',
-            value:''
+            value:'',
+            type:0,
         },
         dialogVisible: false,
          address:[{
@@ -94,6 +101,9 @@
             this.form.dialogImageUrl = file.url;
             this.dialogVisible = true;
         },
+    },
+    mounted(){
+        this.form.type=this.$route.query.type;
     }
   }
 </script>
@@ -109,6 +119,10 @@
         border-bottom: 2px solid #dcdfe6;
         margin-bottom: 5%;
     }
-    
+    .breadcrumb{
+    padding-left: 30px;
+    line-height: 54px;
+    border-bottom: 2px solid #e7e7e7;
+    }
 </style>
 

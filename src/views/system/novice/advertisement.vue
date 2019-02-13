@@ -1,7 +1,20 @@
 <template>
     <div>
+        <el-breadcrumb separator="/" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>首页管理</el-breadcrumb-item>
+            <el-breadcrumb-item>广告管理</el-breadcrumb-item>
+        </el-breadcrumb>
         <div class="startpage_title">
             <div class="startpage_title_operation">
+                <el-select v-model="value"  class="select"
+                @change="valuechange">
+                    <el-option v-for="item in select"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+                    </el-select>
                 <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增广告</el-button>
                 <el-button type="danger" icon="el-icon-menu" @click="deleteAll">全部删除</el-button>
             </div>
@@ -15,7 +28,7 @@
         ref="multipleTable"
         :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
         tooltip-effect="dark"
-        style="width: 100%"
+        style="width: 95%;margin: 30px;"
         :empty-text="empty"
         @selection-change="handleSelectionChange">
             <el-table-column
@@ -50,10 +63,15 @@
             </el-table-column>
             <el-table-column
                 prop="type"
-                label="类型"
+                label="调整顺序"
                 align="center"
-                sortable
+                width="200"
             show-overflow-tooltip>
+            <template slot-scope="scope" >
+                    <el-input placeholder="输入调整位置" v-model="scope.row.zk">
+                        <el-button slot="append" icon="el-icon-check" @click="changePosition(scope.$index, scope.row)"></el-button>
+                    </el-input>
+                </template>
             </el-table-column>
             <el-table-column
                 prop="address"
@@ -93,37 +111,60 @@
             name: '云帆喷绘',
             img:'a.jpg',
             description:'广告说明文字',
-            type: '学生端',
+            type:0,
         },{
             ID:2,
             name: '云帆喷绘',
             img:'a.jpg',
             description:'广告说明文字',
-            type: '学生端',
+            type: 0,
         },{
             ID:3,
             name: '云帆喷绘',
             img:'a.jpg',
             description:'广告说明文字',
-            type: '学生端',
+            type: 0,
         },{
             ID:4,
             name: '云帆喷绘',
             img:'a.jpg',
             description:'广告说明文字',
-            type: '学生端',
-        }],
+            type: 0,
+        },{
+            ID:4,
+            name: '云帆喷绘',
+            img:'a.jpg',
+            description:'广告说明文字',
+            type: 1,
+        },{
+            ID:4,
+            name: '云帆喷绘',
+            img:'a.jpg',
+            description:'广告说明文字',
+            type: 1,
+        }
+        ],
         pagesize:10,
         size:0,
         multipleSelection: [],
         searchtext:'',
         empty:"暂无数据",
+        select:[
+        {
+            label:"学生端",
+            value:0
+        },
+        {
+            label:"商家端",
+            value:1
+        }],
+        value:0,
       }
     },
 
     methods: {
         addfile(){
-            this.$router.push(ApiPath.system.adverAdd);
+            this.$router.push({path:ApiPath.system.adverAdd,query:{type:value}});
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
@@ -207,6 +248,21 @@
                     }
                 })
             }
+        },
+        valuechange(){
+            // console.log(this.value);
+            this.get(ApiPath.system.novice).then(res => {
+                    // console.log;
+                    if(res.data.length==0){
+                        this.tableData=[];
+                        this.size=this.tableData.length;
+                        this.empty="您查询的数据不存在";
+                    }else{
+                        this.tableData=res.data;
+                        this.size=this.tableData.length;
+                    }
+                })
+            
         }
     },
     mounted(){
@@ -253,6 +309,14 @@
     }
     .el-icon-arrow-down {
         font-size: 12px;
+    }
+    .select{
+        width: 110px;
+    }
+    .breadcrumb{
+    padding-left: 30px;
+    line-height: 54px;
+    border-bottom: 2px solid #e7e7e7;
     }
 
 </style>

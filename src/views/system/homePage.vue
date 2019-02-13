@@ -96,6 +96,7 @@
             #f2f8f9);
         background-blend-mode: normal, 
             normal;
+        background-color: #e3e1e1;
     }
 
     .menu_img{

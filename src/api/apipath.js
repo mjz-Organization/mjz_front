@@ -1,10 +1,21 @@
 export default {
     system:{
+
+        /**
+         * 接口路由
+         */
         getUserinfo:'admin/getuserinfo',
         getAdmininfo:'admin/user',
         checkLogin:'admin/login',
         getMenu:'admin/getMenu',
-
+        selectAd:'admin/startPage/selectAd',
+        deleteAd:'/admin/startPage/deleteAd',
+        changeOrderAd:'admin/startPage/changeOrderAd',
+        updateAd:'admin/startPage/updateAd',
+        createAd:'admin/startPage/createAd',
+        /**
+         * 页面路由
+         */
         studentStartPage:'/system/homepage/studentStartPage',
         studentStartPageAdd:'/system/homepage/studentStartPage/add',
         businessStartPage:'/system/homepage/businessStartPage',

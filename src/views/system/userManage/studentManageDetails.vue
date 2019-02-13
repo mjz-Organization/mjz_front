@@ -1,8 +1,13 @@
 <template>
+<div>
+	<el-breadcrumb separator="/" class="breadcrumb">
+		<el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
+		<el-breadcrumb-item>用户管理</el-breadcrumb-item>
+		<el-breadcrumb-item>学生管理</el-breadcrumb-item>
+		<el-breadcrumb-item>学生用户详情</el-breadcrumb-item>
+    </el-breadcrumb>
     <div class="merchantManageStyle">
-		<div>
-			<el-button type="primary" icon="el-icon-back" @click="backPage">返回</el-button>
-		</div>
+		<el-button type="primary" icon="el-icon-back" @click="backPage">返回</el-button>
         <el-row>
          	<el-col :span="24">
 				<div class="grid-content bg-purple-dark">
@@ -75,6 +80,7 @@
 			</el-col>
         </el-row>
     </div>
+</div>
 </template>
 <script>
   export default {
@@ -95,7 +101,7 @@
 
 <style scoped>
 	.merchantManageStyle{
-		margin: 50px 80px 0;
+		margin: 30px 80px 0 30px;
 	}
 	.bg-purple-dark {
 		color: #009900;
@@ -111,6 +117,12 @@
 		border-radius: 4px;
 		min-height: 36px;
 	}
+
+    .breadcrumb{
+        padding-left: 30px;
+        line-height: 54px;
+        border-bottom: 2px solid #e7e7e7;
+    }
 
 	.mylabel{
 		margin-left:20px;

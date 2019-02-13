@@ -1,5 +1,11 @@
 <template>
    <div>
+        <el-breadcrumb separator="/" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>兼职管理</el-breadcrumb-item>
+            <el-breadcrumb-item>兼职信息管理</el-breadcrumb-item>
+            <el-breadcrumb-item>兼职信息查看</el-breadcrumb-item>
+        </el-breadcrumb>
         <div class="main">
             <div class="head">
                 <el-button type="primary" icon="el-icon-arrow-left" @click="renovice">返回</el-button>
@@ -38,12 +44,6 @@
                  <el-form-item label="已招人数">
                     {{data.count}}
                 </el-form-item>
-                 <el-form-item label="已招员工">
-                    {{data.staff}}
-                </el-form-item>
-                <!-- <el-form-item>
-                    <el-button type="primary" @click="onSubmit">确认修改</el-button>
-                </el-form-item> -->
                 </el-form>
             </div>
         </div>
@@ -64,8 +64,6 @@
             phone:"15136790965",
             adress:"河南省新乡",
             count:"30/10",
-            staff:"张三,李四"
-
         },
       }
     },
@@ -92,6 +90,10 @@
         border-bottom: 2px solid #dcdfe6;
         margin-bottom: 5%;
     }
-    
+    .breadcrumb{
+    padding-left: 30px;
+    line-height: 54px;
+    border-bottom: 2px solid #e7e7e7;
+    }
 </style>
 

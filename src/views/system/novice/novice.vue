@@ -1,5 +1,10 @@
 <template>
     <div>
+         <el-breadcrumb separator="/" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>首页管理</el-breadcrumb-item>
+            <el-breadcrumb-item>新手导读管理</el-breadcrumb-item>
+        </el-breadcrumb>
         <div class="startpage_title">
             <div class="startpage_title_operation">
                 <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增文件</el-button>
@@ -22,7 +27,7 @@
                 ref="multipleTable"
                 :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                 tooltip-effect="dark"
-                style="width: 100%"
+                style="width: 95%;margin: 30px;"
                 :empty-text="empty"
                 @selection-change="handleSelectionChange">
             <el-table-column
@@ -43,12 +48,6 @@
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="file_name"
-            label="文件"
-            align="center"
-            show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
             prop="type"
             label="类型"
             align="center"
@@ -56,7 +55,7 @@
             </el-table-column>
             <el-table-column
             prop="description"
-            label="文件描述"
+            label="添加时间"
             align="center"
             show-overflow-tooltip>
             </el-table-column>
@@ -98,25 +97,25 @@
             name: '手机防骗攻略',
             file_name:'test.txt',
             type: '学生端',
-            description: '无',
+            description: '2018.12.31',
         },{
            ID:2,
             name: '手机防骗攻略',
             file_name:'test.txt',
             type: '学生端',
-            description: '无',
+            description: '2018.12.31',
         },{
             ID:3,
             name: '手机防骗攻略',
             file_name:'test.txt',
             type: '学生端',
-            description: '无',
+            description: '2018.12.31',
         },{
            ID:4,
             name: '手机防骗攻略',
             file_name:'test.txt',
             type: '学生端',
-            description: '无',
+            description: '2018.12.31',
         }],
         pagesize:10,
         size:0,
@@ -268,6 +267,11 @@
     }
     .select{
         width: 110px;
+    }
+    .breadcrumb{
+    padding-left: 30px;
+    line-height: 54px;
+    border-bottom: 2px solid #e7e7e7;
     }
 
 </style>

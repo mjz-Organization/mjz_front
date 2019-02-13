@@ -1,5 +1,10 @@
 <template>
     <div>
+        <el-breadcrumb separator="/" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>消息管理</el-breadcrumb-item>
+            <el-breadcrumb-item>消息类型管理</el-breadcrumb-item>
+        </el-breadcrumb>
         <div class="startpage_title">
             <div class="startpage_title_operation">
                 <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增类型</el-button>
@@ -11,7 +16,7 @@
                 ref="multipleTable"
                 :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                 tooltip-effect="dark"
-                style="width: 100%"
+                style="width: 95%;margin: 30px;"
                 :empty-text="empty"
                 @selection-change="handleSelectionChange">
             <el-table-column
@@ -216,6 +221,11 @@
     }
     .el-icon-arrow-down {
         font-size: 12px;
+    }
+    .breadcrumb{
+    padding-left: 30px;
+    line-height: 54px;
+    border-bottom: 2px solid #e7e7e7;
     }
 
 </style>

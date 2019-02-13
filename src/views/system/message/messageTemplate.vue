@@ -1,8 +1,13 @@
 <template>
     <div>
+        <el-breadcrumb separator="/" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>消息管理</el-breadcrumb-item>
+            <el-breadcrumb-item>消息模板管理</el-breadcrumb-item>
+        </el-breadcrumb>
         <div class="startpage_title">
             <div class="startpage_title_operation">
-                <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增文件</el-button>
+                <el-button type="primary" icon="el-icon-plus"  @click="addfile">新增类型</el-button>
                 <el-button type="danger" icon="el-icon-menu" @click="deleteAll">全部删除</el-button>
             </div>
             <div class="startpage_title_search">
@@ -22,7 +27,7 @@
                 ref="multipleTable"
                 :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                 tooltip-effect="dark"
-                style="width: 100%"
+                style="width: 95%;margin: 30px;"
                 :empty-text="empty"
                 @selection-change="handleSelectionChange">
             <el-table-column
@@ -273,6 +278,11 @@
     }
     .select{
         width: 110px;
+    }
+    .breadcrumb{
+    padding-left: 30px;
+    line-height: 54px;
+    border-bottom: 2px solid #e7e7e7;
     }
 
 </style>
