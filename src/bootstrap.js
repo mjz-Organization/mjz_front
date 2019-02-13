@@ -39,7 +39,9 @@ window.Mock = Mock
  * 引入自定义方法
  */
 import base from './config/base'
-Vue.use(base);
+Object.keys(base).forEach((key)=>{
+    Vue.prototype[key] = base[key]
+})
 
 /**
  * 状态码
