@@ -18,6 +18,12 @@ export default {
         updateAdmin:'admin/userManage/updateAdmin',     //更新管理员信息
         createAdmin:'userManage/createAdmin',           //添加管理员
         deleteAdmin:'admin/userManage/deleteAdmin',     //删除管理员
+        getListRole:'admin/roleAuth/getRoles',          //角色权限
+        deleteRole:'admin/roleAuth/deleteRole',
+        getPowerFul:'admin/getMenu',                    //获取所有权限
+        getRolePowerful:'admin/roleAuth/getRoleAndAuth',    //获取角色权限
+        modifyRole:'admin/roleAuth/updateRole',         //修改角色信息
+        addRole:'admin/roleAuth/createRole',            //创建角色
         /**
          * 页面路由
          */
