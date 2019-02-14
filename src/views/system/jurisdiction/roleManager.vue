@@ -3,7 +3,7 @@
         <div class="startpage_title">
             <div class="startpage_title_operation">
                 <el-button type="primary" icon="el-icon-plus" @click="exportInform">新添类型</el-button>
-                <el-button type="danger" icon="el-icon-delete">全部删除</el-button>
+                <el-button type="danger" icon="el-icon-delete" @click="deleteAll">全部删除</el-button>
             </div>
             <div class="clearfloat distance"></div>
             <el-table
@@ -17,19 +17,21 @@
                         width="55">
                 </el-table-column>
                 <el-table-column
+                        prop="id"
                         label="#"
-                        type="index"
-                        align="center">
+                        sortable
+                        align="center"
+                        show-overflow-tooltip>
                 </el-table-column>
                 <el-table-column
-                        prop="kind"
+                        prop="role_name"
                         label="角色名称"
                         sortable
                         align="center"
                         show-overflow-tooltip>
                 </el-table-column>
                 <el-table-column
-                        prop="reason"
+                        prop="created_at"
                         label="创建时间"
                         align="center"
                         show-overflow-tooltip>
@@ -48,14 +50,15 @@
             </el-table>
         </div>
         <div class="startpage_paging">
-            <span style="float:left;">共{{ countPage }}条记录</span>
+            <span style="float:left;">共{{ countItem }}条记录</span>
             <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage"
+                    :page-sizes="pageSizes"
                     :page-size="thisPage"
-                    background
-                    layout="prev, pager, next"
-                    :total="countPage"
+                    layout="sizes, prev, pager, next"
+                    :total="countItem"
                     align="right">
             </el-pagination>
         </div>
@@ -67,62 +70,112 @@
         data(){
             return{
                 //分页
-                tableData3:[{
-                    ID:1,
-                    complainant:"xxxx",
-                    complainants:"xxxx",
-                    kind:"xxx",
-                    reason:"xxx",
-                    detailReason:"xxx",
-                    time:"xxxx"
-                }],
-                countPage:1,
+                tableData3:[],
+                //总条数
+                countItem:1,
+                //当前页的条数
                 thisPage:10,
-
+                //当前页
+                currentPage:1,
+                //每页条数
+                pageSizes:[10, 20, 30, 40],
+                //删除角色id
+                idRole:[],
                 multipleSelection:"",
             }
         },
         methods:{
             exportInform: function () {
-
+                this.$router.push({name:"addRole",params: { id: -1 }});
+            },
+            //全部删除
+            deleteAll:function(){
+                let _this = this;
+                if (_this.multipleSelection.length != 0){
+                    for (let i = 0 ; i < _this.multipleSelection.length ; i++){
+                        _this.idRole.push(_this.multipleSelection[i].id);
+                        _this.deleteWarn(_this.idRole);
+                    }
+                }
             },
             //全选时的操作
             handleSelectionChange:function (val) {
                 this.multipleSelection = val;
-                console.log(val)
             },
             handleEdit:function(index, row){
-                this.$router.push({name:"addRole"});
+                this.$router.push({name:"addRole",params: { id: row['id'] }});
             },
             handleDelete:function(index,row){
-                this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
+                let _this = this;
+                _this.idRole.push(_this.tableData3[index].id);
+                _this.deleteWarn(_this.idRole);
+            },
+            //删除提示
+            deleteWarn:function(idRole){
+                let _this = this;
+                _this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    });
+                    _this.deleteItem(idRole);
                 }).catch(() => {
-                    this.$message({
+                    _this.$message({
                         type: 'info',
                         message: '已取消操作'
                     });
                 });
             },
             handleCurrentChange:function(val) {
-                console.log(`当前页: ${val}`);
+                sessionStorage.setItem("page",val);
+                this.getInformation(val,this.thisPage);
+
             },
             handleSizeChange:function(val) {
-                console.log(`每页 ${val} 条`);
+                this.getInformation(this.currentPage,val);
+            },
+            //删除表格
+            deleteTable:function(){
+                for (let i = 0 ; i < this.idRole.length ; i++)
+                    for (let j = 0;j < this.tableData3.length;j++)
+                        if (this.idRole[i] == this.tableData3[j].id)
+                            this.tableData3.splice(j,1);
+            },
+            //删除角色
+            deleteItem:function(idRole){
+                let _this = this;
+                _this.post(ApiPath.system.deleteRole,{
+                    "idArr":idRole,
+                }).then(res => {
+                    let data = res.data;
+                    if (data.code == 0){
+                        _this.deleteTable();
+                        _this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }
+                });
             },
             //分页请求数据
-            getInformation:function(){
-                this.post(ApiPath.system.checkLogin).then(res => {
-
+            getInformation:function(page,pageSize){
+                this.get(ApiPath.system.getListRole,{
+                    "page":page,
+                    "pageSize":pageSize
+                }).then(res => {
+                    let data = res.data;
+                    if (data.code == 0){
+                        this.tableData3 = data.result.data;
+                        this.countItem = data.result.total;
+                    }
                 });
             }
+        },
+        mounted(){
+            if (sessionStorage.getItem("page") != undefined){
+                this.currentPage = parseInt(sessionStorage.getItem("page"));
+            }
+            this.getInformation(this.currentPage,this.thisPage);
         }
     }
 </script>

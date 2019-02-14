@@ -13,6 +13,17 @@ export default {
         changeOrderAd:'admin/startPage/changeOrderAd',
         updateAd:'admin/startPage/updateAd',
         createAd:'admin/startPage/createAd',
+        //角色权限
+        getListRole:'admin/roleAuth/getRoles',
+        deleteRole:'admin/roleAuth/deleteRole',
+        //获取所有权限
+        getPowerFul:'admin/getMenu',
+        //获取角色权限
+        getRolePowerful:'admin/roleAuth/getRoleAndAuth',
+        //修改角色信息
+        modifyRole:'admin/roleAuth/updateRole',
+        //创建角色
+        addRole:'admin/roleAuth/createRole',
         /**
          * 页面路由
          */

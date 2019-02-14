@@ -330,7 +330,7 @@ export default [{
                 component: resolve => void (require(['../views/system/jurisdiction/roleManager.vue'], resolve))
             },
             {
-                path: 'roleManager/addRole',
+                path: 'roleManager/addRole/:id',
                 name: 'addRole',
                 meta: {
                     requireAuth: true,
