@@ -82,20 +82,20 @@ export default {
     },
     methods: {
         onSubmit() {
-            let left = this;
+            let own = this;
             this.post(ApiPath.system.createAd,{
-                "image":left.myfile,
+                "image":own.myfile,
                 "record_type":0,
-                "name":left.form.ad_name,
-                "content":left.form.content
+                "name":own.form.ad_name,
+                "content":own.form.content
             }).then(function(res){
                 if(res.data.code == 0){
-                    left.$message({
+                    own.$message({
                         type: 'success',
                         message: '添加成功!'
                     });
                 }else{
-                    left.$message({
+                    own.$message({
                         type: 'error',
                         message: '添加失败!'
                     });
@@ -106,22 +106,22 @@ export default {
             });
         },
         updateSubmit(){
-            let left = this;
+            let own = this;
             this.post(ApiPath.system.updateAd,{
-                "ad_id":left.form.id,
-                "images_id":left.form.images_id,
+                "ad_id":own.form.id,
+                "images_id":own.form.images_id,
                 "record_type":0,
-                "path":left.form.dialogImageUrl,    //搞清楚这个是那个图片路径
-                "name":left.form.ad_name,
-                "content":left.form.content
+                "path":own.form.dialogImageUrl,    //搞清楚这个是那个图片路径
+                "name":own.form.ad_name,
+                "content":own.form.content
             }).then(function(res){
                 if(res.data.code == 0){
-                    left.$message({
+                    own.$message({
                         type: 'success',
                         message: '更新成功!'
                     });
                 }else{
-                    left.$message({
+                    own.$message({
                         type: 'error',
                         message: '更新失败!'
                     });

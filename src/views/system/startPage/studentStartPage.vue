@@ -158,8 +158,8 @@
     },
     //页面加载时获取广告列表
     mounted(){
-        let left = this;
-        this.get(ApiPath.system.selectAd,{"page":left.currentPage,"per_page":left.pageCount,"record_type":0})
+        let own = this;
+        this.get(ApiPath.system.selectAd,{"page":own.currentPage,"per_page":own.pageCount,"record_type":0})
         .then(function(res){
             if(res.data.code == 0){
                 var a = res.data.result.data
@@ -167,11 +167,11 @@
                 for (let index = 0; index < a.length; index++) {
                     a[index].target = "";
                 }
-                left.tableData = a;
-                left.total = res.data.result.total;
-                left.pageCount = res.data.result.per_page;
+                own.tableData = a;
+                own.total = res.data.result.total;
+                own.pageCount = res.data.result.per_page;
             }else if(res.data.code == 2){
-                left.$message({
+                own.$message({
                 message: '获取广告列表失败',
                 type: 'error'
                 });
@@ -207,37 +207,38 @@
 
         //删除操作
         deleteFun(row){
-            let left = this;
+            let own = this;
+            own.deleteAd = [];
             this.$confirm('此操作将要删除数据, 是否继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
                 if(!(row instanceof Array)){
-                    left.deleteAd.push({
+                    own.deleteAd.push({
                         ad_id:row.id,
                         images_id:row.images_id,
                         path:row.path
                     });
                 }else{
                     for (let index = 0; index < row.length; index++) {
-                        left.deleteAd.push({
+                        own.deleteAd.push({
                             ad_id:row[index].id,
                             images_id:row[index].images_id,
                             path:row[index].path
                         });     
                     }
                 }
-                // console.log(left.deleteAd);
-                left.post(ApiPath.system.deleteAd,{"ad":left.deleteAd})
+                console.log(own.deleteAd);
+                own.post(ApiPath.system.deleteAd,{"ad":own.deleteAd})
                 .then(function(res){
                     if(res.data.code == 0){
-                        left.$message({
+                        own.$message({
                             type: 'success',
                             message: '删除成功!'
                         });
                     }else{
-                        left.$message({
+                        own.$message({
                             type: 'error',
                             message: '删除失败!'
                         });
@@ -247,7 +248,7 @@
                     console.log(err);
                 });
             }).catch(() => {
-                left.$message({
+                own.$message({
                     type: 'info',
                     message: '已取消操作'
                 });          
@@ -280,12 +281,12 @@
 
         //获取文本框的内容进行搜索
         selectName(){
-            let left = this;
+            let own = this;
             this.get(ApiPath.system.selectAd,{
-                "page":left.currentPage,
-                "per_page":left.pageCount,
+                "page":own.currentPage,
+                "per_page":own.pageCount,
                 "record_type":1,
-                "xxxx":left.selectContent
+                "xxxx":own.selectContent
             }).then(function(res){
                 if(res.data.code == 0){
                     var a = res.data.result.data
@@ -293,11 +294,11 @@
                     for (let index = 0; index < a.length; index++) {
                         a[index].target = "";
                     }
-                    left.tableData = a;
-                    left.total = res.data.result.total;
-                    left.pageCount = res.data.result.per_page;
+                    own.tableData = a;
+                    own.total = res.data.result.total;
+                    own.pageCount = res.data.result.per_page;
                 }else if(res.data.code == 2){
-                    left.$message({
+                    own.$message({
                         message: '搜索启动页失败',
                         type: 'error'
                     });
@@ -311,7 +312,7 @@
 
         //根据输入的目标顺序进行调整
         changePosition(index, row){
-            let left  = this;
+            let own  = this;
             var from_id = row.img_order;
             var to_id = row.target;
 
@@ -333,12 +334,12 @@
             this.post(ApiPath.system.changeOrderAd,{"from_id":from_id,"to_id":to_id})
             .then(function(res){
                 if(res.data.code == 0){
-                    left.$message({
+                    own.$message({
                         type: 'success',
                         message: '调整成功!'
                     });
                 }else{
-                    left.$message({
+                    own.$message({
                         type: 'error',
                         message: '调整失败!'
                     });

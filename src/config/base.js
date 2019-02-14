@@ -1,13 +1,13 @@
 import store from "../store/store";
 
-exports.install = function (Vue, options) {
+module.exports =  {
     /**
      * 时间戳转换日期
      * @param <int> unixTime    待时间戳(毫秒)
      * @param <bool> isFull    返回完整时间(Y-m-d 或者 Y-m-d H:i:s)
      * @param <int>  timeZone   时区
      */
-    Vue.prototype.unixToDate = function(unixTime, isFull, timeZone) {
+    unixToDate:function (unixTime, isFull, timeZone) {
         if (typeof (timeZone) == 'number'){
             unixTime = parseInt(unixTime) + parseInt(timeZone) * 60 * 60;
         }
@@ -22,9 +22,9 @@ exports.install = function (Vue, options) {
             ymdhis += getzf(time.getUTCSeconds());
         }
         return ymdhis;
-    }
+    },
     //get请求
-    Vue.prototype.get = function (url,param={}) {
+    get: function (url,param={}) {
         if(store.state.user){
             param['api_token'] = store.state.user.api_token;
         }
@@ -39,7 +39,7 @@ exports.install = function (Vue, options) {
         })
     },
     //post请求
-    Vue.prototype.post = function (url,param={}) {
+    post: function (url,param={}) {
         if(store.state.user){
             param['api_token'] = store.state.user.api_token;
         }
@@ -56,13 +56,13 @@ exports.install = function (Vue, options) {
             })
         })
     },
-    Vue.prototype.LOGINURL = function (url='') {
+    LOGINURL: function (url='') {
         if (url == ''||url == null){
             return sessionStorage.getItem("url_login");
         }
         sessionStorage.setItem("url_login", url);
     },
-    Vue.prototype.addRouter = function () {
+    addRouter: function () {
         let dR = new Array();
         for (let i=0;i<dynamicRouter.length;i++){
             for (let j=0;j<dynamicRouter[i].meta.roles.length;j++){

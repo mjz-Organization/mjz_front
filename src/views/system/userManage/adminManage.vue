@@ -19,22 +19,10 @@
         <el-table
                 id="out-table"
                 ref="multipleTable"
-                :data="tableData3"
+                :data="tableData"
                 tooltip-effect="dark"
                 style="width: 95%;margin: 30px;"
                 @selection-change="handleSelectionChange">
-            <el-table-column
-                prop="id"
-                name="id"
-                v-if="false"
-                >
-            </el-table-column>
-            <el-table-column
-                prop="id"
-                name="id"
-                v-if="false"
-                >
-            </el-table-column>
             <el-table-column
                 prop="id"
                 name="id"
@@ -58,15 +46,16 @@
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                prop="role"
+                prop="role_name"
                 label="角色"
                 sortable
                 align="center"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                prop="establishTime"
+                prop="created_at"
                 label="创建时间"
+                :formatter="dateFormat"
                 align="center"
                 show-overflow-tooltip>
             </el-table-column>
@@ -83,15 +72,15 @@
             </el-table-column>
         </el-table>
         <div class="startpage_paging">
-            <span style="float:left;">共{{ currentPage1 }}条记录</span>
+            <span style="float:left;">共{{ total }}条记录</span>
             <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page.sync="currentPage1"
-            :page-size="100"
+            :page-size="pageSize"
+            :current-page="pageNo"
             background
             layout="prev, pager, next"
-            :total="1000"
+            :total="total"
             align="right">
             </el-pagination>
         </div>
@@ -104,105 +93,112 @@
     export default {
         data() {
         return {
-            currentPage1: 5,
+            total: 0,       //总条数
+            currentPage:0,  //当前页码
+            pageSize:10,    //每页显示条数
+            pageNo:1,      //当前页码
             selectContent:"",
             selecttype:"",
-            tableData3: [{
-                id:"1",
-                name:"老弟",
-                gender: '男',
-                telephone:'13888888888',
-                role: '普通管理员',
-                establishTime: '2019-1-21 16:00:00',
-                accountNumber:123,
-                password:123
-            }, {
-                id:"2",
-                name:"老弟",
-                gender: '男',
-                telephone:'13888888888',
-                role: '系统管理员',
-                establishTime: '2019-1-21 16:00:00',
-                accountNumber:123,
-                password:123
-            }, {
-                id:"3",
-                name:"老弟",
-                gender: '男',
-                telephone:'13888888888',
-                role: '普通管理员',
-                establishTime: '2019-1-21 16:00:00',
-                accountNumber:123,
-                password:123
-            }, {
-                id:"4",
-                name:"老弟",
-                gender: '男',
-                telephone:'13888888888',
-                role: '普通管理员',
-                establishTime: '2019-1-21 16:00:00',
-                accountNumber:123,
-                password:123
-            }, {
-                id:"5",
-                name:"老弟",
-                gender: '男',
-                telephone:'13888888888',
-                role: '普通管理员',
-                establishTime: '2019-1-21 16:00:00',
-                accountNumber:123,
-                password:123
-            }, {
-                id:"6",
-                name:"老弟",
-                gender: '男',
-                telephone:'13888888888',
-                role: '普通管理员',
-                establishTime: '2019-1-21 16:00:00',
-                accountNumber:123,
-                password:123
-            }
-            ],
-            multipleSelection: []
+            tableData:[],
+            multipleSelection: [],
+            deleteAd:[]     //要删除的管理员数组
         }
         },
-
+        mounted(){
+            let own = this;
+            this.get(ApiPath.system.getAdmins,{"page":own.currentPage,"pageSize":own.pageSize})
+            .then(function(res){
+                if(res.data.code == 0){
+                    own.tableData = res.data.result.data;
+                    // console.log(res.data.result);
+                    own.total = res.data.result.total;
+                }else if(res.data.code == 2){
+                    own.$message({
+                        essage: '获取管理员列表失败',
+                        type: 'error'
+                    });
+                }
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+        },
+        created(){
+            // let pn = sessionStorage.getItem('pageNo');
+            // this.pageNo = pn;
+        },
         methods: {
+            dateFormat:function(row, column) {
+                // console.log(row.created_at);
+                // console.log(column);
+                // console.log(row);
+                var date = row.created_at; 
+                if (date == undefined) { 
+                    return ""; 
+                }
+                return date;
+                // console.log(this.unixToDate(date,"YYYY-MM-DD HH:mm:ss"));
+                // return moment(date).format("YYYY-MM-DD HH:mm:ss"); 
+            },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
-                console.log(this.multipleSelection);
+                // console.log(this.multipleSelection);
             },
             handleEdit(index, row) {
                 var id = row.id;
-                var name = row.name;
-                var accountNumber = row.accountNumber;
-                var password = row.password;
-                var role = row.role;
-                this.$router.push({path: ApiPath.system.adminManageAdd,query:{id:id,name:name,accountNumber:accountNumber,password:password,role:role}});
+                var role_name = row.role_name;
+                var role_id = row.role_id;
+                this.$router.push({path: ApiPath.system.adminManageAdd,query:{id:id,role_id:role_id,role_name:role_name}});
             },
             handleDelete(index, row) {
-                this.$confirm('此操作将删除这条数据, 是否继续?', '提示', {
+                this.deleteFun(row);
+            },
+            deleteFun(row){
+                let own = this;
+                own.deleteAd = [];
+                this.$confirm('此操作将要删除数据, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
+                    if(!(row instanceof Array)){
+                        own.deleteAd.push(row.id);
+                    }else{
+                        for (let index = 0; index < row.length; index++) {
+                            own.deleteAd.push(row[index].id);     
+                        }
+                    }
+                    console.log(own.deleteAd);
+                    own.post(ApiPath.system.deleteAd,{"idArr":own.deleteAd})
+                    .then(function(res){
+                        if(res.data.code == 0){
+                            own.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        }else{
+                            own.$message({
+                                type: 'error',
+                                message: '删除失败!'
+                            });
+                        }
+                    })
+                    .catch(function(err){
+                        console.log(err);
                     });
                 }).catch(() => {
-                    this.$message({
+                    own.$message({
                         type: 'info',
                         message: '已取消操作'
                     });          
                 });
-
-                console.log(index, row);
             },
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
             },
             handleCurrentChange(val) {
+                console.log(val)
+                // sessionStorage.setItem('pageNo', val);
                 console.log(`当前页: ${val}`);
             },
             addAdmin(){
@@ -215,21 +211,7 @@
                         message: '请选择要删除的数据!'
                     });
                 }else{
-                    this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                    }).then(() => {
-                        this.$message({
-                            type: 'success',
-                            message: '删除成功!'
-                        });
-                    }).catch(() => {
-                        this.$message({
-                            type: 'info',
-                            message: '已取消操作'
-                        });          
-                    });
+                    this.deleteFun(this.multipleSelection);
                 }
             },
             selectName(){
