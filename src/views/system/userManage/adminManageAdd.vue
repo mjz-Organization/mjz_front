@@ -16,9 +16,14 @@
                 <el-input v-model="form.name" style="width:300px;" placeholder="请输入管理员名称"></el-input>
             </el-form-item>
             <el-form-item label="选择角色：" prop="role_name" >
-                <el-select v-model="form.role_name" placeholder="请选择角色">
-                    <el-option label="普通管理员" value="1"></el-option>
-                    <el-option label="系统管理员" value="2"></el-option>
+                <el-select v-model="form.role_id" placeholder="请选择角色">
+                    <el-option
+                        v-for="item in rolelist"
+                        :key="item.id"
+                        :label="item.role_name"
+                        :value="item.id"
+                        >
+                    </el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="管理员电话:" prop="phone" v-if="pagetype">
@@ -41,28 +46,46 @@
 export default {
     data() {
     return {
-        form: {
+        form: {             //表单内数据
             id:"",
             name: '',
-            role_id:'100',
+            role_id:'',
             role_name:'',
             phone:'',
             password:''
         },
-        param:"",
-        navtitle:"",
-        addorupdate:true,
+        rolelist:[],
+        navtitle:"",        //面包屑导航文本
+        addorupdate:true,   //用来判断显示哪个按钮
         pagetype:false,     //用来判断是修改管理员普通信息还是密码
       }
     },
     mounted(){
+        let own = this;
+        //获取角色列表
+        this.get(ApiPath.system.getListRole,{"page":1,"pageSize":10})
+        .then(function(res){
+            if(res.data.code == 0){
+                own.rolelist = res.data.result.data
+                console.log(own.rolelist);
+            }else if(res.data.code == 2){
+                own.$message({
+                    essage: '获取角色列表失败',
+                    type: 'error'
+                });
+            }
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+        //根据路由参数判断是添加还是修改
         this.form.id = this.$route.query.id;
         if(this.form.id==undefined){
             this.addorupdate = true;
             this.pagetype = true;
             this.navtitle = "添加管理员"
         }else{
-            let own = this;
+            //获取当前id的详细信息
             this.get(ApiPath.system.getAdmin,{"userId":own.form.id})
             .then(function(res){
                 if(res.data.code == 0){
@@ -86,7 +109,7 @@ export default {
     methods: {
         onSubmit() {
             let own = this;
-            // console.log(own.form);
+            console.log(own.form.role_id);
             this.post(ApiPath.system.createAdmin,{
                 "name":own.form.ad_name,
                 "phone":own.form.phone,
