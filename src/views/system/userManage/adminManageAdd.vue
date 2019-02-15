@@ -12,22 +12,22 @@
 
     <div class="addstart_content">
         <el-form ref="form" :model="form" label-width="15%"  label-position="left">
-            <el-form-item label="管理员名称:" prop="name">
+            <el-form-item label="管理员名称:" prop="name" >
                 <el-input v-model="form.name" style="width:300px;" placeholder="请输入管理员名称"></el-input>
             </el-form-item>
-            <el-form-item label="选择角色：" prop="role">
-                <el-select v-model="form.role" placeholder="请选择角色">
-                    <el-option label="普通管理员" value="普通管理员"></el-option>
-                    <el-option label="系统管理员" value="系统管理员"></el-option>
+            <el-form-item label="选择角色：" prop="role_name" >
+                <el-select v-model="form.role_name" placeholder="请选择角色">
+                    <el-option label="普通管理员" value="1"></el-option>
+                    <el-option label="系统管理员" value="2"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="管理员账号:" prop="accountNumber">
-                <el-input v-model="form.accountNumber" style="width:300px;" placeholder="请输入管理员账号"></el-input>
+            <el-form-item label="管理员电话:" prop="phone" v-if="pagetype">
+                <el-input v-model="form.phone" style="width:300px;" placeholder="请输入管理员电话"></el-input>
             </el-form-item>
-            <el-form-item label="管理员密码:" prop="password">
+            <el-form-item label="管理员密码:" prop="password" v-if="pagetype">
                 <el-input type="password" v-model="form.password" style="width:300px;" placeholder="请输入管理员密码"></el-input>
             </el-form-item>
-            <el-form-item label="确认密码:" prop="confirmPassword">
+            <el-form-item label="确认密码:" prop="confirmPassword" v-if="pagetype">
                 <el-input type="password" v-model="form.confirmPassword" style="width:300px;" placeholder="请输入确认密码"></el-input>
             </el-form-item>
             <el-button type="primary" @click="onSubmit" v-if="addorupdate" style="margin-left:80px;">添加</el-button>
@@ -42,55 +42,103 @@ export default {
     data() {
     return {
         form: {
+            id:"",
             name: '',
-            role:'',
-            accountNumber: '',
-            password: '',
-            confirmPassword: '',
+            role_id:'100',
+            role_name:'',
+            phone:'',
+            password:''
         },
         param:"",
         navtitle:"",
-        addorupdate:true
+        addorupdate:true,
+        pagetype:false,     //用来判断是修改管理员普通信息还是密码
       }
     },
     mounted(){
-        this.form.name = this.$route.query.name;
-        this.form.role = this.$route.query.role;
-        this.form.accountNumber = this.$route.query.accountNumber;
-        this.form.password = this.$route.query.password;
-        this.form.confirmPassword = this.$route.query.password;
-        if(this.form.name==undefined){
+        this.form.id = this.$route.query.id;
+        if(this.form.id==undefined){
             this.addorupdate = true;
+            this.pagetype = true;
             this.navtitle = "添加管理员"
         }else{
+            let own = this;
+            this.get(ApiPath.system.getAdmin,{"userId":own.form.id})
+            .then(function(res){
+                if(res.data.code == 0){
+                    own.form.name = res.data.result.name;
+                    own.form.role_id = own.$route.query.role_id;
+                    own.form.role_name = own.$route.query.role_name;
+                }else if(res.data.code == 2){
+                    own.$message({
+                        essage: '获取管理员失败',
+                        type: 'error'
+                    });
+                }
+            })
+            .catch(function(err){
+                console.log(err);
+            });
             this.addorupdate = false;
             this.navtitle = "修改管理员"
         }
     },
     methods: {
-      onSubmit() {
-        console.log('add!');
-
-        // let config = {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data'
-        //     }
-        // };
-        // this.$reqs.post("/upload", this.param, config)
-        // .then(function(result) {
-        //     console.log(result);
-        // })
-      },
-      resetForm(form) {
-          console.log("d");
-        this.$refs[form].resetFields();
-      },
-      updateSubmit(){
-        console.log('update!');
-      },
-      backPage(){
-          this.$router.push({path: ApiPath.system.adminManage});
-      }
+        onSubmit() {
+            let own = this;
+            // console.log(own.form);
+            this.post(ApiPath.system.createAdmin,{
+                "name":own.form.ad_name,
+                "phone":own.form.phone,
+                "role_id":own.form.role_id,
+                "password":own.form.password
+            }).then(function(res){
+                if(res.data.code == 0){
+                    own.$message({
+                        type: 'success',
+                        message: '添加成功!'
+                    });
+                }else{
+                    own.$message({
+                        type: 'error',
+                        message: '添加失败!'
+                    });
+                }
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+        },
+        resetForm(form) {
+            console.log("d");
+            this.$refs[form].resetFields();
+        },
+        updateSubmit(){
+            let own = this;
+            this.post(ApiPath.system.updateAdmin,{
+                "userId":own.form.id,
+                "name":own.form.name,
+                "role_id":own.form.role_id
+            }).then(function(res){
+                if(res.data.code == 0){
+                    own.$message({
+                        type: 'success',
+                        message: '更新成功!'
+                    });
+                }else{
+                    own.$message({
+                        type: 'error',
+                        message: '更新失败!'
+                    });
+                }
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+        },
+        backPage(){
+            this.$router.push({path: ApiPath.system.adminManage});
+        }
       
     }
   }

@@ -1,7 +1,7 @@
 import store from "../store/store";
 import JSEncrypt from 'jsencrypt/bin/jsencrypt'
 
-module.exports =  {
+export default {
     /**
      * 时间戳转换日期
      * @param <int> unixTime    待时间戳(毫秒)

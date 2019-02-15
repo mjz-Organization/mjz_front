@@ -38,7 +38,7 @@ window.Mock = Mock;
 /**
  * 引入自定义方法
  */
-import base from './config/base'
+import base from './config/base.js'
 Object.keys(base).forEach((key)=>{
     Vue.prototype[key] = base[key]
 });
