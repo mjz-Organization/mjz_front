@@ -13,7 +13,7 @@ export default {
         changeOrderAd:'admin/startPage/changeOrderAd',  //修改启动页顺序
         updateAd:'admin/startPage/updateAd',            //更新广告内容
         createAd:'admin/startPage/createAd',            //新建广告内容
-        getAdmins:'mjz_back.cn/admin/userManage/getAdmins',   //获得管理员集合
+        getAdmins:'admin/userManage/getAdmins',   //获得管理员集合
         getAdmin:'admin/userManage/getAdmin',           //获取单个管理员信息
         updateAdmin:'admin/userManage/updateAdmin',     //更新管理员信息
         createAdmin:'userManage/createAdmin',           //添加管理员

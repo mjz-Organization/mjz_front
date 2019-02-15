@@ -12,7 +12,7 @@
             </div>
             <div class="startpage_title_search">
                 <el-input placeholder="请输入内容" class="startpage_title_text" v-model="selectContent"></el-input>
-                <el-button type="success" icon="el-icon-search" @click="selectName">搜索</el-button>
+                <el-button type="success" icon="el-icon-search" @click="selectAdminList">搜索</el-button>
             </div>
             <div class="clearfloat"></div>
         </div>
@@ -98,47 +98,29 @@
             pageSize:10,    //每页显示条数
             pageNo:1,      //当前页码
             selectContent:"",
-            selecttype:"",
             tableData:[],
             multipleSelection: [],
             deleteAd:[]     //要删除的管理员数组
         }
         },
         mounted(){
-            let own = this;
-            this.get(ApiPath.system.getAdmins,{"page":own.currentPage,"pageSize":own.pageSize})
-            .then(function(res){
-                if(res.data.code == 0){
-                    own.tableData = res.data.result.data;
-                    // console.log(res.data.result);
-                    own.total = res.data.result.total;
-                }else if(res.data.code == 2){
-                    own.$message({
-                        essage: '获取管理员列表失败',
-                        type: 'error'
-                    });
-                }
-            })
-            .catch(function(err){
-                console.log(err);
-            });
+            this.selectAdminList();
         },
-        created(){
+        // created(){
             // let pn = sessionStorage.getItem('pageNo');
             // this.pageNo = pn;
-        },
+        // },
         methods: {
+            //获取标准时间
             dateFormat:function(row, column) {
-                // console.log(row.created_at);
-                // console.log(column);
-                // console.log(row);
                 var date = row.created_at; 
                 if (date == undefined) { 
                     return ""; 
                 }
                 return date;
-                // console.log(this.unixToDate(date,"YYYY-MM-DD HH:mm:ss"));
+                // console.log(this.unixToDate(date,false));
                 // return moment(date).format("YYYY-MM-DD HH:mm:ss"); 
+                // return this.unixToDate(date,"YYYY-MM-DD HH:mm:ss");
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
@@ -214,9 +196,28 @@
                     this.deleteFun(this.multipleSelection);
                 }
             },
-            selectName(){
-                console.log(this.selecttype);
-                console.log(this.selectContent);
+            selectAdminList(){
+                let own = this;
+                var tj = {"page":own.currentPage,"pageSize":own.pageSize};
+                if(this.selectContent!=""){
+                    tj.name = this.selectContent;
+                }
+                this.get(ApiPath.system.getAdmins,tj)
+                .then(function(res){
+                    if(res.data.code == 0){
+                        own.tableData = res.data.result.data;
+                        // console.log(res.data.result);
+                        own.total = res.data.result.total;
+                    }else if(res.data.code == 2){
+                        own.$message({
+                            essage: '获取管理员列表失败',
+                            type: 'error'
+                        });
+                    }
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
             }
         }
     }
