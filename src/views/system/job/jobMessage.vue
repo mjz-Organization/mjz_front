@@ -100,8 +100,8 @@
 </template>
 
 <script>
-    import FileSaver from 'file-saver'
-    import XLSX from 'xlsx'
+    // import FileSaver from 'file-saver'
+    // import XLSX from 'xlsx'
     export default {
         data() {
         return {
@@ -237,33 +237,33 @@
                         });
                     }
             },
-            exportExcel(){
-                this.$confirm('是否要导出数据?', '提示', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                        }).then(() => {
-                            var wb = XLSX.utils.table_to_book(document.querySelector('#table'))
-                            var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
-                            try {
-                                FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'jobMessage.xlsx')
-                            } catch (e) { 
-                                if (typeof console !== 'undefined') 
-                                    console.log(e, wbout) 
-                                    this.$message({
-                                    type: 'danger',
-                                    message: '导出失败!'
-                                    });
-                                    }
-                            return wbout
-                            
-                        }).catch(() => {
-                            this.$message({
-                                type: 'info',
-                                message: '已取消导出！'
-                            });          
-                        });
-            }
+            // exportExcel(){
+            //     this.$confirm('是否要导出数据?', '提示', {
+            //             confirmButtonText: '确定',
+            //             cancelButtonText: '取消',
+            //             type: 'warning'
+            //             }).then(() => {
+            //                 var wb = XLSX.utils.table_to_book(document.querySelector('#table'))
+            //                 var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+            //                 try {
+            //                     FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'jobMessage.xlsx')
+            //                 } catch (e) {
+            //                     if (typeof console !== 'undefined')
+            //                         console.log(e, wbout)
+            //                         this.$message({
+            //                         type: 'danger',
+            //                         message: '导出失败!'
+            //                         });
+            //                         }
+            //                 return wbout
+            //
+            //             }).catch(() => {
+            //                 this.$message({
+            //                     type: 'info',
+            //                     message: '已取消导出！'
+            //                 });
+            //             });
+            // }
         },
         mounted(){
             // this.get(ApiPath.system.novice).then(res => {

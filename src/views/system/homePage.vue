@@ -51,7 +51,7 @@
         this.currentMenu = document.location.pathname;
         var a= this.currentMenu.split("/");
         this.currentMenu = "/"+a[1]+"/"+a[2]+"/"+a[3];
-        this.get(ApiPath.system.getMenu)
+        this.GET(ApiPath.system.getMenu)
         .then(function(res){
             if(res.data.code == 0)
                 self.leftMenus = res.data;

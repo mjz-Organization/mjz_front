@@ -7,7 +7,7 @@ window._ = lodash;
  */
 
 import jQuery from "jquery"
-window.$ = window.jQuery = jQuery
+window.$ = window.jQuery = jQuery;
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -33,7 +33,7 @@ window.axios = instance;
  * and basically covers common interface data types.
  */
 import Mock from "mockjs"
-window.Mock = Mock
+window.Mock = Mock;
 
 /**
  * 引入自定义方法
@@ -41,7 +41,7 @@ window.Mock = Mock
 import base from './config/base'
 Object.keys(base).forEach((key)=>{
     Vue.prototype[key] = base[key]
-})
+});
 
 /**
  * 状态码
@@ -91,4 +91,4 @@ window.ApiPath = api;
 import components from './components/'
 Object.keys(components).forEach((key)=>{
     Vue.component(key,components[key]);
-})
+});

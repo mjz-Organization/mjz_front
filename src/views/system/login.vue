@@ -52,9 +52,9 @@ export default {
     },
     methods:{
         onSubmit(){
-            this.post(ApiPath.system.checkLogin,{
-                'user': this.user,
-                'password':this.password
+            this.POST(ApiPath.system.checkLogin,{
+                'name': this.user,
+                'password':this.RSA(this.password)
             }).then(res => {
                 if (res.data.code == 0){
                     res.data.result.roles = 'admin';
