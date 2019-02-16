@@ -1,4 +1,5 @@
 import store from "../store/store";
+import JSEncrypt from 'jsencrypt/bin/jsencrypt'
 
 export default {
     /**
@@ -24,7 +25,7 @@ export default {
         return ymdhis;
     },
     //get请求
-    get: function (url,param={}) {
+    GET: function (url,param={}) {
         if(store.state.user){
             param['api_token'] = store.state.user.api_token;
         }
@@ -39,7 +40,7 @@ export default {
         })
     },
     //post请求
-    post: function (url,param={}) {
+    POST: function (url,param={}) {
         if(store.state.user){
             param['api_token'] = store.state.user.api_token;
         }
@@ -75,6 +76,16 @@ export default {
             path: '*',
             redirect: '/404'
         }]));
+    },
+    RSA:function (plaintext) {
+        var encrypt = new JSEncrypt();
+        encrypt.setPublicKey('-----BEGIN PUBLIC KEY-----\n' +
+            'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDxo1UPQvLpHLIrHnXPwvPxikd\n' +
+            '/RhozdVr5duiYNYo242yLe9439+NNHj9enghCjHdfzqBEMTjkzJSh+aldTgGKcps\n' +
+            'yke12zmvw03wEhZwKwTE0v+bKfUck5PhnIYe77tjExogWWg+yxKKDErf8ireSuX7\n' +
+            'wOLwn+AVxjYmaQzCZwIDAQAB\n' +
+            '-----END PUBLIC KEY-----\n');
+        return encrypt.encrypt(plaintext);
     }
 };
 
