@@ -63,7 +63,7 @@ export default {
     mounted(){
         let own = this;
         //获取角色列表
-        this.get(ApiPath.system.getListRole,{"page":1,"pageSize":10})
+        this.GET(ApiPath.system.getListRole,{"page":1,"pageSize":10})
         .then(function(res){
             if(res.data.code == 0){
                 own.rolelist = res.data.result.data
@@ -86,7 +86,7 @@ export default {
             this.navtitle = "添加管理员"
         }else{
             //获取当前id的详细信息
-            this.get(ApiPath.system.getAdmin,{"userId":own.form.id})
+            this.GET(ApiPath.system.getAdmin,{"userId":own.form.id})
             .then(function(res){
                 if(res.data.code == 0){
                     own.form.name = res.data.result.name;
@@ -110,7 +110,7 @@ export default {
         onSubmit() {
             let own = this;
             console.log(own.form.role_id);
-            this.post(ApiPath.system.createAdmin,{
+            this.POST(ApiPath.system.createAdmin,{
                 "name":own.form.ad_name,
                 "phone":own.form.phone,
                 "role_id":own.form.role_id,
@@ -138,7 +138,7 @@ export default {
         },
         updateSubmit(){
             let own = this;
-            this.post(ApiPath.system.updateAdmin,{
+            this.POST(ApiPath.system.updateAdmin,{
                 "userId":own.form.id,
                 "name":own.form.name,
                 "role_id":own.form.role_id

@@ -159,7 +159,7 @@
     //页面加载时获取广告列表
     mounted(){
         let own = this;
-        this.get(ApiPath.system.selectAd,{"page":own.currentPage,"per_page":own.pageCount,"record_type":1})
+        this.GET(ApiPath.system.selectAd,{"page":own.currentPage,"per_page":own.pageCount,"record_type":1})
         .then(function(res){
             if(res.data.code == 0){
                 var a = res.data.result.data
@@ -229,7 +229,7 @@
                     }
                 }
                 // console.log(own.deleteAd);
-                own.post(ApiPath.system.deleteAd,{"ad":own.deleteAd})
+                own.POST(ApiPath.system.deleteAd,{"ad":own.deleteAd})
                 .then(function(res){
                     if(res.data.code == 0){
                         own.$message({
@@ -281,7 +281,7 @@
         //获取文本框的内容进行搜索
         selectName(){
             let own = this;
-            this.get(ApiPath.system.selectAd,{
+            this.GET(ApiPath.system.selectAd,{
                 "page":own.currentPage,
                 "per_page":own.pageCount,
                 "record_type":1,
@@ -330,7 +330,7 @@
                 return;
             }
 
-            this.post(ApiPath.system.changeOrderAd,{"from_id":from_id,"to_id":to_id})
+            this.POST(ApiPath.system.changeOrderAd,{"from_id":from_id,"to_id":to_id})
             .then(function(res){
                 if(res.data.code == 0){
                     own.$message({

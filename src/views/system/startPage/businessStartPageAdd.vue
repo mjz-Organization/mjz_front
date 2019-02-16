@@ -83,7 +83,7 @@ export default {
     methods: {
         onSubmit() {
             let own = this;
-            this.post(ApiPath.system.createAd,{
+            this.POST(ApiPath.system.createAd,{
                 "image":own.myfile,
                 "record_type":1,
                 "name":own.form.ad_name,
@@ -107,7 +107,7 @@ export default {
         },
         updateSubmit(){
             let own = this;
-            this.post(ApiPath.system.updateAd,{
+            this.POST(ApiPath.system.updateAd,{
                 "ad_id":own.form.id,
                 "images_id":own.form.images_id,
                 "record_type":1,

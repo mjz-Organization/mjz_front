@@ -151,7 +151,7 @@
                         }
                     }
                     console.log(own.deleteAd);
-                    own.post(ApiPath.system.deleteAd,{"idArr":own.deleteAd})
+                    own.POST(ApiPath.system.deleteAd,{"idArr":own.deleteAd})
                     .then(function(res){
                         if(res.data.code == 0){
                             own.$message({
@@ -202,7 +202,7 @@
                 if(this.selectContent!=""){
                     tj.name = this.selectContent;
                 }
-                this.get(ApiPath.system.getAdmins,tj)
+                this.GET(ApiPath.system.getAdmins,tj)
                 .then(function(res){
                     if(res.data.code == 0){
                         own.tableData = res.data.result.data;
