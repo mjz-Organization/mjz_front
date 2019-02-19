@@ -79,7 +79,7 @@ export default [{
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void(require(['../views/system/novice/noviceEdit.vue'], resolve))
+                component: resolve => void (require(['../views/system/novice/noviceAdd.vue'], resolve))
             },
             {
                 path: 'advertisement',
@@ -103,7 +103,7 @@ export default [{
                 meta: {
                     requireAuth: true,
                 },
-                component: resolve => void(require(['../views/system/novice/adverEdit.vue'], resolve))
+                component: resolve => void (require(['../views/system/novice/adverAdd.vue'], resolve))
             },
             /**
              * 兼职管理

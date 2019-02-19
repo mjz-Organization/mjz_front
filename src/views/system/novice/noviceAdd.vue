@@ -4,7 +4,7 @@
             <el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>首页管理</el-breadcrumb-item>
             <el-breadcrumb-item>新手导读管理</el-breadcrumb-item>
-            <el-breadcrumb-item>新增文件</el-breadcrumb-item>
+            <el-breadcrumb-item>{{title}}</el-breadcrumb-item>
         </el-breadcrumb>
         <div class="main">
             <div class="head">
@@ -40,7 +40,9 @@
                 </div>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">确认修改</el-button>
+                    <el-button type="primary" v-if="addorupdate"  @click="onSubmit">添加</el-button>
+                    <el-button type="primary" v-if="!addorupdate"  @click="updateform">修改</el-button>
+                    <el-button type="primary" v-if="addorupdate"  @click="resetForm('form')">重置</el-button>
                 </el-form-item>
                 </el-form>
             </div>
@@ -59,9 +61,10 @@ import 'quill/dist/quill.bubble.css'
     data() {
       return {
         form: {
-            name: '',
-            desc: '',
-            value:''
+            id:"",
+            name:"",
+            desc:"",
+            value:0,
         },
         address:[{
             "value":0,
@@ -69,13 +72,14 @@ import 'quill/dist/quill.bubble.css'
                     
         },{
             "value":1,
-            "label":"客户端",
+            "label":"商家端",
         }],
         articleTitle:'',
         content: ``,
         str: '',
-        editorOption: {}
-
+        editorOption: {},
+        title:"",
+        addorupdate:true,
       }
     },
     methods: {
@@ -83,11 +87,75 @@ import 'quill/dist/quill.bubble.css'
             this.$router.push(ApiPath.system.novice);
         },
         onSubmit() {
-            console.log(this.form);
-            //  this.get(ApiPath.system.getUserinfo,{"data":this.form}).then(res => {
-            //         console.log(res.data);
-            //     });
+            if(this.form.name==""||this.form.desc==""){
+                    this.$message({
+                        type:'error',
+                        message:"必填项不能为空！"
+                    })
+                }else{
+                     var datas = {
+                        "title":this.image,
+                        "content":this.form.desc,
+                        "novice_type":this.form.value
+                    }
+                    let _this=this;
+                    this.POST(ApiPath.system.createNovice,datas).then(res => {
+                        if(res.data.code==0){
+                            _this.$message({
+                                type:'success',
+                                message:"添加成功！"
+                            });
+                            _this.resetForm(_this.form);
+
+                        }else if(res.data.code==2){
+                            _this.$message({
+                                type:'error',
+                                message:"添加失败！"
+                            });
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    })
+            }
         
+        },
+        updateform(){
+            // deleteNovice
+            if(this.form.name==""||this.form.desc==""){
+                    this.$message({
+                        type:'error',
+                        message:"必填项不能为空！"
+                    })
+                }else{
+                     var datas = {
+                        "novice_id":this.form.id,
+                        "title":this.image,
+                        "content":this.form.desc,
+                        "novice_type":this.form.value
+                    }
+                    let _this=this;
+                    this.POST(ApiPath.system.updateNovice,datas).then(res => {
+                        if(res.data.code==0){
+                            _this.$message({
+                                type:'success',
+                                message:"修改成功！"
+                            });
+                            _this.resetForm(_this.form);
+
+                        }else if(res.data.code==2){
+                            _this.$message({
+                                type:'error',
+                                message:"修改失败！"
+                            });
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    })
+            }
+
+        },
+        resetForm(form) {
+            this.$refs[form].resetFields();
         },
         onEditorReady(editor) { // 准备编辑器
     
@@ -99,6 +167,7 @@ import 'quill/dist/quill.bubble.css'
 
         }, // 获得焦点事件
         onEditorChange(){
+            this.form.desc=this.content;
             // console.log(this.content);
         }, // 内容改变事件
         // 转码
@@ -113,6 +182,23 @@ import 'quill/dist/quill.bubble.css'
             return this.$refs.myQuillEditor.quill;
         },
     },
+    mounted(){
+        var index = this.$route.query.index;
+        if(index==undefined){
+            this.title="新增文件";
+        }else{
+            var forms = this.$route.query.row;
+            this.title="编辑文件";
+            this.addorupdate=false;
+            this.form.id=forms.id;
+            this.form.name=forms.title;
+            this.form.value=forms.novice_type;
+            this.form.desc=forms.content;
+             this.content=forms.content;
+        }
+
+
+    }
   }
 </script>
 

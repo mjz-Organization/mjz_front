@@ -4,7 +4,7 @@
             <el-breadcrumb-item :to="{ path: '#' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>首页管理</el-breadcrumb-item>
             <el-breadcrumb-item>广告管理</el-breadcrumb-item>
-            <el-breadcrumb-item>新增广告</el-breadcrumb-item>
+            <el-breadcrumb-item>{{ title }}</el-breadcrumb-item>
         </el-breadcrumb>
         <div class="main">
             <div class="head">
@@ -22,6 +22,7 @@
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove"
                     :on-change="change"
+                    :file-list="fileList"
                     :auto-upload="false">
                     <i class="el-icon-plus"></i>
                     </el-upload>
@@ -43,7 +44,9 @@
                     <el-input type="textarea" rows="8" v-model="form.desc"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">确认修改</el-button>
+                     <el-button type="primary" v-if="addorupdate"  @click="onSubmit">添加</el-button>
+                     <el-button type="primary" v-if="!addorupdate"  @click="updateform">修改</el-button>
+                     <el-button type="primary" v-if="addorupdate"  @click="resetForm('form')">重置</el-button>
                 </el-form-item>
                 </el-form>
             </div>
@@ -55,27 +58,32 @@
     data() {
       return {
         form: {
+            id:'',
             name: '',
             desc: '',
-            file:[],
+            images_id:'',
             dialogImageUrl: '',
             value:'',
-            type:0,
         },
+        image:"",
+        fileList:[],
+        addorupdate:true,
         dialogVisible: false,
+        title:"",
          address:[{
             "value":0,
             "label":"学生端",
                     
         },{
             "value":1,
-            "label":"客户端",
+            "label":"商家端",
         }],
       }
     },
     methods: {
         change(file,fileList){
             this.form.dialogImageUrl=file.name;
+            this.image=file;
             if(this.form.dialogImageUrl!=''){
                 $(".el-upload--picture-card").hide();
             }
@@ -84,10 +92,79 @@
             this.$router.push(ApiPath.system.advertisement);
         },
         onSubmit() {
-            console.log(this.form);
-             this.get(ApiPath.system.getUserinfo,{"data":this.form}).then(res => {
-                    console.log(res.data);
-                });
+                if(this.form.name==''||this.form.dialogImageUrl==''||this.form.value==''||this.form.desc==''){
+                    this.$message({
+                        type:'error',
+                        message:"必填项不能为空！"
+                    })
+                }else{
+                     var datas = {
+                        "image":this.image,
+                        "record_type":this.form.value,
+                        "name":$.trim(this.form.name),
+                        "content":$.trim(this.form.desc)
+                    }
+                    let _this=this;
+                    this.POST(ApiPath.system.createIndexAd,datas).then(res => {
+                        if(res.data.code==0){
+                            _this.$message({
+                                type:'success',
+                                message:"添加成功！"
+                            });
+                            _this.resetForm(_this.form);
+
+                        }else if(res.data.code==2){
+                            _this.$message({
+                                type:'error',
+                                message:"添加失败！"
+                            });
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    })
+            }
+        },
+        updateform(){
+            // console.log(this.form.desc);
+            if(this.form.name==''||this.form.dialogImageUrl==''||this.form.desc==''){
+                    this.$message({
+                        type:'error',
+                        message:"必填项不能为空！"
+                    })
+                }else{
+                     var datas = {
+                        "ad_id":this.form.id,
+                        "images_id":this.form.images_id,
+                        "record_type":this.form.value,
+                        "image":this.image,
+                        "path":this.form.dialogImageUrl,
+                        "name":this.form.name,
+                        "content":this.form.desc
+                    }
+                    let _this=this;
+                    this.POST(ApiPath.system.createIndexAd,datas).then(res => {
+                        if(res.data.code==0){
+                            _this.$message({
+                                type:'success',
+                                message:"修改成功！"
+                            });
+                            _this.resetForm(_this.form);
+
+                        }else if(res.data.code==2){
+                            _this.$message({
+                                type:'error',
+                                message:"修改失败！"
+                            });
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    })
+            }
+
+        },
+        resetForm(form) {
+            console.log("d");
+            this.$refs[form].resetFields();
         },
         handleChange(file, fileList) {
         this.file= fileList.slice(-3);
@@ -103,7 +180,26 @@
         },
     },
     mounted(){
-        this.form.type=this.$route.query.type;
+        // this.form.type=this.$route.query.type;
+        var index = this.$route.query.index;
+        if(index==undefined){
+            this.title="新增广告";
+        }else{
+            var forms = this.$route.query.row;
+            this.title="编辑广告";
+            this.addorupdate=false;
+            $(".el-upload--picture-card").hide();
+            this.form.id=forms.id;
+            this.form.name=forms.ad_name;
+            this.form.desc=forms.content;
+            this.form.images_id=forms.images_id;
+            this.form.dialogImageUrl=forms.path;
+            this.form.value=forms.record_type;
+            this.fileList.push({url:this.$route.query.row.path});
+        }
+
+
+
     }
   }
 </script>

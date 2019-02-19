@@ -35,26 +35,30 @@
                 width="55">
             </el-table-column>
             <el-table-column
-                prop="ID"
+                prop="id"
                 label="#"
                 align="center"
                 sortable
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                prop="name"
+                prop="title"
                 label="指南名称"
                 align="center"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-            prop="type"
+            prop="novice_type"
             label="类型"
             align="center"
             show-overflow-tooltip>
+                <template slot-scope="scope">
+                   <span v-if="scope.row.novice_type==0">学生端</span>
+                   <span v-else="scope.row.novice_type==0">商家端</span>
+                </template>
             </el-table-column>
             <el-table-column
-            prop="description"
+            prop="updated_at"
             label="添加时间"
             align="center"
             show-overflow-tooltip>
@@ -72,7 +76,7 @@
             </el-table-column>
         </el-table>
         <div class="startpage_paging">
-            <span style="float:left;padding-left:15px">共{{ size }}条记录</span>
+            <span style="float:left;padding-left:15px">共{{ total }}条记录</span>
             <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -80,7 +84,7 @@
             :page-size="pagesize"
             background
             layout="prev, pager, next"
-            :total="size"
+            :total="total"
             align="right">
             </el-pagination>
         </div>
@@ -92,33 +96,9 @@
     data() {
       return {
         currentPage:1,
-        tableData: [{
-            ID:1,
-            name: '手机防骗攻略',
-            file_name:'test.txt',
-            type: '学生端',
-            description: '2018.12.31',
-        },{
-           ID:2,
-            name: '手机防骗攻略',
-            file_name:'test.txt',
-            type: '学生端',
-            description: '2018.12.31',
-        },{
-            ID:3,
-            name: '手机防骗攻略',
-            file_name:'test.txt',
-            type: '学生端',
-            description: '2018.12.31',
-        },{
-           ID:4,
-            name: '手机防骗攻略',
-            file_name:'test.txt',
-            type: '学生端',
-            description: '2018.12.31',
-        }],
+        tableData: [],
         pagesize:10,
-        size:0,
+        total:0,
         multipleSelection: [],
         value:'',
         empty:"暂无数据",
@@ -137,7 +117,6 @@
     },
 
     methods: {
-
         addfile(){
             this.$router.push(ApiPath.system.noviceAdd);
         },
@@ -147,22 +126,9 @@
         handleEdit(index, row) {
             this.$router.push({path:ApiPath.system.noviceEdit, query:{index:index,row:row}});
         },
+        //单个删除
         handleDelete(index, row) {
-             this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                    }).then(() => {
-                        this.$message({
-                            type: 'success',
-                            message: '删除成功!'
-                        });
-                    }).catch(() => {
-                        this.$message({
-                            type: 'info',
-                            message: '已取消操作'
-                        });          
-                    });
+            this.delete(row);
         },
         handleSizeChange(val) {
             this.pagesize=val;
@@ -171,32 +137,60 @@
             this.currentPage=val;
         },
         handleClick() {
-            
             alert('button click');
         },
-        deleteAll(){
-             if(this.multipleSelection.length == 0){
-                    this.$message({
-                        type: 'warning',
-                        message: '请选择要删除的数据!'
+        //删除操作
+        delete(row){
+             let _this = this;
+            _this.deleteAd=[];
+            this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+            }).then(() => {
+                if(!(row instanceof Array)){
+                    _this.deleteAd.push({
+                        na_id:row.id,
                     });
                 }else{
-                    this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                    }).then(() => {
-
+                    for (let index = 0; index < row.length; index++) {
+                        _this.deleteAd.push({
+                            na_id:row[index].id,
+                        });     
+                    }
+                }
+                this.POST(ApiPath.system.deleteNovice,{"na":_this.deleteAd}).then(res => {
+                    if(res.data.code==0){
                         this.$message({
                             type: 'success',
                             message: '删除成功!'
                         });
-                    }).catch(() => {
-                        this.$message({
-                            type: 'info',
-                            message: '已取消操作'
-                        });          
+                    }else if(res.data.code==1){
+                         this.$message({
+                            type: 'error',
+                            message: '删除失败!'
+                        });
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消操作'
+                });          
+            });
+        },
+        //批量删除
+        deleteAll(){
+            if(this.multipleSelection.length == 0){
+                this.$message({
+                    type: 'warning',
+                        message: '请选择要删除的数据!'
                     });
+                }else{
+                    this.delete(this.multipleSelection);
+                   
                 }
         },
         search(){
@@ -219,13 +213,33 @@
                     }
                 })
             }
+        },
+        getList(){
+            let _this = this;
+            var datas = {
+                "page" : _this.currentPage,
+                "per_page":_this.pagesize,
+                "novice_type":_this.value,
+                "select_data":_this.searchtext
+            }
+            this.GET(ApiPath.system.selectNovice,datas).then(res => {
+                if(res.data.code==0){
+                    _this.tableData=res.data.result.data;
+                    _this.total=res.data.result.total;
+                }else if(res.data.code==2){
+                     _this.$message({
+                            essage: '获取广告页失败',
+                            type: 'error'
+                        });
+                }
+
+            }).catch(err => {
+                console.log(err);
+            })
         }
     },
     mounted(){
-        // this.get(ApiPath.system.novice).then(res => {
-        //     this.tableData=res.data.data.array;
-        //     this.size=this.tableData.length;
-        // })
+        this.getList();
     }
   }
 </script>

@@ -36,27 +36,30 @@
                 width="55">
             </el-table-column>
             <el-table-column
-                prop="ID"
+                prop="id"
                 label="#"
                 sortable
                 align="center"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                prop="name"
+                prop="ad_name"
                 label="名称"
                 align="center"
                 sortable
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                prop="img"
+                prop="path"
                 label="图片"
                 align="center"
                 show-overflow-tooltip>
+                <template slot-scope="scope">
+                    <img  :src="scope.row.path" alt="" style="width: 50px;height: 50px">
+                </template>
             </el-table-column>
             <el-table-column
-                prop="description"
+                prop="content"
                 label="广告描述"
                 align="center"
             show-overflow-tooltip>
@@ -68,7 +71,7 @@
                 width="200"
             show-overflow-tooltip>
             <template slot-scope="scope" >
-                    <el-input placeholder="输入调整位置" v-model="scope.row.zk">
+                    <el-input placeholder="输入调整位置" v-model="scope.row.target">
                         <el-button slot="append" icon="el-icon-check" @click="changePosition(scope.$index, scope.row)"></el-button>
                     </el-input>
                 </template>
@@ -85,7 +88,7 @@
             </el-table-column>
         </el-table>
         <div class="startpage_paging">
-            <span style="float:left;padding-left:15px">共{{ size }}条记录</span>
+            <span style="float:left;padding-left:15px">共{{ total }}条记录</span>
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -93,7 +96,7 @@
                 :page-size="pagesize"
                 background
                 layout="prev, pager, next"
-                :total="size"
+                :total="total"
                 align="right">
             </el-pagination>
         </div>
@@ -101,53 +104,15 @@
 </template>
 
 <script>
-// import mock from '../../mock/sysMock.js'
   export default {
     data() {
       return {
         currentPage:1,
-        tableData: [{
-            ID:1,
-            name: '云帆喷绘',
-            img:'a.jpg',
-            description:'广告说明文字',
-            type:0,
-        },{
-            ID:2,
-            name: '云帆喷绘',
-            img:'a.jpg',
-            description:'广告说明文字',
-            type: 0,
-        },{
-            ID:3,
-            name: '云帆喷绘',
-            img:'a.jpg',
-            description:'广告说明文字',
-            type: 0,
-        },{
-            ID:4,
-            name: '云帆喷绘',
-            img:'a.jpg',
-            description:'广告说明文字',
-            type: 0,
-        },{
-            ID:4,
-            name: '云帆喷绘',
-            img:'a.jpg',
-            description:'广告说明文字',
-            type: 1,
-        },{
-            ID:4,
-            name: '云帆喷绘',
-            img:'a.jpg',
-            description:'广告说明文字',
-            type: 1,
-        }
-        ],
+        tableData: [],
         pagesize:10,
-        size:0,
+        total:0,
         multipleSelection: [],
-        searchtext:'',
+        searchtext:"",
         empty:"暂无数据",
         select:[
         {
@@ -159,50 +124,83 @@
             value:1
         }],
         value:0,
+        deleteAd:[],
       }
     },
 
     methods: {
+        //添加广告
         addfile(){
-            this.$router.push({path:ApiPath.system.adverAdd,query:{type:value}});
+            this.$router.push({path:ApiPath.system.adverAdd,query:{type:this.value}});
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
-            console.log(this.multipleSelection);
         },
+        //修改广告内容
         handleEdit(index, row) {
             this.$router.push({path:ApiPath.system.adverEdit, query:{index:index,row:row}});
         },
+        //单个删除数据
         handleDelete(index, row) {
-             this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                    }).then(() => {
+            this.delete(row);
+        },
+        handleSizeChange(val) {
+            this.pagesize=val;
+        },
+        handleCurrentChange(val) {
+            this.currentPage=val;
+        },
+         handleClick() {
+            alert('button click');
+        },
+        //删除操作
+        delete(row){
+            let _this = this;
+            _this.deleteAd=[];
+            this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+            }).then(() => {
+                if(!(row instanceof Array)){
+                    _this.deleteAd.push({
+                        ad_id:row.id,
+                        images_id:row.images_id,
+                        path:row.path
+                    });
+                }else{
+                    for (let index = 0; index < row.length; index++) {
+                        _this.deleteAd.push({
+                            ad_id:row[index].id,
+                            images_id:row[index].images_id,
+                            path:row[index].path
+                        });     
+                    }
+                }
+                this.POST(ApiPath.system.deleteIndexAd,{"ad":_this.deleteAd}).then(res => {
+                    if(res.data.code==0){
                         this.$message({
                             type: 'success',
                             message: '删除成功!'
                         });
-                    }).catch(() => {
-                        this.$message({
-                            type: 'info',
-                            message: '已取消操作'
-                        });          
-                    });
-            // console.log(index, row);
-        },
-        handleSizeChange(val) {
-            this.pagesize=val;
-            console.log(`每页 ${val} 条`);
-        },
-        handleCurrentChange(val) {
-            this.currentPage=val;
-            console.log(`当前页: ${val}`);
-        },
-         handleClick() {
+                    }else if(res.data.code==1){
+                         this.$message({
+                            type: 'error',
+                            message: '删除失败!'
+                        });
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消操作'
+                });          
+            });
             
-            alert('button click');
         },
+        //批量删除
          deleteAll(){
              if(this.multipleSelection.length == 0){
                     this.$message({
@@ -210,24 +208,10 @@
                         message: '请选择要删除的数据!'
                     });
                 }else{
-                    this.$confirm('此操作将删除所选数据, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                    }).then(() => {
-
-                        this.$message({
-                            type: 'success',
-                            message: '删除成功!'
-                        });
-                    }).catch(() => {
-                        this.$message({
-                            type: 'info',
-                            message: '已取消操作'
-                        });          
-                    });
+                    this.delete(_this.multipleSelection);
                 }
          },
+         //查询
           search(){
             if($.trim(this.searchtext)==''){
                  this.$message({
@@ -236,41 +220,81 @@
                     });
 
             }else{
-                this.get(ApiPath.system.novice).then(res => {
-                    // console.log;
-                    if(res.data.length==0){
-                        this.tableData=[];
-                        this.size=this.tableData.length;
-                        this.empty="您查询的数据不存在";
-                    }else{
-                        this.tableData=res.data;
-                        this.size=this.tableData.length;
-                    }
-                })
+                this.getList();
             }
         },
         valuechange(){
-            // console.log(this.value);
-            this.get(ApiPath.system.novice).then(res => {
-                    // console.log;
-                    if(res.data.length==0){
-                        this.tableData=[];
-                        this.size=this.tableData.length;
-                        this.empty="您查询的数据不存在";
-                    }else{
-                        this.tableData=res.data;
-                        this.size=this.tableData.length;
-                    }
-                })
-            
+          this.getList();  
+        },
+        //获取列表
+        getList(){
+            let _this = this;
+            var datas = {
+                "page" : _this.currentPage,
+                "per_page":_this.pagesize,
+                "record_type":_this.value,
+            }
+            if(this.searchtext!=""){
+                datas.select_data=_this.searchtext;
+            }
+            this.GET(ApiPath.system.selectIndexAd,datas).then(res => {
+                if(res.data.code==0){
+                    _this.tableData=res.data.result.data;
+                    _this.total=res.data.result.total;
+                }else if(res.data.code==2){
+                     _this.$message({
+                            essage: '获取广告页失败',
+                            type: 'error'
+                        });
+                }
+
+            }).catch(err => {
+                console.log(err);
+            })
+        },
+        //调整位置
+        changePosition(index,row){
+            var order = row.img_order;
+            var target = row.target;
+             if(order == target){
+                this.$message({
+                    type: 'warning',
+                    message: '图片位置未发生改变!'
+                });
+                return;
+            }
+            if(target < 1 || target > this.total){
+                this.$message({
+                    type: 'error',
+                    message: '超出范围!'
+                });
+                return;
+            }
+            this.POST(ApiPath.system.changeOrderIndexAd,{"from_id":order,"to_id":target})
+            .then(function(res){
+                if(res.data.code == 0){
+                    own.$message({
+                        type: 'success',
+                        message: '调整成功!'
+                    });
+                }else{
+                    own.$message({
+                        type: 'error',
+                        message: '调整失败!'
+                    });
+                }
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+            var a = row.target;
+            row.target = "";
+
         }
     },
     mounted(){
-        this.size=this.tableData.length;
-        // this.get(ApiPath.system.advertisement).then(res => {
-        //     this.tableData=res.data.data.array;
-        //     this.size=this.tableData.length;
-        // })
+        this.getList();
+    
     }
   }
 </script>

@@ -315,6 +315,7 @@
             let own  = this;
             var from_id = row.img_order;
             var to_id = row.target;
+            console.log(to_id);
 
             if(from_id == to_id){
                 this.$message({

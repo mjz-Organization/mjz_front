@@ -22,6 +22,16 @@ export default {
     getRolePowerful:'admin/roleAuth/getRoleAndAuth',    //获取角色权限
     modifyRole:'admin/roleAuth/updateRole',         //修改角色信息
     addRole:'admin/roleAuth/createRole',            //创建角色
+    selectIndexAd: 'admin/indexPage/selectIndexAd',   //获取首页广告
+    createIndexAd: 'admin/indexPage/createIndexAd',   //新增首页广告
+    updateIndexAd: 'admin/indexPage/updateIndexAd',     //更新首页广告
+    changeOrderIndexAd:'admin/indexPage/changeOrderIndexAd', //修改首页广告顺序
+    deleteIndexAd:'admin/indexPage/deleteIndexAd',            //删除首页广告
+    selectNovice: 'admin/indexPage/selectNovice',             //新手导读列表
+    createNovice: 'admin/indexPage/createNovice',          //添加新手导读内容
+    updateNovice:'admin/indexPage/updateNovice',           //更新新手导读内容
+    deleteNovice: 'admin/indexPage/deleteNovice',         //删除新手导读文章
+
     /**
      * 页面路由
      */
@@ -35,12 +45,12 @@ export default {
     merchantManageDetails:'/system/homepage/merchantManage/details',//用户管理，商家详情
     studentManage:'/system/homepage/studentManage',                 //用户管理，学生管理
     studentManageDetails:'/system/homepage/studentManage/details',  //用户管理，学生详情
-    novice:'/system/homepage/novice',
+    novice:'/system/homepage/novice',                               //新手导读
     noviceAdd:'/system/homepage/novice/noviceAdd',
-    noviceEdit:'/system/homepage/novice/noviceEdit',
+    noviceEdit:'/system/homepage/novice/noviceAdd',
     advertisement:'/system/homepage/advertisement',
     adverAdd:'/system/homepage/advertisement/adverAdd',
-    adverEdit:'/system/homepage/advertisement/adverEdit',
+    adverEdit: '/system/homepage/advertisement/adverAdd',
     messageTemplate:'/system/homepage/messageTemplate',
     tempAdd:'/system/homepage/messageTemplate/tempAdd',
     tempEdit: '/system/homepage/messageTemplate/tempEdit',
